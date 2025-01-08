@@ -19,20 +19,28 @@
             </ui:define>
 
             <ui:define name="content">
-                <h2>Buscando informações do Sistema</h2>
-                <h:link value="Listas" outcome="Listas.xhtml"/>
-                <h:outputText value="  "/>
-                <h:outputText value="  "/>
-                <h:link value="Lista dos Cursos" outcome="lista_cursos.xhtml"/>
+                <h2>Listas das Turmas</h2>
+                <h:link value="Página Inicial" outcome="index.xhtml"/>
+
+                <p:dataTable value="#{turmaBean.turmas}" var="turma">
+                    <p:column headerText="Código" sortBy="#{turma.codigo}">
+                        <h:outputText value="#{turma.codigo}"/>
+                    </p:column>
+
+                    <p:column headerText="Descrição Turma" sortBy="#{turma.descricao}">
+                        <h:outputText value="#{turma.descricao}"/>
+                    </p:column>
+                </p:dataTable>
             </ui:define>
 
             <ui:define name="bottom">
-                 <center>
+                <center>
                     <b>
                         <font><h1>O seu futuro passa por aqui!</h1></font>
                     </b>
                 </center>
             </ui:define>
+
 
         </ui:composition>
 
