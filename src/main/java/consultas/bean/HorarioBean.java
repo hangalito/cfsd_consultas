@@ -1,7 +1,7 @@
-package com.cfsd.cfsd_consultas.bean;
+package consultas.bean;
 
-import com.cfsd.cfsd_consultas.dao.HorarioDao;
-import com.cfsd.cfsd_consultas.modelo.Horario;
+import consultas.dao.HorarioDao;
+import consultas.modelo.Horario;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;

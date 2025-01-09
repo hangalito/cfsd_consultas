@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS TblDetalhesDaInscricao (
 );
 
 CREATE TABLE IF NOT EXISTS TblOperacoes (
-	ChaveDaOperacao INT,
+    ChaveDaOperacao INT,
     CodigoDaOperacao VARCHAR(50) NOT NULL UNIQUE,
     NomeDaOperacao VARCHAR(50),
     PRIMARY KEY pk_operacoes(CodigoDaOperacao)

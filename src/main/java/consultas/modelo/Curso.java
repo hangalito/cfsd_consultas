@@ -1,13 +1,12 @@
-
 package consultas.modelo;
 
 import java.util.Objects;
 
 public class Curso {
-    
-   private int codigo;
-   private String descricao;
-   private Double preco;
+
+    private int codigo;
+    private String descricao;
+    private Double preco;
 
     public int getCodigo() {
         return codigo;
@@ -62,6 +61,5 @@ public class Curso {
         }
         return Objects.equals(this.preco, other.preco);
     }
-    
-   
+
 }

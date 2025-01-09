@@ -4,17 +4,17 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+@SuppressWarnings("unused")
 public class DBConecta {
 
-    public static final String URL = "jdbc:mysql://localhost:3306/bd_inscricoes?useSSL=false&allowPublicKeyRetrieval=true";
-    public static final String USER = "root";
-    public static final String PASSWORD = "root";
-    public static final String DRIVERMYSQL8 = "com.mysql.jdbc.cj.Driver";
-    public static final String DRIVERMYSQL5 = "com.mysql.jdbc.Driver";
-    public static Connection conexao;
+    private static final String URL = "jdbc:mysql://localhost:3306/bd_inscricoes?useSSL=false&allowPublicKeyRetrieval=true";
+    private static final String USER = "root";
+    private static final String PASSWORD = "root";
+    private static final String DRIVERMYSQL8 = "com.mysql.jdbc.cj.Driver";
+    private static final String DRIVERMYSQL5 = "com.mysql.jdbc.Driver";
+    private static Connection conexao;
 
-    public static Connection getConexao() throws Throwable{
-
+    public static Connection getConexao() {
         try {
             if (conexao == null) {
                 Class.forName(DRIVERMYSQL5);

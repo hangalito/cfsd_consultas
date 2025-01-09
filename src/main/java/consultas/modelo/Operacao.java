@@ -1,36 +1,40 @@
-package com.cfsd.cfsd_consultas.modelo;
+package consultas.modelo;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * Classe responsável por mapear a tabela {@code `tblHorarios`}.
+ * Classe responsável por mapear a tabela {@code `tblOperacoes`}
  *
  * @author <a href="mailto:bartolomeujose.manilson@gmail.com">Bartolomeu Hangalo</a>
  */
-public class Horario implements Serializable {
+public class Operacao implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    private Integer chave;
     private String codigo;
     private String nome;
 
-    public Horario() {
+    public Operacao() {
     }
 
-    public Horario(String codigo, String nome) {
-        this.codigo = codigo;
-        this.nome = nome;
+    public Integer getChave() {
+        return chave;
+    }
+
+    public void setChave(Integer chave) {
+        this.chave = chave;
     }
 
     public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) throws IllegalArgumentException {
+    public void setCodigo(String codigo) {
         if (codigo.length() > 50) {
-            throw new IllegalArgumentException("O código de um horário deve conter apenas 50 caracteres");
+            throw new IllegalArgumentException("O código de uma operação deve conter apenas 50 caracteres");
         }
         this.codigo = codigo;
     }
@@ -41,7 +45,7 @@ public class Horario implements Serializable {
 
     public void setNome(String nome) {
         if (nome.length() > 50) {
-            throw new IllegalArgumentException("O nome de um horário deve conter apenas 50 caracteres");
+            throw new IllegalArgumentException("O nome de uma operação deve conter apenas 50 caracteres");
         }
         this.nome = nome;
     }
@@ -49,19 +53,20 @@ public class Horario implements Serializable {
     @Override
     public boolean equals(Object object) {
         if (object == null || getClass() != object.getClass()) return false;
-        Horario horario = (Horario) object;
-        return Objects.equals(codigo, horario.codigo) && Objects.equals(nome, horario.nome);
+        Operacao operacao = (Operacao) object;
+        return Objects.equals(chave, operacao.chave) && Objects.equals(codigo, operacao.codigo) && Objects.equals(nome, operacao.nome);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codigo, nome);
+        return Objects.hash(chave, codigo, nome);
     }
 
     @Override
     public String toString() {
-        return "Horario{" +
-                "codigo='" + codigo + '\'' +
+        return "Operacao{" +
+                "chave=" + chave +
+                ", codigo='" + codigo + '\'' +
                 ", nome='" + nome + '\'' +
                 '}';
     }

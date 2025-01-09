@@ -1,4 +1,4 @@
-package com.cfsd.cfsd_consultas.resources;
+package consultas.resources;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
