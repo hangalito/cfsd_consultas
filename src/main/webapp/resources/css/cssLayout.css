@@ -16,9 +16,9 @@
 
 #left {
     float: left;
-    background-color: gray;
-    padding: 5px;
-    width: 150px;
+    background-color: #045491;
+    padding: 20px;
+    width: 210px;
 }
 
 #right {
@@ -36,13 +36,13 @@
 
 .left_content {
     background-color: #dddddd;
-    padding: 5px;
-    margin-left: 170px;
+    padding: 80px;
+    margin-left: 210px;
 }
 
 .right_content {
     background-color: #dddddd;
-    padding: 5px;
+    padding: 70px;
     margin: 0px 170px 0px 170px;
 }
 
