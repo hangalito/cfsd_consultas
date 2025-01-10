@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Stateless
-public class CursoDao extends Dao<Curso, String> {
+public class CursoDAO extends Dao<Curso, String> {
 
     private static final Logger LOG = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
