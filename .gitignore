@@ -1,0 +1,9 @@
+*~
+nb-configuration.xml
+target
+target/**
+.idea
+.idea/**
+.vscode
+.vscode/**
+
