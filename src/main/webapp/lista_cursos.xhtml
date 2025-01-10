@@ -20,17 +20,13 @@
                 <h2>Todos os Cursos</h2>
                 <h:link value="Página Inicial" outcome="index.xhtml"/>
 
-                <p:dataTable value="#{cursoBean.cursos}" var="curso">
-                    <p:column headerText="Código" sortBy="#{curso.codigo}">
-                        <h:outputText value="#{curso.codigo}"/>
+                <p:dataTable value="#{timetableBean.horarios}" var="horario">
+                    <p:column headerText="Código" sortBy="#{horario.codigo}">
+                        <h:outputText value="#{horario.codigo}"/>
                     </p:column>
 
-                    <p:column headerText="Descrição Curso" sortBy="#{curso.descricao}">
-                        <h:outputText value="#{curso.descricao}"/>
-                    </p:column>
-
-                    <p:column headerText="Preço Unitário" sortBy="#{curso.preco}">
-                        <h:outputText value="#{curso.preco}"/>
+                    <p:column headerText="Descrição Curso" sortBy="#{horario.nome}">
+                        <h:outputText value="#{horario.nome}"/>
                     </p:column>
 
                 </p:dataTable>
