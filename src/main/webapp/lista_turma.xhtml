@@ -21,38 +21,23 @@
                 <h:panelGrid columns="1">
                     <h:panelGroup>
                         <div class="color">
-                            <p:button value="Todas as Turmas" outcome="lista_turma.xhtml" style="color: #c2dfef"/>
+                            <p:button value="Página Inicial" outcome="index.xhtml" style="color: #c2dfef"/>
                         </div>
                     </h:panelGroup>
                 </h:panelGrid>
-
-                <h:panelGrid columns="1">
-                    <h:panelGroup>
-                        <div class="color">
-                            <p:button value="Todas os Cursos" outcome="lista_curso.xhtml" style="color: #c2dfef"/>
-                        </div>
-                    </h:panelGroup>
-                </h:panelGrid>
-
-                <h:panelGrid columns="1">
-                    <h:panelGroup>
-                        <div class="color">
-                            <p:button value="Horários Cursos" outcome="horario.xhtml" style="color: #ece3a5"/>
-                        </div>
-                    </h:panelGroup>
-                </h:panelGrid>
-                
-                 <h:panelGrid columns="1">
-                    <h:panelGroup>
-                        <div class="color">
-                            <p:button value="Lista Professores" outcome="lista_professor.xhtml" style="color: #ece3a5"/>
-                        </div>
-                    </h:panelGroup>
-                </h:panelGrid>
-                
             </ui:define>
             <ui:define name="content">
-                <h2>Buscando informações do Sistema</h2>
+                <h2>Listas das Turmas</h2>
+
+                <p:dataTable value="#{turmaBean.turmas}" var="turma">
+                    <p:column headerText="Código" sortBy="#{turma.codigo}">
+                        <h:outputText value="#{turma.codigo}"/>
+                    </p:column>
+
+                    <p:column headerText="Descrição Turma" sortBy="#{turma.nome}">
+                        <h:outputText value="#{turma.nome}"/>
+                    </p:column>
+                </p:dataTable>
             </ui:define>
 
             <ui:define name="bottom">
@@ -62,6 +47,7 @@
                     </b>
                 </center>
             </ui:define>
+
 
         </ui:composition>
 
