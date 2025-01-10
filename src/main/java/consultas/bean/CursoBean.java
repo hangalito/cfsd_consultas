@@ -1,28 +1,25 @@
 package consultas.Bean;
 
-import consultas.dao.CursoDAO;
+import consultas.dao.CursoDao;
 import consultas.modelo.Curso;
 import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
-import jakarta.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Named(value = "cursoBean")
-@SessionScoped
+@RequestScoped
 public class CursoBean implements Serializable {
 
     private Curso curso = new Curso();
-    private CursoDAO cursoDAO = new CursoDAO();
+    private CursoDao cursoDAO = new CursoDao();
     private List<Curso> cursos = new ArrayList<>();
 
     @PostConstruct
     public void inicializar() {
-        cursos = cursoDAO.listaTodos();
-        
-        
-
+        cursos = cursoDAO.findAll();
     }
 
     public Curso getCurso() {
@@ -33,11 +30,11 @@ public class CursoBean implements Serializable {
         this.curso = curso;
     }
 
-    public CursoDAO getCursoDAO() {
+    public CursoDao getCursoDAO() {
         return cursoDAO;
     }
 
-    public void setCursoDAO(CursoDAO cursoDAO) {
+    public void setCursoDAO(CursoDao cursoDAO) {
         this.cursoDAO = cursoDAO;
     }
 

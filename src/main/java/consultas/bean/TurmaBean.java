@@ -3,15 +3,15 @@ package consultas.Bean;
 import consultas.dao.TurmaDao;
 import consultas.modelo.Turma;
 import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
-import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Named(value = "turmaBean")
-@SessionScoped
+@RequestScoped
 public class TurmaBean implements Serializable {
 
     @Inject
