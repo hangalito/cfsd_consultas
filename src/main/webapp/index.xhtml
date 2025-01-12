@@ -18,10 +18,11 @@
                 </center>
             </ui:define>
             <ui:define name="left">
+                <h2>Listagens</h2>
                 <h:panelGrid columns="1">
                     <h:panelGroup>
                         <div class="color">
-                            <p:button value="Todas as Turmas" outcome="lista_turma.xhtml" style="color: #c2dfef"/>
+                            <p:button value="Todas as Turmas" outcome="lista_todas_turmas.xhtml" style="color: #c2dfef"/>
                         </div>
                     </h:panelGroup>
                 </h:panelGrid>
@@ -29,7 +30,7 @@
                 <h:panelGrid columns="1">
                     <h:panelGroup>
                         <div class="color">
-                            <p:button value="Todas os Cursos" outcome="lista_curso.xhtml" style="color: #c2dfef"/>
+                            <p:button value="Todos os Cursos" outcome="lista_todos_cursos.xhtml" style="color: #c2dfef"/>
                         </div>
                     </h:panelGroup>
                 </h:panelGrid>
@@ -46,6 +47,14 @@
                     <h:panelGroup>
                         <div class="color">
                             <p:button value="Lista Professores" outcome="lista_professor.xhtml" style="color: #ece3a5"/>
+                        </div>
+                    </h:panelGroup>
+                </h:panelGrid>
+                
+                 <h:panelGrid columns="1">
+                    <h:panelGroup>
+                        <div class="color">
+                            <p:button value="Pesquisa curso por nome" outcome="lista_curso_por_nome.xhtml" style="color: #ece3a5"/>
                         </div>
                     </h:panelGroup>
                 </h:panelGrid>

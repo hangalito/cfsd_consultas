@@ -22,7 +22,6 @@ public class HorarioBean {
     private HorarioDao horarioDAO;
     private List<Horario> horarios;
 
-    @PostConstruct
     protected void init() {
         horarios = horarioDAO.findAll();
     }

@@ -13,18 +13,31 @@ import java.util.List;
 @SessionScoped
 public class CursoBean implements Serializable {
 
+ 
+    private String nome;
     private Curso curso = new Curso();
     private CursoDAO cursoDAO = new CursoDAO();
     private List<Curso> cursos = new ArrayList<>();
-
+    
+    
     @PostConstruct
-    public void inicializar() {
-        cursos = cursoDAO.listaTodos();
-        
-        
-
+    public void init(){
+        cursos = cursoDAO.selectAll();
+    
+    }
+    public String buscarPorNome(){
+            cursos = cursoDAO.selectByName(nome);
+            return null;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    
     public Curso getCurso() {
         return curso;
     }

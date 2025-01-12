@@ -24,6 +24,14 @@ public class TurmaBean implements Serializable {
         turmas = dao.findAll();
     }
 
+    public TurmaDao getDao() {
+        return dao;
+    }
+
+    public void setDao(TurmaDao dao) {
+        this.dao = dao;
+    }
+
     public Turma getTurma() {
         return turma;
     }

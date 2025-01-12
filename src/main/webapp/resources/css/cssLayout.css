@@ -10,21 +10,21 @@
 #bottom {
     position: relative;
     background-color: #c2dfef;
-    padding: 10px;
-    margin: 20px 0px 0px 0px;
+    padding: 30px;
+    margin: 100px 0px 0px 0px;
 }
 
 #left {
     float: left;
     background-color: #045491;
     padding: 20px;
-    width: 210px;
+    width: 260px;
 }
 
 #right {
     float: right;
     background-color: #ece3a5;
-    padding: 5px;
+    padding: 10px;
     width: 150px;
 }
 
@@ -36,8 +36,8 @@
 
 .left_content {
     background-color: #dddddd;
-    padding: 80px;
-    margin-left: 210px;
+    padding: 133px;
+    margin-left: 260px;
 }
 
 .right_content {

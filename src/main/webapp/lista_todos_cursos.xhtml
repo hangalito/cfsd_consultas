@@ -33,8 +33,8 @@
                         <h:outputText value="#{curso.codigo}"/>
                     </p:column>
 
-                    <p:column headerText="Descrição Curso" sortBy="#{curso.descricao}">
-                        <h:outputText value="#{curso.descricao}"/>
+                    <p:column headerText="Descrição Curso" sortBy="#{curso.name}">
+                        <h:outputText value="#{curso.name}"/>
                     </p:column>
 
                     <p:column headerText="Preço Unitário" sortBy="#{curso.preco}">
@@ -43,15 +43,6 @@
 
                 </p:dataTable>
             </ui:define>
-
-            <ui:define name="bottom">
-                <center>
-                    <b>
-                        <font><h1>O seu futuro passa por aqui!</h1></font>
-                    </b>
-                </center>
-            </ui:define>
-
         </ui:composition>
 
     </body>

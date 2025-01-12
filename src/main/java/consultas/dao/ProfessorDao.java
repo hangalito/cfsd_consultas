@@ -48,7 +48,7 @@ public class ProfessorDao extends Dao<Professor, Integer> {
      * @return Uma lista com os professores obtidos da base de dados.
      */
     @Override
-    public List<Professor> findAll() {
+    public  List<Professor> findAll() {
         List<Professor> professores = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
             var rs = query(conn, "SELECT * FROM tblprofessores");
