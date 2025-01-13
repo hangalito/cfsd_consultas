@@ -3,12 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="jakarta.faces.facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:h="jakarta.faces.html">
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
 
     <body>
 
         <ui:composition template="./Templete/templete.xhtml">
-            <ui:define name="top">
+
+           <ui:define name="top">
                 <center>
                     <b>
                         <font><h1>CENTRAL DE CONSULTAS - CFSD</h1></font>
@@ -16,30 +18,28 @@
                 </center>
             </ui:define>
 
-            <ui:define name="content">
-                <h2>Todos os Cursos</h2>
-                <h:link value="Página Inicial" outcome="index.xhtml"/>
+            <ui:define name="left">
+                <h:panelGrid columns="1">
+                    <h:panelGroup>
+                        <div class="color">
+                            <p:button value="Página Inicial" outcome="index.xhtml" style="color: #c2dfef"/>
+                        </div>
+                    </h:panelGroup>
+                </h:panelGrid>
+            </ui:define>
 
-                <p:dataTable value="#{timetableBean.horarios}" var="horario">
+            <ui:define name="content">
+                <h2>Horários Cursos</h2>
+                <p:dataTable value="#{horarioBean.horarios}" var="horario">
                     <p:column headerText="Código" sortBy="#{horario.codigo}">
                         <h:outputText value="#{horario.codigo}"/>
                     </p:column>
 
-                    <p:column headerText="Descrição Curso" sortBy="#{horario.nome}">
+                    <p:column headerText="Horário" sortBy="#{horario.nome}">
                         <h:outputText value="#{horario.nome}"/>
                     </p:column>
-
                 </p:dataTable>
             </ui:define>
-
-            <ui:define name="bottom">
-                <center>
-                    <b>
-                        <font><h1>O seu futuro passa por aqui!</h1></font>
-                    </b>
-                </center>
-            </ui:define>
-
         </ui:composition>
 
     </body>

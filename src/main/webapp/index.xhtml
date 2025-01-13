@@ -17,17 +17,55 @@
                     </b>
                 </center>
             </ui:define>
+            <ui:define name="left">
+                <h2>Listagens</h2>
+                <h:panelGrid columns="1">
+                    <h:panelGroup>
+                        <div class="color">
+                            <p:button value="Todas as Turmas" outcome="lista_todas_turmas.xhtml" style="color: #c2dfef"/>
+                        </div>
+                    </h:panelGroup>
+                </h:panelGrid>
 
+                <h:panelGrid columns="1">
+                    <h:panelGroup>
+                        <div class="color">
+                            <p:button value="Todos os Cursos" outcome="lista_todos_cursos.xhtml" style="color: #c2dfef"/>
+                        </div>
+                    </h:panelGroup>
+                </h:panelGrid>
+
+                <h:panelGrid columns="1">
+                    <h:panelGroup>
+                        <div class="color">
+                            <p:button value="Horários Cursos" outcome="horario.xhtml" style="color: #ece3a5"/>
+                        </div>
+                    </h:panelGroup>
+                </h:panelGrid>
+                
+                 <h:panelGrid columns="1">
+                    <h:panelGroup>
+                        <div class="color">
+                            <p:button value="Lista Professores" outcome="lista_professor.xhtml" style="color: #ece3a5"/>
+                        </div>
+                    </h:panelGroup>
+                </h:panelGrid>
+                
+                 <h:panelGrid columns="1">
+                    <h:panelGroup>
+                        <div class="color">
+                            <p:button value="Pesquisa curso por nome" outcome="lista_curso_por_nome.xhtml" style="color: #ece3a5"/>
+                        </div>
+                    </h:panelGroup>
+                </h:panelGrid>
+                
+            </ui:define>
             <ui:define name="content">
                 <h2>Buscando informações do Sistema</h2>
-                <h:link value="Listas" outcome="Listas.xhtml"/>
-                <h:outputText value="  "/>
-                <h:outputText value="  "/>
-                <h:link value="Lista dos Cursos" outcome="lista_cursos.xhtml"/>
             </ui:define>
 
             <ui:define name="bottom">
-                 <center>
+                <center>
                     <b>
                         <font><h1>O seu futuro passa por aqui!</h1></font>
                     </b>

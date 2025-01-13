@@ -3,8 +3,6 @@ package consultas.dao;
 import consultas.dbconexao.DBConecta;
 import consultas.modelo.Horario;
 import jakarta.ejb.Stateless;
-
-import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.sql.Connection;
 
@@ -24,7 +22,7 @@ import java.util.logging.Logger;
  * Hangalo</a>
  */
 @Stateless
-public class HorarioDao extends Dao<Horario, String> implements Serializable {
+public class HorarioDao extends Dao<Horario, String> {
 
     private static final Logger LOG = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
@@ -39,7 +37,7 @@ public class HorarioDao extends Dao<Horario, String> implements Serializable {
      */
     public static void populateFields(Horario horario, ResultSet rs) throws SQLException {
         horario.setCodigo(rs.getString("CodigoDoHorario"));
-        horario.setNome(rs.getString("NomeDoHorario"));
+        horario.setNome(rs.getString("NomeDoHorario|"));
     }
 
     /**
