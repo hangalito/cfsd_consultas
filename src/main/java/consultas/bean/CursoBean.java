@@ -1,4 +1,4 @@
-package consultas.Bean;
+package consultas.bean;
 
 import consultas.dao.CursoDAO;
 import consultas.modelo.Curso;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ *
  * @author <a href="mailto:claudiomendonca.operclaudio01@gmail.com">Cláudio Mendonça</a>
  * CDI responsável pela conexão da classe lógica a classe de visão
  * Aqui são definidos os métodos que serão carregados nas páginas
@@ -21,20 +21,20 @@ import java.util.List;
 @RequestScoped
 public class CursoBean implements Serializable {
 
-    
-    
+
+
     private List<Curso> cursosPesquisados;
     @Inject
     private CursoDAO cursoDAO ;
     private String nome;
     private Curso curso = new Curso();
     private List<Curso> cursos;
-    
-    
+
+
     @PostConstruct
     public void init(){
         cursos = cursoDAO.selectAll();
-    
+
     }
     public String buscarPorNome(){
             cursosPesquisados = cursoDAO.selectByName(nome);
@@ -56,7 +56,7 @@ public class CursoBean implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
+
     public Curso getCurso() {
         return curso;
     }

@@ -1,4 +1,4 @@
-package consultas.Bean;
+package consultas.bean;
 
 import consultas.dao.TurmaDao;
 import consultas.modelo.Turma;

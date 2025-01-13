@@ -4,15 +4,15 @@ import java.util.Objects;
 
 public class Curso {
 
-    private int codigo;
+    private String codigo;
     private String name;
     private Double preco;
 
-    public int getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
@@ -35,7 +35,7 @@ public class Curso {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 37 * hash + this.codigo;
+        hash = 37 * hash + Objects.hashCode(this.codigo);
         hash = 37 * hash + Objects.hashCode(this.name);
         hash = 37 * hash + Objects.hashCode(this.preco);
         return hash;
@@ -53,7 +53,7 @@ public class Curso {
             return false;
         }
         final Curso other = (Curso) obj;
-        if (this.codigo != other.codigo) {
+        if (this.codigo == null ? other.codigo != null : !this.codigo.equals(other.codigo)) {
             return false;
         }
         if (!Objects.equals(this.name, other.name)) {

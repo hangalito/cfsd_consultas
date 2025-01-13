@@ -28,7 +28,7 @@ public class CursoDAO {
     public static final String LIST_BY_NAME = "select CodigoDoCurso, NomeDoCurso, PrecoUnitario from tblcursos where NomeDoCurso = ?";
     
     public static void populatFields(Curso curso, ResultSet rs) throws SQLException {
-        curso.setCodigo(rs.getInt("CodigoDoCurso"));
+        curso.setCodigo(rs.getString("CodigoDoCurso"));
         curso.setName(rs.getString("NomeDoCurso"));
         curso.setPreco(rs.getDouble("PrecoUnitario"));
         

@@ -3,6 +3,8 @@ package consultas.dao;
 import consultas.dbconexao.DBConecta;
 import consultas.modelo.Turma;
 import jakarta.ejb.Stateless;
+
+import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.sql.Connection;
 
@@ -22,7 +24,7 @@ import java.util.logging.Logger;
  * Hangalo</a>
  */
 @Stateless
-public class TurmaDao extends Dao<Turma, String> {
+public class TurmaDao extends Dao<Turma, String> implements Serializable {
 
     private static final Logger LOG = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
