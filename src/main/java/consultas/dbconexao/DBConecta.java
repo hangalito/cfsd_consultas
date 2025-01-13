@@ -21,7 +21,7 @@ public class DBConecta {
 
     public static Connection getConexao() {
         try {
-            if (conexao == null) {
+            if (conexao == null|| conexao.isClosed()) {
                 Class.forName(DRIVERMYSQL8);
                 conexao = DriverManager.getConnection(URL, USER, PASSWORD);
             }
