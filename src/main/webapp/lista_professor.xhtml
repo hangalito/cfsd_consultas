@@ -3,12 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="jakarta.faces.facelets"
       xmlns:p="http://primefaces.org/ui"
-<<<<<<<< HEAD:src/main/webapp/lista_cursos.xhtml
-      xmlns:h="jakarta.faces.html">
-========
       xmlns:h="jakarta.faces.html"
       xmlns:f="jakarta.faces.core">
->>>>>>>> origin/claudio:src/main/webapp/lista_professor.xhtml
 
     <body>
 
@@ -16,33 +12,6 @@
             <ui:define name="top">
                 <center>
                     <b>
-<<<<<<<< HEAD:src/main/webapp/lista_cursos.xhtml
-                        <font><h1>CENTRAL DE CONSULTAS - CFSD</h1></font>
-                    </b>
-                </center>
-            </ui:define>
-
-            <ui:define name="content">
-                <h2>Todos os Cursos</h2>
-                <h:link value="Página Inicial" outcome="index.xhtml"/>
-
-                <p:dataTable value="#{timetableBean.horarios}" var="horario">
-                    <p:column headerText="Código" sortBy="#{horario.codigo}">
-                        <h:outputText value="#{horario.codigo}"/>
-                    </p:column>
-
-                    <p:column headerText="Descrição Curso" sortBy="#{horario.nome}">
-                        <h:outputText value="#{horario.nome}"/>
-                    </p:column>
-
-                </p:dataTable>
-            </ui:define>
-
-            <ui:define name="bottom">
-                <center>
-                    <b>
-========
->>>>>>>> origin/claudio:src/main/webapp/lista_professor.xhtml
                         <font><h1>O seu futuro passa por aqui!</h1></font>
                     </b>
                 </center>
