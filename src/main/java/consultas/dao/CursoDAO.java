@@ -2,6 +2,7 @@ package consultas.dao;
 
 import consultas.dbconexao.DBConecta;
 import consultas.modelo.Curso;
+import jakarta.ejb.Stateless;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +14,9 @@ import java.util.Optional;
 /**
  *
  * @author <a href="mailto:caludiomendonca.operclaudio01@gmail.com">Cláudio Mendonça</a>
+ * 
  */
+@Stateless
 public class CursoDAO {
     
     Connection con = null;

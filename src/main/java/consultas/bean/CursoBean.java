@@ -3,21 +3,32 @@ package consultas.Bean;
 import consultas.dao.CursoDAO;
 import consultas.modelo.Curso;
 import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * @author <a href="mailto:claudiomendonca.operclaudio01@gmail.com">Cláudio Mendonça</a>
+ * CDI responsável pela conexão da classe lógica a classe de visão
+ * Aqui são definidos os métodos que serão carregados nas páginas
+ */
+
 @Named(value = "cursoBean")
-@SessionScoped
+@RequestScoped
 public class CursoBean implements Serializable {
 
- 
+    
+    
+    private List<Curso> cursosPesquisados;
+    @Inject
+    private CursoDAO cursoDAO ;
     private String nome;
     private Curso curso = new Curso();
-    private CursoDAO cursoDAO = new CursoDAO();
-    private List<Curso> cursos = new ArrayList<>();
+    private List<Curso> cursos;
     
     
     @PostConstruct
@@ -26,8 +37,16 @@ public class CursoBean implements Serializable {
     
     }
     public String buscarPorNome(){
-            cursos = cursoDAO.selectByName(nome);
+            cursosPesquisados = cursoDAO.selectByName(nome);
             return null;
+    }
+
+    public List<Curso> getCursosPesquisados() {
+        return cursosPesquisados;
+    }
+
+    public void setCursosPesquisados(List<Curso> cursosPesquisados) {
+        this.cursosPesquisados = cursosPesquisados;
     }
 
     public String getNome() {
