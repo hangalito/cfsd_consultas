@@ -5,7 +5,7 @@ Central de Consultas CFSD
 
 Descrição
 ----------------------------
-Esta aplicação serve para consultar os dados dos ultimos
+Esta aplicação serve para consultar os dados dos últimos
 anos do Centro de Formação São Domingos.
 
 
