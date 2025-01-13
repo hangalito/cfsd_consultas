@@ -27,7 +27,7 @@ public class HorarioDao extends Dao<Horario, String> {
     private static final Logger LOG = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
     /**
-     * Método responsável por preencher os dados da entidade {@link Horario}
+     * Responsável por preencher os dados da entidade {@link Horario}
      * passado.
      *
      * @param horario A instância da entidade para preencher os campos.
@@ -37,7 +37,7 @@ public class HorarioDao extends Dao<Horario, String> {
      */
     public static void populateFields(Horario horario, ResultSet rs) throws SQLException {
         horario.setCodigo(rs.getString("CodigoDoHorario"));
-        horario.setNome(rs.getString("NomeDoHorario|"));
+        horario.setNome(rs.getString("NomeDoHorario"));
     }
 
     /**
@@ -47,6 +47,7 @@ public class HorarioDao extends Dao<Horario, String> {
      */
     @Override
     public List<Horario> findAll() {
+        LOG.info("Querying all time tables from the database");
         List<Horario> horarios = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
             var rs = query(conn, "SELECT * FROM tblhorarios");
