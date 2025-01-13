@@ -3,6 +3,8 @@ package consultas.dao;
 import consultas.dbconexao.DBConecta;
 import consultas.modelo.Curso;
 import jakarta.ejb.Stateless;
+
+import java.lang.invoke.MethodHandles;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,33 +12,34 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
- *
  * @author <a href="mailto:caludiomendonca.operclaudio01@gmail.com">Cláudio Mendonça</a>
- * 
  */
 @Stateless
 public class CursoDAO {
-    
+
+    private static final Logger LOG = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
+
     Connection con = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
-    
+
     public static final String LIST_ALL = "select * from tblcursos";
     public static final String LIST_BY_ID = "select * from tblcursos where CodigoDoCurso = ?";
     public static final String LIST_BY_NAME = "select CodigoDoCurso, NomeDoCurso, PrecoUnitario from tblcursos where NomeDoCurso = ?";
-    
+
     public static void populatFields(Curso curso, ResultSet rs) throws SQLException {
         curso.setCodigo(rs.getString("CodigoDoCurso"));
         curso.setName(rs.getString("NomeDoCurso"));
         curso.setPreco(rs.getDouble("PrecoUnitario"));
-        
+
     }
 
     /**
-     *
-     * @return 
+     * @return
      * @mostra lista contendo todos os cursos da dase de dados
      * @mostra lista contendo apenas o curso especificado por codigo
      * @mostra lista contendo apenas o curso especificado por nome
@@ -53,11 +56,13 @@ public class CursoDAO {
                 cursos.add(curso);
             }
         } catch (SQLException ex) {
-            System.err.println("Erro de leitura de dados" + ex.getLocalizedMessage());
+            String msg = ex.getLocalizedMessage();
+            LOG.log(Level.SEVERE, ex, () -> "Erro de leitura de dados: " + msg);
         }
+
         return cursos;
     }
-    
+
     public Optional<Curso> selectById(Integer codigo) {
         List<Curso> cursos = new ArrayList<>();
         try {
@@ -69,11 +74,12 @@ public class CursoDAO {
                 var curso = new Curso();
                 return Optional.of(curso);
             }
-            
+
         } catch (SQLException ex) {
-            System.err.println("Erro de leitura de dados" + ex.getLocalizedMessage());
+            String msg = ex.getLocalizedMessage();
+            LOG.log(Level.SEVERE, ex, () -> "Erro de leitura de dados: " + msg);
         }
-        
+
         return Optional.empty();
     }
 
@@ -89,12 +95,12 @@ public class CursoDAO {
                 populatFields(curso, rs);
                 cursos.add(curso);
             }
-            
+
         } catch (SQLException ex) {
-            System.err.println("Erro de leitura de dados" + ex.getLocalizedMessage());
+            LOG.log(Level.SEVERE, ex, () -> "Erro de leitura de dados: " + ex.getLocalizedMessage());
         }
-        
+
         return cursos;
-        
-    }    
+
+    }
 }
