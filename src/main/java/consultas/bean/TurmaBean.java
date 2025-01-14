@@ -14,14 +14,37 @@ import java.util.List;
 @SessionScoped
 public class TurmaBean implements Serializable {
 
+    private List<Turma> turmasPesquisadas;
     @Inject
+    private String name;
     private TurmaDao dao;
     private Turma turma = new Turma();
-    private List<Turma> turmas = new ArrayList<>();
+    private List<Turma> turmas;
 
     @PostConstruct
     public void inicializar() {
         turmas = dao.findAll();
+    }
+
+    public List<Turma> getTurmasPesquisadas() {
+        return turmasPesquisadas;
+    }
+
+    public void setTurmasPesquisadas(List<Turma> turmasPesquisadas) {
+        this.turmasPesquisadas = turmasPesquisadas;
+    }
+
+    public String getNome() {
+        return name;
+    }
+
+    public void setNome(String name) {
+        this.name = name;
+    }
+    
+    public String buscarPorNome(){
+        turmasPesquisadas = dao.findByName(name);
+        return null;
     }
 
     public TurmaDao getDao() {
