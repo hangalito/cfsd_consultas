@@ -95,7 +95,7 @@ public class TurmaDao extends Dao<Turma, String> implements Serializable {
     public List<Turma> findByName(String name) {
         List<Turma> turmas = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
-            var rs = query(conn, "SELECT * FROM tblturmas WHERE NomeDaTurma", name);
+            var rs = query(conn, "SELECT * FROM tblturmas WHERE NomeDaTurma = ?", name);
             while (rs.next()) {
                 var turma = new Turma();
                 populateFields(turma, rs);

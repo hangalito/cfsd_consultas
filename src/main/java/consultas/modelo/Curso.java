@@ -2,6 +2,14 @@ package consultas.modelo;
 
 import java.util.Objects;
 
+
+/**
+ * 
+ * @author <a href="mailto:claudiomendonca.operclaudio01@gmail.com">Cláudio Mendonça</a>
+ * 
+ * Classe responsável por mapear a tabela Cursos
+ * 
+ */
 public class Curso {
 
     private String codigo;
