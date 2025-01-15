@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="jakarta.faces.facelets"
-      xmlns:h="jakarta.faces.html">
+      xmlns:h="jakarta.faces.html"
+      xmlns:p="http://primefaces.org/ui">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -18,7 +19,20 @@
         </div>
         <div>
             <div id="left">
-                <ui:insert name="left">Left</ui:insert>
+                <ui:insert name="left">
+                    <h:form>
+                        <p:menuButton value="Alunos">
+                            <p:menuitem value="Todos" outcome="/alunos/alunos.faces"/>
+                            <p:menuitem value="Pesquisar" id="btn-srch-alunos"/>
+                            <p:menuButton value="Pesquisar"/>
+                        </p:menuButton>
+
+                        <p:menu trigger="btn-srch-alunos" overlay="true">
+                            <p:menuitem value="Por nome" outcome="/alunos/pesquisa-por-nome.faces"/>
+                            <p:menuitem value="Entre datas" outcome="/alunos/pesquisa-entre-datas.faces"/>
+                        </p:menu>
+                    </h:form>
+                </ui:insert>
             </div>
             <div id="content" class="left_content">
                 <ui:insert name="content">Content</ui:insert>

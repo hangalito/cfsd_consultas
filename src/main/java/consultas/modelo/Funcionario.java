@@ -12,7 +12,7 @@ import java.util.Objects;
  * @author <a href="mailto:bartolomeujose.manilson@gmail.com">
  * Bartolomeu Hangalo</a>
  */
-public class Professor implements Serializable {
+public class Funcionario implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -22,14 +22,14 @@ public class Professor implements Serializable {
     private LocalDate dataDeNascimento;
     private LocalDate dataDeAdmissao;
 
-    public Professor() {
+    public Funcionario() {
     }
 
-    public Professor(String nome) {
+    public Funcionario(String nome) {
         this.nome = nome;
     }
 
-    public Professor(String nome, LocalDate dataDeNascimento) {
+    public Funcionario(String nome, LocalDate dataDeNascimento) {
         this.nome = nome;
         this.dataDeNascimento = dataDeNascimento;
     }
@@ -86,7 +86,7 @@ public class Professor implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Professor other = (Professor) obj;
+        final Funcionario other = (Funcionario) obj;
         if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }

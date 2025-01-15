@@ -1,7 +1,7 @@
 package consultas.dao;
 
 import consultas.dbconexao.DBConecta;
-import consultas.modelo.Professor;
+import consultas.modelo.Funcionario;
 import jakarta.ejb.Stateless;
 import java.lang.invoke.MethodHandles;
 import java.sql.Connection;
@@ -15,31 +15,31 @@ import java.util.logging.Logger;
 
 /**
  * Classe responsável por realizar as operações de consulta na base de dados
- * para a entidade {@link Professor}.
+ * para a entidade {@link Funcionario}.
  *
  * @author <a href="mailto:bartolomeujose.manilson@gmail.com">Bartolomeu
  * Hangalo</a>
  */
 @Stateless
-public class ProfessorDao extends Dao<Professor, Integer> {
+public class FuncionarioDao extends Dao<Funcionario, Integer> {
 
     private static final Logger LOG = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
     /**
-     * Preenche os campos do objecto passado com os dados na base de dados.
+     * Preenche os campos do objeto passado com os dados na base de dados.
      *
-     * @param professor Intância de {@link Professor} com os campos a serem
+     * @param funcionario Intância de {@link Funcionario} com os campos a serem
      * preenchidos.
      * @param rs Instância de {@link ResultSet} com os dados obtidos da base de
      * dados.
      * @throws SQLException No caso de algum erro SQL durante a operação,
      * propagar a excepção.
      */
-    public static void populateFields(Professor professor, ResultSet rs) throws SQLException {
-        professor.setCodigo(rs.getInt("CodigoDoFuncionario"));
-        professor.setNome(rs.getString("NomeDoFuncionario"));
-        professor.setDataDeNascimento(rs.getDate("DataDeNascimento").toLocalDate());
-        professor.setDataDeAdmissao(rs.getDate("DataDeAdmissao").toLocalDate());
+    public static void populateFields(Funcionario funcionario, ResultSet rs) throws SQLException {
+        funcionario.setCodigo(rs.getInt("CodigoDoFuncionario"));
+        funcionario.setNome(rs.getString("NomeDoFuncionario"));
+        funcionario.setDataDeNascimento(rs.getDate("DataDeNascimento").toLocalDate());
+        funcionario.setDataDeAdmissao(rs.getDate("DataDeAdmissao").toLocalDate());
     }
 
     /**
@@ -48,12 +48,12 @@ public class ProfessorDao extends Dao<Professor, Integer> {
      * @return Uma lista com os professores obtidos da base de dados.
      */
     @Override
-    public  List<Professor> findAll() {
-        List<Professor> professores = new ArrayList<>();
+    public  List<Funcionario> findAll() {
+        List<Funcionario> professores = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
             var rs = query(conn, "SELECT * FROM tblprofessores");
             while (rs.next()) {
-                var professor = new Professor();
+                var professor = new Funcionario();
                 populateFields(professor, rs);
                 professores.add(professor);
             }
@@ -72,11 +72,11 @@ public class ProfessorDao extends Dao<Professor, Integer> {
      * encontrado algum, do contrário um {@link Optional} vazio.
      */
     @Override
-    public Optional<Professor> findById(Integer codigo) {
+    public Optional<Funcionario> findById(Integer codigo) {
         try (Connection conn = DBConecta.getConexao()) {
             var rs = query(conn, "SELECT * FROM tblprofessores WHERE CodigoDoProfessor = ?", codigo);
-            if (rs.next()) {   
-                var professor = new Professor();
+            if (rs.next()) {
+                var professor = new Funcionario();
                 populateFields(professor, rs);
                 return Optional.of(professor);
             }
@@ -87,12 +87,12 @@ public class ProfessorDao extends Dao<Professor, Integer> {
         return Optional.empty();
     }
 
-    public List<Professor> findByName(String nome) {
-        List<Professor> professores = new ArrayList<>();
+    public List<Funcionario> findByName(String nome) {
+        List<Funcionario> professores = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
             var rs = query(conn, "SELECT * FROM tblprofessores WHERE NomeDoProfessor = ?", nome);
             while(rs.next()) {
-                var professor = new Professor();
+                var professor = new Funcionario();
                 populateFields(professor, rs);
                 professores.add(professor);
             }

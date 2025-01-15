@@ -30,7 +30,7 @@ abstract class Dao<T, ID> {
         var ps = conn.prepareStatement(sql);
         for (var i = 0; i < params.length; i++) {
             var param = params[i];
-            ps.setObject(i, param);
+            ps.setObject(i + 1, param);
         }
         return ps.executeQuery();
     }
