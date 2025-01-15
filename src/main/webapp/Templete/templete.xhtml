@@ -1,25 +1,71 @@
 <?xml version='1.0' encoding='UTF-8' ?> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="jakarta.faces.facelets"
-      xmlns:h="jakarta.faces.html">
+<html xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet library ="css" name="default.css"/>
         <h:outputStylesheet library ="css" name="cssLayout.css"/>
-        <title>Facelets Template</title>
+        <title>Central de Consultas CFSD</title>
     </h:head>
 
     <h:body>
 
         <div id="top">
             <ui:insert name="top">Top</ui:insert>
+             <div class="card">
+                    <h:form>
+                        <p:growl id="messages"/>
+                        <center>
+                        <p:menubar hideDelay="1000">
+                            <f:facet name="start">
+                                <h:commandLink action="/index.xhtml">
+                                <p:graphicImage name="logo.jpg" library="imagens">
+                                </p:graphicImage>
+                                </h:commandLink>
+                            </f:facet>
+                            <p:submenu label="Alunos">
+                                <p:submenu label="Listagens">
+                                    <p:menuitem value="Todos" outcome=""/>
+                                    <p:menuitem value="Por Nome" outcome=""/>
+                                </p:submenu>
+                            </p:submenu>
+                            
+                             <p:submenu label="Professores">
+                                <p:submenu label="Listagens">
+                                    <p:menuitem value="Todos" outcome=""/>
+                                    <p:menuitem value="Por Nome" outcome=""/>
+                                </p:submenu>
+                                 
+                            </p:submenu>
+                            <p:submenu label="Cursos">
+                            <p:submenu label="Listagens">
+                                <p:menuitem value="Todos" outcome="lista_todos_cursos"/>
+                                <p:menuitem value="Por Nome" outcome="lista_curso_por_nome"/>
+                            </p:submenu>
+                            </p:submenu>
+                            <p:submenu label="Turmas">
+                                <p:submenu label="Listagens">
+                                    <p:menuitem value="Todos" outcome="lista_todas_turmas"/>
+                                    <p:menuitem value="Por Nome" outcome="lista_turma_por_nome"/>
+                                </p:submenu>
+                            </p:submenu>
+                            <p:submenu label="Horários">
+                                <p:submenu label="Listagens">
+                                    <p:menuitem value="Todos" outcome="lista_horarios"/>
+                                </p:submenu>
+                            </p:submenu>
+
+                        </p:menubar>
+                            </center>
+                    </h:form>
+                </div>
         </div>
         <div>
-            <div id="left">
-                <ui:insert name="left">Left</ui:insert>
-            </div>
+            
             <div id="content" class="left_content">
                 <ui:insert name="content">Content</ui:insert>
             </div>
