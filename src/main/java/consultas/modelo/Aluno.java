@@ -14,7 +14,6 @@ public class Aluno implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
-
     private Integer codigo;
     private String nome;
     private String telefone;
@@ -106,7 +105,9 @@ public class Aluno implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        if (object == null || getClass() != object.getClass()) return false;
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
         Aluno aluno = (Aluno) object;
         return Objects.equals(codigo, aluno.codigo) && Objects.equals(nome, aluno.nome) && Objects.equals(telefone, aluno.telefone) && Objects.equals(morada, aluno.morada) && Objects.equals(localDeNascimento, aluno.localDeNascimento) && Objects.equals(nacionalidade, aluno.nacionalidade) && Objects.equals(habilitacoesLiterarias, aluno.habilitacoesLiterarias) && Objects.equals(sexo, aluno.sexo) && Objects.equals(outrosDados, aluno.outrosDados);
     }
@@ -118,16 +119,16 @@ public class Aluno implements Serializable {
 
     @Override
     public String toString() {
-        return "Aluno{" +
-                "codigo=" + codigo +
-                ", nome='" + nome + '\'' +
-                ", telefone='" + telefone + '\'' +
-                ", morada='" + morada + '\'' +
-                ", localDeNascimento='" + localDeNascimento + '\'' +
-                ", nacionalidade='" + nacionalidade + '\'' +
-                ", habilitacoesLiterarias='" + habilitacoesLiterarias + '\'' +
-                ", sexo='" + sexo + '\'' +
-                ", outrosDados='" + outrosDados + '\'' +
-                '}';
+        return "Aluno{"
+                + "codigo=" + codigo
+                + ", nome='" + nome + '\''
+                + ", telefone='" + telefone + '\''
+                + ", morada='" + morada + '\''
+                + ", localDeNascimento='" + localDeNascimento + '\''
+                + ", nacionalidade='" + nacionalidade + '\''
+                + ", habilitacoesLiterarias='" + habilitacoesLiterarias + '\''
+                + ", sexo='" + sexo + '\''
+                + ", outrosDados='" + outrosDados + '\''
+                + '}';
     }
 }

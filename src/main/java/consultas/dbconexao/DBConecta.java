@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Class to connect database
+ * Class para a conexão da aplicação com a base de dados
  *
  * @author <a href="mailto:claudiomendonca.operclaudio01@gmail.com">Cláudio Mendonça</a>
  */
