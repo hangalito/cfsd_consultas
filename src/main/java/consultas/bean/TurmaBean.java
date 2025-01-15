@@ -16,7 +16,6 @@ public class TurmaBean implements Serializable {
 
     private List<Turma> turmasPesquisadas;
     @Inject
-    private String name;
     private TurmaDao dao;
     private String name;
     private Turma turma = new Turma();
