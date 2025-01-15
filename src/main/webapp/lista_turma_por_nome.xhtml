@@ -17,6 +17,16 @@
                     </b>
                 </center>
             </ui:define>
+            
+             <ui:define name="left">
+                <h:panelGrid columns="1">
+                    <h:panelGroup>
+                        <div class="color">
+                            <p:button value="Página Inicial" outcome="index.xhtml" style="color: #c2dfef"/>
+                        </div>
+                    </h:panelGroup>
+                </h:panelGrid>
+            </ui:define>
 
             <ui:define name="content">
                 <h:form>
@@ -35,21 +45,22 @@
                
             <h2>Lista das Turmas</h2>
 
-            <p:dataTable id="tbCursos" value="#{turmaBean.turmasPesquisadas}" var="curso">
+            <p:dataTable id="tbCursos" value="#{turmaBean.turmasPesquisadas}" var="turma">
                 
                 <f:facet name="header">
                     <h2>Lista das Turmas</h2>
                 </f:facet>
                 
-                <p:column headerText="Código Curso">
-                    <h:outputText value="#{curso.codigo}"/>
+                <p:column headerText="Código Turma">
+                    <h:outputText value="#{turma.codigo}"/>
                 </p:column>
                 
-                <p:column headerText="Descrição Curso">
-                    <h:outputText value="#{curso.nome}"/>
+                <p:column headerText="Descrição Turma">
+                    <h:outputText value="#{turma.nome}"/>
                 </p:column>
             </p:dataTable>
              </h:form>
+            </ui:define>
 
         </ui:composition>
 
