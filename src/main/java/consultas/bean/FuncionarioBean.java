@@ -30,8 +30,6 @@ public class FuncionarioBean {
 
     public void pesquisar() {
         resultadoDaPesquisa = funcionarioDao.search(query);
-        Logger.getLogger(MethodHandles.lookup().lookupClass().getName())
-                .log(Level.INFO, "resultado da pesquisa {0}", resultadoDaPesquisa);
         PrimeFaces.current().ajax().update("dt-funcionarios");
     }
 
