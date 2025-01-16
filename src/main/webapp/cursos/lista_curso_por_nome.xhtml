@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="jakarta.faces.facelets" xmlns:p="http://primefaces.org/ui"
+    xmlns:h="jakarta.faces.html" xmlns:f="jakarta.faces.core">
+
+<body>
+    <ui:composition template="../template/template.xhtml">
+        <ui:define name="top">
+            <center>
+                <b>
+                    <font>
+                        <h1>CENTRAL DE CONSULTAS - CFSD</h1>
+                    </font>
+                </b>
+            </center>
+        </ui:define>
+        <ui:define name="left">
+            <h:panelGrid columns="1">
+                <h:panelGroup>
+                    <div class="color">
+                        <p:button value="Página Inicial" outcome="index.xhtml" style="color: #c2dfef" />
+                    </div>
+                </h:panelGroup>
+            </h:panelGrid>
+        </ui:define>
+
+        <ui:define name="content">
+            <h:form>
+
+                <h:panelGrid columns="2" cellspacing="5%" styleClass="panelGridCenter">
+                    <h2>Procurar por nome:</h2>
+                </h:panelGrid>
+                <h:panelGrid columns="2" cellspacing="5%" width="50px" styleClass="panelGridCenter">
+                    <p:inputText id="nome" value="#{cursoBean.nome}" size="60" />
+                    <p:commandButton value="Procurar" action="#{cursoBean.buscarPorNome()}" ajax="false" />
+                </h:panelGrid>
+            </h:form>
+
+            <h:form>
+
+
+                <h2>Lista dos Cursos</h2>
+
+                <p:dataTable id="tbCursos" value="#{cursoBean.cursosPesquisados}" var="curso">
+
+                    <f:facet name="header">
+                        <h2>Lista dos Cursos</h2>
+                    </f:facet>
+
+                    <p:column headerText="Código Curso">
+                        <h:outputText value="#{curso.codigo}" />
+                    </p:column>
+
+                    <p:column headerText="Descrição Curso">
+                        <h:outputText value="#{curso.name}" />
+                    </p:column>
+
+                    <p:column headerText="Preço Unitário">
+                        <h:outputText value="#{curso.preco}" />
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</body>
+
+</html>

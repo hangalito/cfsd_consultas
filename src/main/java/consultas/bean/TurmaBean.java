@@ -9,6 +9,7 @@ import jakarta.inject.Inject;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import org.primefaces.PrimeFaces;
 
 @Named(value = "turmaBean")
 @SessionScoped
@@ -41,9 +42,10 @@ public class TurmaBean implements Serializable {
     public void setNome(String name) {
         this.name = name;
     }
-    
-    public String buscarPorNome(){
+
+    public String buscarPorNome() {
         turmasPesquisadas = dao.findByName(name);
+        PrimeFaces.current().ajax().update("tbTurmas");
         return null;
     }
 
