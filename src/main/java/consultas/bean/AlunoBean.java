@@ -29,7 +29,6 @@ public class AlunoBean implements Serializable {
 
     public void pesquisarPorNome() {
         var searchedStudents = alunoDao.search(nome);
-        System.out.println("searchedStudents = " + searchedStudents);
         alunosPesquisados = searchedStudents;
         PrimeFaces.current().ajax().update("tables-form:dt-alunos");
     }

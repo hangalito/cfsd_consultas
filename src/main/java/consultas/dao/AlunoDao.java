@@ -87,11 +87,12 @@ public class AlunoDao extends Dao<Aluno, Integer> implements Serializable {
                      WHERE CodigoDoAluno LIKE ?
                      OR NomeDoAluno LIKE ?
                      OR TelefoneDoAluno LIKE  ?
+                     OR SexoDoAluno LIKE ?
                      """;
         List<Aluno> alunos = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
             String format = "%" + param + "%";
-            ResultSet rs = query(conn, sql, format, format, format);
+            ResultSet rs = query(conn, sql, format, format, format, format);
             while (rs.next()) {
                 Aluno aluno = new Aluno();
                 populateFields(aluno, rs);
