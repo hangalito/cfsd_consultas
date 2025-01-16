@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -24,6 +25,9 @@ import java.util.logging.Logger;
 public class FuncionarioDao extends Dao<Funcionario, Integer> {
 
     private static final Logger LOG = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
+    private static final Comparator<Funcionario> COMPARATOR = Comparator.comparing(Funcionario::getDataDeAdmissao).reversed()
+            .thenComparing(Funcionario::getNome)
+            .thenComparing(Funcionario::getCodigo);
 
     /**
      * Preenche os campos do objeto passado com os dados na base de dados.
@@ -48,10 +52,10 @@ public class FuncionarioDao extends Dao<Funcionario, Integer> {
      * @return Uma lista com os professores obtidos da base de dados.
      */
     @Override
-    public  List<Funcionario> findAll() {
+    public List<Funcionario> findAll() {
         List<Funcionario> professores = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
-            var rs = query(conn, "SELECT * FROM tblprofessores");
+            var rs = query(conn, "SELECT * FROM tblfuncionarios");
             while (rs.next()) {
                 var professor = new Funcionario();
                 populateFields(professor, rs);
@@ -61,6 +65,7 @@ public class FuncionarioDao extends Dao<Funcionario, Integer> {
             var msg = ex.getLocalizedMessage();
             LOG.log(Level.SEVERE, ex, () -> "Erro ao listas os professores na base de dados: " + msg);
         }
+        professores.sort(COMPARATOR);
         return professores;
     }
 
@@ -74,7 +79,7 @@ public class FuncionarioDao extends Dao<Funcionario, Integer> {
     @Override
     public Optional<Funcionario> findById(Integer codigo) {
         try (Connection conn = DBConecta.getConexao()) {
-            var rs = query(conn, "SELECT * FROM tblprofessores WHERE CodigoDoProfessor = ?", codigo);
+            var rs = query(conn, "SELECT * FROM tblfuncionarios WHERE CodigoDoProfessor = ?", codigo);
             if (rs.next()) {
                 var professor = new Funcionario();
                 populateFields(professor, rs);
@@ -90,8 +95,8 @@ public class FuncionarioDao extends Dao<Funcionario, Integer> {
     public List<Funcionario> findByName(String nome) {
         List<Funcionario> professores = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
-            var rs = query(conn, "SELECT * FROM tblprofessores WHERE NomeDoProfessor = ?", nome);
-            while(rs.next()) {
+            var rs = query(conn, "SELECT * FROM tblfuncionarios WHERE NomeDoProfessor = ?", nome);
+            while (rs.next()) {
                 var professor = new Funcionario();
                 populateFields(professor, rs);
                 professores.add(professor);
@@ -100,6 +105,32 @@ public class FuncionarioDao extends Dao<Funcionario, Integer> {
             var msg = ex.getLocalizedMessage();
             LOG.log(Level.SEVERE, ex, () -> "Erro ao listar os professores com o nome " + nome + ": " + msg);
         }
+        professores.sort(COMPARATOR);
         return professores;
+    }
+
+    public List<Funcionario> search(Object query) {
+        List<Funcionario> funcionarios = new ArrayList<>();
+        try (Connection conn = DBConecta.getConexao()) {
+            String formatted = "%" + query + "%";
+            String sql = """
+                         SELECT * FROM tblfuncionarios
+                         WHERE CodigoDoFuncionario LIKE ?
+                         OR NomeDoFuncionario LIKE ?
+                         OR DataDeAdmissao LIKE ?
+                         OR DataDeNascimento LIKE ?
+                         """;
+            ResultSet rs = query(conn, sql, formatted, formatted, formatted, formatted);
+            while (rs.next()) {
+                Funcionario func = new Funcionario();
+                populateFields(func, rs);
+                funcionarios.add(func);
+            }
+        } catch (SQLException ex) {
+            String msg = ex.getLocalizedMessage();
+            LOG.log(Level.SEVERE, ex, () -> "Erro ao pesquisar por funcinários: " + msg);
+        }
+        funcionarios.sort(COMPARATOR);
+        return funcionarios;
     }
 }
