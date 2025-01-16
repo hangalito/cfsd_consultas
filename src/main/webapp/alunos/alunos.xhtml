@@ -5,29 +5,38 @@
                 xmlns:ui="jakarta.faces.facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="jakarta.faces.html">
-    
+
     <ui:define name="content">
         <h:form>
             <p:dataTable id="dt-alunos" widgetVar="dtAlunos" value="#{alunoBean.alunos}" var="aluno"
-                         selectionMode="single" selectionRowMode="new" rowKey="#{aluno.codigo}">
+                         rowKey="#{aluno.codigo}" selectionMode="single" rows="5"
+                         paginator="true" paginatorAlwaysVisible="false" reflow="true"
+                         stickyHeader="true" emptyMessage="Nenhum registro encontrado">
+
                 <p:column sortBy="${aluno.codigo}" headerText="Código">
                     <h:outputText value="#{aluno.codigo}"/>
                 </p:column>
+
                 <p:column headerText="Nome" sortBy="#{aluno.nome}">
                     <h:outputText value="#{aluno.nome}"/>
                 </p:column>
+
                 <p:column headerText="Telefone" sortBy="#{aluno.telefone}">
                     <h:outputText value="#{aluno.telefone}"/>
                 </p:column>
+
                 <p:column headerText="Sexo" sortBy="#{aluno.sexo}">
                     <h:outputText value="#{aluno.sexo}"/>
                 </p:column>
+
                 <p:column headerText="Morada" sortBy="#{aluno.morada}">
                     <h:outputText value="#{aluno.morada}"/>
                 </p:column>
+
                 <p:column headerText="Nacionalidade" sortBy="#{aluno.nacionalidade}">
                     <h:outputText value="#{aluno.nacionalidade}"/>
                 </p:column>
+
             </p:dataTable>
         </h:form>
     </ui:define>

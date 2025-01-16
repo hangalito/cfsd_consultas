@@ -20,7 +20,10 @@
 
         <h:form id="tabelas">
             <h2>Lista das Turmas</h2>
-            <p:dataTable id="tbTurmas" value="#{turmaBean.turmasPesquisadas}" var="turma">
+            <p:dataTable id="tbTurmas" value="#{turmaBean.turmasPesquisadas}" var="turma"
+                         rowKey="#{turma.codigo}" selectionMode="single" rows="5"
+                         paginator="true" paginatorAlwaysVisible="false" reflow="true"
+                         stickyHeader="true" emptyMessage="Nenhum registro encontrado">
 
                 <f:facet name="header">
                     <h2>Lista das Turmas</h2>
