@@ -8,7 +8,11 @@
     <ui:define name="content">
         <h2>Listas das Turmas</h2>
 
-        <p:dataTable value="#{turmaBean.turmas}" var="turma">
+        <p:dataTable value="#{turmaBean.turmas}" var="turma"
+                     rowKey="#{turma.codigo}" selectionMode="single" rows="5"
+                     paginator="true" paginatorAlwaysVisible="false" reflow="true"
+                     stickyHeader="true" emptyMessage="Nenhum registro encontrado">
+
             <p:column headerText="Código" sortBy="#{turma.codigo}">
                 <h:outputText value="#{turma.codigo}"/>
             </p:column>
@@ -16,6 +20,7 @@
             <p:column headerText="Descrição Turma" sortBy="#{turma.nome}">
                 <h:outputText value="#{turma.nome}"/>
             </p:column>
+
         </p:dataTable>
     </ui:define>
 
