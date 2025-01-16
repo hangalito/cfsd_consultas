@@ -15,7 +15,12 @@
     <h:body>
 
         <div id="top">
-            <ui:insert name="top">Top</ui:insert>
+            <ui:insert name="top"></ui:insert>
+             <center>
+                    <b>
+                        <font><h1>CENTRAL DE CONSULTAS - CFSD</h1></font>
+                    </b>
+                </center>
              <div class="card">
                     <h:form>
                         <p:growl id="messages"/>
@@ -29,8 +34,8 @@
                             </f:facet>
                             <p:submenu label="Alunos">
                                 <p:submenu label="Listagens">
-                                    <p:menuitem value="Todos" outcome=""/>
-                                    <p:menuitem value="Por Nome" outcome=""/>
+                                    <p:menuitem value="Todos" outcome="lista_todos_alunos.xhtml"/>
+                                    <p:menuitem value="Por Nome" outcome="lista_por_nome.xhtml"/>
                                 </p:submenu>
                             </p:submenu>
                             
@@ -43,19 +48,19 @@
                             </p:submenu>
                             <p:submenu label="Cursos">
                             <p:submenu label="Listagens">
-                                <p:menuitem value="Todos" outcome="lista_todos_cursos"/>
-                                <p:menuitem value="Por Nome" outcome="lista_curso_por_nome"/>
+                                <p:menuitem value="Todos" outcome="lista_todos_cursos.xhtml"/>
+                                <p:menuitem value="Por Nome" outcome="lista_curso_por_nome.xhtml"/>
                             </p:submenu>
                             </p:submenu>
                             <p:submenu label="Turmas">
                                 <p:submenu label="Listagens">
-                                    <p:menuitem value="Todos" outcome="lista_todas_turmas"/>
-                                    <p:menuitem value="Por Nome" outcome="lista_turma_por_nome"/>
+                                    <p:menuitem value="Todos" outcome="lista_todas_turmas.xhtml"/>
+                                    <p:menuitem value="Por Nome" outcome="lista_turma_por_nome.xhtml"/>
                                 </p:submenu>
                             </p:submenu>
                             <p:submenu label="Horários">
                                 <p:submenu label="Listagens">
-                                    <p:menuitem value="Todos" outcome="lista_horarios"/>
+                                    <p:menuitem value="Todos" outcome="lista_horarios.xhtml"/>
                                 </p:submenu>
                             </p:submenu>
 
@@ -65,13 +70,12 @@
                 </div>
         </div>
         <div>
-            
             <div id="content" class="left_content">
                 <ui:insert name="content">Content</ui:insert>
             </div>
         </div>
         <div id="bottom">
-            <ui:insert name="bottom">Bottom</ui:insert>
+            <ui:insert name="bottom"></ui:insert>
         </div>
 
     </h:body>

@@ -5,26 +5,17 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="jakarta.faces.html"
       xmlns:f="jakarta.faces.core">
-
     <body>
+
         <ui:composition template="./templete/templete.xhtml">
+
             <ui:define name="content">
-                 <h:form>
-
-                    <h:panelGrid columns ="2" cellspacing="5%" styleClass="panelGridCenter">
-                        <h2>Pesquisar por Código, Nome, Telefone:</h2>
-                    </h:panelGrid>
-                    <h:panelGrid columns="2" cellspacing="5%" width="50px" styleClass="panelGridCenter">
-                        <p:inputText id="nome" value="#{alunoBean.nome}" size="60"/>
-                        <p:commandButton value="Pesquisar" icon="pi pi-search" action="#{alunoBean.pesquisarPorNome}" ajax="false"/>
-                    </h:panelGrid>
-                </h:form>
-
+                
                 <h:form>
-                    <p:dataTable id="tbAurmas" value="#{alunoBean.alunosPesquisados}" var="aluno">
+                    <p:dataTable id="tbAurmas" value="#{alunoBean.alunos}" var="aluno">
 
                         <f:facet name="header">
-                            <h2>Lista das Turmas</h2>
+                            <h2>Lista dos Alunos</h2>
                         </f:facet>
 
                         <p:column headerText="Código">
@@ -65,6 +56,8 @@
                     </p:dataTable>
                 </h:form>
             </ui:define>
+
         </ui:composition>
+
     </body>
 </html>
