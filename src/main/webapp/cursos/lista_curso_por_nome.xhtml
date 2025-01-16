@@ -7,9 +7,7 @@
       xmlns:f="jakarta.faces.core">
 
     <body>
-
-        <ui:composition template="./Templete/templete.xhtml">
-
+        <ui:composition template="../template/template.xhtml">
             <ui:define name="top">
                 <center>
                     <b>
@@ -17,7 +15,6 @@
                     </b>
                 </center>
             </ui:define>
-
             <ui:define name="left">
                 <h:panelGrid columns="1">
                     <h:panelGroup>
@@ -35,31 +32,37 @@
                         <h2>Procurar por nome:</h2>
                     </h:panelGrid>
                     <h:panelGrid columns="2" cellspacing="5%" width="50px" styleClass="panelGridCenter">
-                        <p:inputText id="nome" value="#{turmaBean.nome}" size="60"/>
-                        <p:commandButton value="Procurar" action="#{turmaBean.buscarPorNome()}" ajax="false"/>
+                        <p:inputText id="nome" value="#{cursoBean.nome}" size="60"/>
+                        <p:commandButton value="Procurar" action="#{cursoBean.buscarPorNome()}" ajax="false"/>
                     </h:panelGrid>
                 </h:form>
 
                 <h:form>
 
-                    <h2>Lista das Turmas</h2>
-                    <p:dataTable id="tbTurmas" value="#{turmaBean.turmasPesquisadas}" var="turma">
+
+                    <h2>Lista dos Cursos</h2>
+
+                    <p:dataTable id="tbCursos" value="#{cursoBean.cursosPesquisados}" var="curso">
 
                         <f:facet name="header">
-                            <h2>Lista das Turmas</h2>
+                            <h2>Lista dos Cursos</h2>
                         </f:facet>
 
-                        <p:column headerText="Código Turma">
-                            <h:outputText value="#{turma.codigo}"/>
+                        <p:column headerText="Código Curso">
+                            <h:outputText value="#{curso.codigo}"/>
                         </p:column>
 
-                        <p:column headerText="Descrição Turma">
-                            <h:outputText value="#{turma.nome}"/>
+                        <p:column headerText="Descrição Curso">
+                            <h:outputText value="#{curso.name}"/>
                         </p:column>
+
+                        <p:column headerText="Preço Unitário">
+                            <h:outputText value="#{curso.preco}"/>
+                        </p:column>
+
                     </p:dataTable>
                 </h:form>
             </ui:define>
-
         </ui:composition>
 
     </body>

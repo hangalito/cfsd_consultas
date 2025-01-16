@@ -8,8 +8,7 @@
 
     <body>
 
-        <ui:composition template="./Templete/templete.xhtml">
-
+        <ui:composition template="../template/template.xhtml">
             <ui:define name="top">
                 <center>
                     <b>
@@ -27,16 +26,21 @@
                 </h:panelGrid>
             </ui:define>
             <ui:define name="content">
-                <h2>Listas das Turmas</h2>
+                <h2>Todos os Cursos</h2>
 
-                <p:dataTable value="#{turmaBean.turmas}" var="turma">
-                    <p:column headerText="Código" sortBy="#{turma.codigo}">
-                        <h:outputText value="#{turma.codigo}"/>
+                <p:dataTable value="#{cursoBean.cursos}" var="curso">
+                    <p:column headerText="Código" sortBy="#{curso.codigo}">
+                        <h:outputText value="#{curso.codigo}"/>
                     </p:column>
 
-                    <p:column headerText="Descrição Turma" sortBy="#{turma.nome}">
-                        <h:outputText value="#{turma.nome}"/>
+                    <p:column headerText="Descrição Curso" sortBy="#{curso.name}">
+                        <h:outputText value="#{curso.name}"/>
                     </p:column>
+
+                    <p:column headerText="Preço Unitário" sortBy="#{curso.preco}">
+                        <h:outputText value="#{curso.preco}"/>
+                    </p:column>
+
                 </p:dataTable>
             </ui:define>
         </ui:composition>

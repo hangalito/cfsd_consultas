@@ -1,17 +1,21 @@
-
 #top {
     position: relative;
     background-color: #045491;
     color: white;
     padding: 40px;
-    margin: 50px 0px 10px 0px;
+    margin: 0px 0px 10px 0px;
 }
 
 #bottom {
     position: relative;
     background-color: #c2dfef;
     padding: 30px;
-    margin: 100px 0px 0px 0px;
+    margin: 24px 0px 0px 0px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
 }
 
 #right {
@@ -29,7 +33,7 @@
 
 .left_content {
     background-color: #dddddd;
-    padding: 133px;
+    padding: 75px;
     margin-left: 0px;
 }
 
@@ -40,15 +44,25 @@
 }
 
 #top a:link, #top a:visited {
-  color: white;
-  font-weight : bold;
-  text-decoration: none;
+    color: white;
+    font-weight : bold;
+    text-decoration: none;
 }
 
 #top a:link:hover, #top a:visited:hover  {
-  color: black;
-  font-weight : bold;
-  text-decoration : underline;
+    color: black;
+    font-weight : bold;
+    text-decoration : underline;
 }
 
 
+#navbar {
+    gap: 12px;
+    display: grid;
+    grid-template-columns: .5fr 5fr;
+    align-content: center;
+}
+
+.ui-menu.ui-menubar {
+    align-content: center;
+}
