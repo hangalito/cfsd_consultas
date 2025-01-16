@@ -3,10 +3,33 @@
 <ui:composition template="../template/template.xhtml"
                 xmlns:ui="jakarta.faces.facelets"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:h="jakarta.faces.html">
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core">
 
     <ui:define name="content">
-        <h2>Todos os Funcionários</h2>
+        <p:dataTable id="dt-funcionarios" widgetVar="dtFuncionarios" 
+                     value="#{funcionarioBean.funcionarios}" var="funcionario" rowKey="#{funcionario.codigo}"
+                     selectionMode="single" rows="5" paginator="true" paginatorAlwaysVisible="false" reflow="true"
+                     stickyHeader="true" emptyMessage="Nenhum registro encontrado">
+
+            <f:facet name="header">
+                <h2>Funcionários</h2>
+            </f:facet>
+
+            <p:column headerText="Código">
+                <h:outputText value="#{funcionario.codigo}"/>
+            </p:column>
+
+            <p:column headerText="Nome">
+                <h:outputText value="#{funcionario.nome}"/>
+            </p:column>
+
+            <p:column headerText="Data de admissão">
+                <h:outputText value="#{funcionario.dataDeAdmissao}">
+                    <f:convertDateTime type="localDate" locale="pt_AO" pattern="MMM dd, YYYY"/>
+                </h:outputText>
+            </p:column>
+        </p:dataTable>
     </ui:define>
 
 </ui:composition>
