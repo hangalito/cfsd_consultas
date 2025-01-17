@@ -2,7 +2,6 @@ package consultas.dao;
 
 import consultas.dbconexao.DBConecta;
 import consultas.modelo.Aluno;
-import consultas.modelo.Funcionario;
 import consultas.modelo.Inscricao;
 import jakarta.ejb.Stateless;
 
@@ -12,6 +11,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -21,6 +21,26 @@ import java.util.logging.Logger;
 public class InscricaoDao extends Dao<Inscricao, Integer> implements Serializable {
 
     private static final Logger LOG = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
+    private static final Comparator<Inscricao> COMPARATOR = Comparator.comparing(Inscricao::getData).reversed()
+            .thenComparing(Inscricao::getHorario)
+            .thenComparing(Inscricao::getAluno);
+
+    private static final String LIST_ALL = """
+                    SELECT * FROM tblinscricoes i
+                    JOIN tblalunos a ON i.CodigoDoAluno = a.CodigoDoAluno
+                    JOIN tblfuncionarios f ON i.CodigoDoFuncionario = f.CodigoDoFuncionario
+                    JOIN tbldetalhesdainscricao d ON i.CodigoDaInscricao = d.CodigoDaInscricao
+                    JOIN tblfuncionarios p ON d.CodigoDoProfessor = p.CodigoDoFuncionario
+                    """;
+    private static final String LIST_BY_ID = """
+                    SELECT * FROM tblinscricoes i
+                    JOIN tblalunos a ON i.CodigoDoAluno = a.CodigoDoAluno
+                    JOIN tblfuncionarios f ON i.CodigoDoFuncionario = f.CodigoDoFuncionario
+                    JOIN tbldetalhesdainscricao d ON i.CodigoDaInscricao = d.CodigoDaInscricao
+                    JOIN tblfuncionarios p ON d.CodigoDoProfessor = p.CodigoDoFuncionario
+                    WHERE i.CodigoDaInscricao = ?
+                    """;
+    private static final String LIST_BY_DATA = "SELECT * FROM tblinscricoes WHERE DataDaInscricao = ?";
 
     public static void populateFields(Inscricao inscricao, ResultSet rs) throws SQLException {
         inscricao.setCodigo(rs.getInt("CodigoDaInscricao"));
@@ -43,14 +63,7 @@ public class InscricaoDao extends Dao<Inscricao, Integer> implements Serializabl
     public List<Inscricao> findAll() {
         List<Inscricao> inscricoes = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
-            String query = """
-                    SELECT * FROM tblinscricoes i
-                    JOIN tblalunos a ON i.CodigoDoAluno = a.CodigoDoAluno
-                    JOIN tblfuncionarios f ON i.CodigoDoFuncionario = f.CodigoDoFuncionario
-                    JOIN tbldetalhesdainscricao d ON i.CodigoDaInscricao = d.CodigoDaInscricao
-                    JOIN tblfuncionarios p ON d.CodigoDoProfessor = p.CodigoDoFuncionario
-                    """;
-            ResultSet rs = query(conn, query);
+            ResultSet rs = query(conn, LIST_ALL);
             while (rs.next()) {
                 Inscricao inscricao = new Inscricao();
                 populateFields(inscricao, rs);
@@ -63,21 +76,14 @@ public class InscricaoDao extends Dao<Inscricao, Integer> implements Serializabl
             String msg = ex.getLocalizedMessage();
             LOG.log(Level.SEVERE, ex, () -> "Erro ao listas as inscrições: " + msg);
         }
+        inscricoes.sort(COMPARATOR);
         return inscricoes;
     }
 
     @Override
     public Optional<Inscricao> findById(Integer codigo) {
         try (Connection conn = DBConecta.getConexao()) {
-            String query = """
-                    SELECT * FROM tblinscricoes i
-                    JOIN tblalunos a ON i.CodigoDoAluno = a.CodigoDoAluno
-                    JOIN tblfuncionarios f ON i.CodigoDoFuncionario = f.CodigoDoFuncionario
-                    JOIN tbldetalhesdainscricao d ON i.CodigoDaInscricao = d.CodigoDaInscricao
-                    JOIN tblfuncionarios p ON d.CodigoDoProfessor = p.CodigoDoFuncionario
-                    WHERE i.CodigoDaInscricao = ?
-                    """;
-            ResultSet rs = query(conn, query, codigo);
+            ResultSet rs = query(conn, LIST_BY_ID, codigo);
             if (rs.next()) {
                 Inscricao inscricao = new Inscricao();
                 populateFields(inscricao, rs);
@@ -91,5 +97,10 @@ public class InscricaoDao extends Dao<Inscricao, Integer> implements Serializabl
             LOG.log(Level.SEVERE, ex, () -> "Erro ao listas as inscrições: " + msg);
         }
         return Optional.empty();
+    }
+
+    @Override
+    public List<Inscricao> search(Object param) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

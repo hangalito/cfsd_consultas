@@ -109,6 +109,7 @@ public class FuncionarioDao extends Dao<Funcionario, Integer> {
         return professores;
     }
 
+    @Override
     public List<Funcionario> search(Object query) {
         List<Funcionario> funcionarios = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {

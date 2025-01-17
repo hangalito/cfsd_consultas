@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -25,10 +26,18 @@ import java.util.logging.Logger;
 public class HorarioDao extends Dao<Horario, String> {
 
     private static final Logger LOG = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
+    private static final Comparator<Horario> COMPARATOR = Comparator.comparing(Horario::getNome);
+    private static final String LIST_ALL = "SELECT * RFOM tblhorarios";
+    private static final String LIST_BY_ID = "SELECT * FROM tblhorarios WHERE CodigoDoHorario = ?";
+    private static final String LIST_BY_NAME = "SELECT * FROM tblhorarios WHERE NomeDoHorario = ?";
+    private static final String SEARCH_QUERY = """
+                                               SELECT * FROM tblhorarios
+                                               WHERE CodigoDoHorario LIKE ?
+                                               OR NomeDoHorario LIKE ?
+                                               """;
 
     /**
-     * Responsável por preencher os dados da entidade {@link Horario}
-     * passado.
+     * Responsável por preencher os dados da entidade {@link Horario} passado.
      *
      * @param horario A instância da entidade para preencher os campos.
      * @param rs Instância de {@link ResultSet} de onde os dados serão obtidos.
@@ -50,7 +59,7 @@ public class HorarioDao extends Dao<Horario, String> {
         LOG.info("Querying all time tables from the database");
         List<Horario> horarios = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
-            var rs = query(conn, "SELECT * FROM tblhorarios");
+            var rs = query(conn, LIST_ALL);
             while (rs.next()) {
                 var horario = new Horario();
                 populateFields(horario, rs);
@@ -60,6 +69,7 @@ public class HorarioDao extends Dao<Horario, String> {
             var msg = ex.getLocalizedMessage();
             LOG.log(Level.SEVERE, ex, () -> "Erro ao listar todos os horários na base de dados: " + msg);
         }
+        horarios.sort(COMPARATOR);
         return horarios;
     }
 
@@ -74,7 +84,7 @@ public class HorarioDao extends Dao<Horario, String> {
     @Override
     public Optional<Horario> findById(String codigo) {
         try (Connection conn = DBConecta.getConexao()) {
-            ResultSet rs = query(conn, "SELECT * FROM tblhorarios WHERE CodigoDoHorario = ?", codigo);
+            ResultSet rs = query(conn, LIST_BY_ID, codigo);
             if (rs.next()) {
                 Horario horario = new Horario();
                 populateFields(horario, rs);
@@ -96,7 +106,7 @@ public class HorarioDao extends Dao<Horario, String> {
     public List<Horario> findByName(String nome) {
         List<Horario> horarios = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
-            ResultSet rs = query(conn, "SELECT * FROM tblhorarios WHERE NomeDoHorario = ?", nome);
+            ResultSet rs = query(conn, LIST_BY_NAME, nome);
             while (rs.next()) {
                 Horario horario = new Horario();
                 populateFields(horario, rs);
@@ -108,4 +118,24 @@ public class HorarioDao extends Dao<Horario, String> {
         }
         return horarios;
     }
+
+    @Override
+    public List<Horario> search(Object param) {
+        List<Horario> horarios = new ArrayList<>();
+        try (Connection conn = DBConecta.getConexao()) {
+            String sql = "%" + param + "%";
+            ResultSet rs = query(conn, SEARCH_QUERY, sql);
+            while (rs.next()) {
+                Horario horario = new Horario();
+                populateFields(horario, rs);
+                horarios.add(horario);
+            }
+        } catch (SQLException ex) {
+            String msg = ex.getLocalizedMessage();
+            LOG.log(Level.SEVERE, ex, () -> "Erro ao pesquisar horários: " + msg);
+        }
+        horarios.sort(COMPARATOR);
+        return horarios;
+    }
+
 }

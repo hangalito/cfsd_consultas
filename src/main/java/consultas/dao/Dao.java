@@ -38,4 +38,6 @@ abstract class Dao<T, ID> {
     public abstract List<T> findAll();
 
     public abstract Optional<T> findById(ID id);
+
+    public abstract List<T> search(Object param);
 }
