@@ -24,7 +24,7 @@
 
             <p:column headerText="Preço Unitário" sortBy="#{curso.preco}">
                 <h:outputText value="#{curso.preco}">
-                    <f:convertNumber locale="pt_AO" maxFractionDigits="2"/>
+                    <f:convertNumber locale="pt_AO" type="currency"/>
                 </h:outputText>
             </p:column>
 

@@ -16,15 +16,15 @@
                 <h2>Funcionários</h2>
             </f:facet>
 
-            <p:column headerText="Código">
+            <p:column headerText="Código" sortBy="#{funcionario.codigo}">
                 <h:outputText value="#{funcionario.codigo}"/>
             </p:column>
 
-            <p:column headerText="Nome">
+            <p:column headerText="Nome" sortBy="#{funcionario.nome}">
                 <h:outputText value="#{funcionario.nome}"/>
             </p:column>
 
-            <p:column headerText="Data de admissão">
+            <p:column headerText="Data de admissão" sortBy="#{funcionario.dataDeAdmissao}">
                 <h:outputText value="#{funcionario.dataDeAdmissao}">
                     <f:convertDateTime type="localDate" locale="pt_AO" pattern="MMM dd, YYYY"/>
                 </h:outputText>

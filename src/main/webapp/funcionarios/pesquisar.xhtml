@@ -23,20 +23,21 @@
                      value="#{funcionarioBean.resultadoDaPesquisa}" var="func" rowKey="#{func.codigo}"
                      selectionMode="single" rows="5" paginator="true" paginatorAlwaysVisible="false" reflow="true"
                      stickyHeader="true" emptyMessage="Nenhum registro encontrado">
+
             <f:facet name="header">
                 <h2>Procurar por funcinários</h2>
             </f:facet>
 
-            <p:column headerText="Código">
-                <h:outputText value="#{func.codigo}"/>
+            <p:column headerText="Código" sortBy="#{funcionario.codigo}">
+                <h:outputText value="#{funcionario.codigo}"/>
             </p:column>
 
-            <p:column headerText="Nome">
-                <h:outputText value="#{func.nome}"/>
+            <p:column headerText="Nome" sortBy="#{funcionario.nome}">
+                <h:outputText value="#{funcionario.nome}"/>
             </p:column>
 
-            <p:column headerText="Data de admissão">
-                <h:outputText value="#{func.dataDeAdmissao}">
+            <p:column headerText="Data de admissão" sortBy="#{funcionario.dataDeAdmissao}">
+                <h:outputText value="#{funcionario.dataDeAdmissao}">
                     <f:convertDateTime type="localDate" locale="pt_AO" pattern="MMM dd, YYYY"/>
                 </h:outputText>
             </p:column>

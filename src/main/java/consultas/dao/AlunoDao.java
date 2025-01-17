@@ -81,6 +81,7 @@ public class AlunoDao extends Dao<Aluno, Integer> implements Serializable {
         return alunos;
     }
 
+    @Override
     public List<Aluno> search(Object param) {
         String sql = """
                      SELECT * FROM tblalunos
