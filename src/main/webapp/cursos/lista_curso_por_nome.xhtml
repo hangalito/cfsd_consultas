@@ -12,13 +12,11 @@
             </h:panelGrid>
             <h:panelGrid columns="2" cellspacing="5%" width="50px" styleClass="panelGridCenter">
                 <p:inputText id="nome" value="#{cursoBean.nome}" size="60"/>
-                <p:commandButton value="Procurar" action="#{cursoBean.buscarPorNome()}" ajax="false"/>
+                <p:commandButton value="Pesquisar" icon="pi pi-search" action="#{cursoBean.buscarPorNome}"/>
             </h:panelGrid>
         </h:form>
 
-        <h:form>
-
-
+        <h:form id="tabelas">
             <h2>Lista dos Cursos</h2>
 
             <p:dataTable id="tbCursos" value="#{cursoBean.cursosPesquisados}" var="curso"

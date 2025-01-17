@@ -3,7 +3,7 @@ package consultas.bean;
 import consultas.dao.HorarioDao;
 import consultas.modelo.Horario;
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  * Hangalo</a>
  */
 @Named(value = "horarioBean")
-@RequestScoped
+@ViewScoped
 public class HorarioBean implements Serializable {
 
     @Inject

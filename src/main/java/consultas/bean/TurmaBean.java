@@ -4,14 +4,14 @@ import consultas.dao.TurmaDao;
 import consultas.modelo.Turma;
 import jakarta.annotation.PostConstruct;
 import jakarta.inject.Named;
-import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
 import org.primefaces.PrimeFaces;
 
 @Named(value = "turmaBean")
-@SessionScoped
+@ViewScoped
 public class TurmaBean implements Serializable {
 
     private List<Turma> turmasPesquisadas;
