@@ -1,7 +1,6 @@
 package consultas.bean;
 
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
@@ -10,10 +9,11 @@ import java.util.List;
 
 import consultas.dao.AlunoDao;
 import consultas.modelo.Aluno;
+import jakarta.faces.view.ViewScoped;
 import org.primefaces.PrimeFaces;
 
 @Named(value = "alunoBean")
-@RequestScoped
+@ViewScoped
 public class AlunoBean implements Serializable {
 
     @Inject

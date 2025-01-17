@@ -4,18 +4,16 @@ import consultas.dao.FuncionarioDao;
 import consultas.modelo.Funcionario;
 import jakarta.annotation.PostConstruct;
 import jakarta.inject.Named;
-import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
-import java.lang.invoke.MethodHandles;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.primefaces.PrimeFaces;
 
 @Named(value = "funcionarioBean")
-@RequestScoped
-public class FuncionarioBean {
+@ViewScoped
+public class FuncionarioBean implements Serializable {
 
     @Inject
     FuncionarioDao funcionarioDao;
