@@ -92,6 +92,7 @@ public class AlunoDao extends Dao<Aluno, Integer> implements Serializable {
         return alunos;
     }
 
+    @Override
     public List<Aluno> search(Object param) {
         List<Aluno> alunos = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
