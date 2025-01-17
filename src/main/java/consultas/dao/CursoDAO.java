@@ -82,7 +82,7 @@ public class CursoDao extends Dao<Curso, String> {
         try (Connection conn = DBConecta.getConexao()) {
             String sql = "%" + param + "%";
             ResultSet rs = query(conn, SEARCH_QUERY, sql, sql, sql);
-            if (rs.next()) {
+            while (rs.next()) {
                 Curso curso = new Curso();
                 populatFields(curso, rs);
                 cursos.add(curso);

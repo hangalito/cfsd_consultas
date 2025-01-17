@@ -3,11 +3,12 @@ package consultas.bean;
 import consultas.dao.CursoDao;
 import consultas.modelo.Curso;
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.List;
+import org.primefaces.PrimeFaces;
 
 /**
  *
@@ -17,7 +18,7 @@ import java.util.List;
  * definidos os métodos que serão carregados nas páginas
  */
 @Named(value = "cursoBean")
-@RequestScoped
+@ViewScoped
 public class CursoBean implements Serializable {
 
     private List<Curso> cursosPesquisados;
@@ -35,6 +36,7 @@ public class CursoBean implements Serializable {
 
     public String buscarPorNome() {
         cursosPesquisados = cursoDAO.search(nome);
+        PrimeFaces.current().ajax().update("tabelas:tbCursos");
         return null;
     }
 
