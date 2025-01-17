@@ -7,9 +7,11 @@ import java.util.Objects;
 /**
  * Classe responsável por mapear a tabela {@code `tblHorarios`}.
  *
- * @author <a href="mailto:bartolomeujose.manilson@gmail.com">Bartolomeu Hangalo</a>
+ * @author <a href="mailto:bartolomeujose.manilson@gmail.com">Bartolomeu
+ * Hangalo</a>
  */
-public class Horario implements Serializable {
+public class Horario implements Serializable, Comparable<Horario> {
+
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -48,7 +50,9 @@ public class Horario implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        if (object == null || getClass() != object.getClass()) return false;
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
         Horario horario = (Horario) object;
         return Objects.equals(codigo, horario.codigo) && Objects.equals(nome, horario.nome);
     }
@@ -60,9 +64,14 @@ public class Horario implements Serializable {
 
     @Override
     public String toString() {
-        return "Horario{" +
-                "codigo='" + codigo + '\'' +
-                ", nome='" + nome + '\'' +
-                '}';
+        return "Horario{"
+                + "codigo='" + codigo + '\''
+                + ", nome='" + nome + '\''
+                + '}';
+    }
+
+    @Override
+    public int compareTo(Horario other) {
+        return this.nome.compareTo(other.nome);
     }
 }

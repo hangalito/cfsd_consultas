@@ -10,7 +10,7 @@ import java.util.Objects;
  * @author <a href="mailto:bartolomeujose.manilson@gmail.com">
  * Bartolomeu Hangalo</a>
  */
-public class Aluno implements Serializable {
+public class Aluno implements Serializable, Comparable<Aluno> {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -131,5 +131,10 @@ public class Aluno implements Serializable {
                 + ", sexo='" + sexo + '\''
                 + ", outrosDados='" + outrosDados + '\''
                 + '}';
+    }
+
+    @Override
+    public int compareTo(Aluno other) {
+        return this.nome.compareTo(other.nome);
     }
 }

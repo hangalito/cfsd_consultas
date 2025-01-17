@@ -8,7 +8,7 @@
     <ui:define name="content">
         <h2>Listas das Turmas</h2>
 
-        <p:dataTable value="#{turmaBean.turmas}" var="turma"
+        <p:dataTable id="dt-turmas" widgetVar="dtTurmas" value="#{turmaBean.turmas}" var="turma"
                      rowKey="#{turma.codigo}" selectionMode="single" rows="5"
                      paginator="true" paginatorAlwaysVisible="false" reflow="true"
                      stickyHeader="true" emptyMessage="Nenhum registro encontrado">
