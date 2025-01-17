@@ -29,11 +29,11 @@
                     <h2>Lista das Turmas</h2>
                 </f:facet>
 
-                <p:column headerText="Código Turma">
+                <p:column headerText="Código Turma" sortBy="#{turma.codigo}">
                     <h:outputText value="#{turma.codigo}"/>
                 </p:column>
 
-                <p:column headerText="Descrição Turma">
+                <p:column headerText="Descrição Turma" sortBy="#{turma.nome}">
                     <h:outputText value="#{turma.nome}"/>
                 </p:column>
             </p:dataTable>
