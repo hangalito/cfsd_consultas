@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -24,9 +25,16 @@ import java.util.logging.Logger;
  * Hangalo</a>
  */
 @Stateless
+@SuppressWarnings("unused")
 public class TurmaDao extends Dao<Turma, String> implements Serializable {
 
     private static final Logger LOG = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
+    private static final Comparator<Turma> COMPARATOR = Comparator.comparing(Turma::getNome);
+
+    private static final String LIST_ALL = "SELECT * FROM tblturmas";
+    private static final String LIST_BY_ID = "SELECT * FROM tblturmas";
+    private static final String LIST_BY_NAME = "SELECT * FROM tblturmas WHRRE NomeDaTurma = ?";
+    private static final String SEARCH_QUERY = "SELECT * FROM tblturmas WHERE CodigoDaTurma LIKE ? OR NomeDaTurma LIKE ?";
 
     /**
      * Preenche os campos do objeto passado com os dados da base de dados.
@@ -51,7 +59,7 @@ public class TurmaDao extends Dao<Turma, String> implements Serializable {
     public List<Turma> findAll() {
         List<Turma> turmas = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
-            var rs = query(conn, "SELECT * FROM tblturmas");
+            var rs = query(conn, LIST_ALL);
             while (rs.next()) {
                 var turma = new Turma();
                 populateFields(turma, rs);
@@ -73,7 +81,7 @@ public class TurmaDao extends Dao<Turma, String> implements Serializable {
     @Override
     public Optional<Turma> findById(String codigo) {
         try (Connection conn = DBConecta.getConexao()) {
-            var rs = query(conn, "SELECT * FROM tblturmas WHERE NomeDaTurma = ?", codigo);
+            var rs = query(conn, LIST_BY_ID, codigo);
             if (rs.next()) {
                 var turma = new Turma();
                 populateFields(turma, rs);
@@ -93,18 +101,39 @@ public class TurmaDao extends Dao<Turma, String> implements Serializable {
      * @return Lista das turmas com o nome especificado.
      */
     public List<Turma> findByName(String name) {
+        LOG.info("save a primera daí foi: " + name);
         List<Turma> turmas = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
-            var rs = query(conn, "SELECT * FROM tblturmas WHERE NomeDaTurma = ?", name);
+            ResultSet rs = query(conn, LIST_BY_NAME, name);
             while (rs.next()) {
-                var turma = new Turma();
+                Turma turma = new Turma();
                 populateFields(turma, rs);
                 turmas.add(turma);
             }
         } catch (SQLException ex) {
-            var msg = ex.getLocalizedMessage();
-            LOG.log(Level.SEVERE, ex, () -> "Erro ao consultar todas as turmas da base de dados: " + msg);
+            String msg = ex.getLocalizedMessage();
+            LOG.log(Level.SEVERE, ex, () -> "Erro ao consultar as turmas com o nome " + name + " da base de dados: " + msg);
         }
         return turmas;
     }
+
+    @Override
+    public List<Turma> search(Object param) {
+        List<Turma> turmas = new ArrayList<>();
+        try (Connection conn = DBConecta.getConexao()) {
+            String sql = "%" + param + "%";
+            ResultSet rs = query(conn, SEARCH_QUERY, sql, sql);
+            while (rs.next()) {
+                Turma turma = new Turma();
+                populateFields(turma, rs);
+                turmas.add(turma);
+            }
+        } catch (SQLException ex) {
+            String msg = ex.getLocalizedMessage();
+            LOG.log(Level.SEVERE, ex, () -> "Erro ao pesquisar as turmas: " + msg);
+        }
+        turmas.sort(COMPARATOR);
+        return turmas;
+    }
+
 }

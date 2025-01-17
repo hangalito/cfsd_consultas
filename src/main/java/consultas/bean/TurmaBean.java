@@ -7,7 +7,6 @@ import jakarta.inject.Named;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import org.primefaces.PrimeFaces;
 
@@ -44,8 +43,8 @@ public class TurmaBean implements Serializable {
     }
 
     public String buscarPorNome() {
-        turmasPesquisadas = dao.findByName(name);
-        PrimeFaces.current().ajax().update("tbTurmas");
+        this.turmasPesquisadas = dao.search(name);
+        PrimeFaces.current().ajax().update("tabelas:tbTurmas");
         return null;
     }
 
