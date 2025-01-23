@@ -3,6 +3,7 @@ package consultas.dao;
 import consultas.dbconexao.DBConecta;
 import consultas.modelo.Funcionario;
 import jakarta.ejb.Stateless;
+
 import java.lang.invoke.MethodHandles;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -23,17 +24,21 @@ import java.util.logging.Logger;
 @Stateless
 public class FuncionarioDao extends Dao<Funcionario, Integer> {
 
+    private static final String SQL_FIND_ALL = "SELECT * FROM TblProfessores";
+    private static final String SQL_FIND_BY_ID = "SELECT * FROM TblProfessores WHERE CodigoDoProfessor = ?";
+    private static final String SQL_FIND_BY_NAME = "SELECT * FROM TblProfessores WHERE NomeDoProfessor = ?";
+
     private static final Logger LOG = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
     /**
      * Preenche os campos do objeto passado com os dados na base de dados.
      *
-     * @param funcionario Intância de {@link Funcionario} com os campos a serem
-     * preenchidos.
-     * @param rs Instância de {@link ResultSet} com os dados obtidos da base de
-     * dados.
+     * @param funcionario Instância de {@link Funcionario} com os campos a serem
+     *                    preenchidos.
+     * @param rs          Instância de {@link ResultSet} com os dados obtidos da base de
+     *                    dados.
      * @throws SQLException No caso de algum erro SQL durante a operação,
-     * propagar a excepção.
+     *                      propagar a exceção.
      */
     public static void populateFields(Funcionario funcionario, ResultSet rs) throws SQLException {
         funcionario.setCodigo(rs.getInt("CodigoDoFuncionario"));
@@ -48,10 +53,10 @@ public class FuncionarioDao extends Dao<Funcionario, Integer> {
      * @return Uma lista com os professores obtidos da base de dados.
      */
     @Override
-    public  List<Funcionario> findAll() {
+    public List<Funcionario> findAll() {
         List<Funcionario> professores = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
-            var rs = query(conn, "SELECT * FROM tblprofessores");
+            var rs = query(conn, SQL_FIND_ALL);
             while (rs.next()) {
                 var professor = new Funcionario();
                 populateFields(professor, rs);
@@ -74,7 +79,7 @@ public class FuncionarioDao extends Dao<Funcionario, Integer> {
     @Override
     public Optional<Funcionario> findById(Integer codigo) {
         try (Connection conn = DBConecta.getConexao()) {
-            var rs = query(conn, "SELECT * FROM tblprofessores WHERE CodigoDoProfessor = ?", codigo);
+            var rs = query(conn, SQL_FIND_BY_ID, codigo);
             if (rs.next()) {
                 var professor = new Funcionario();
                 populateFields(professor, rs);
@@ -90,8 +95,8 @@ public class FuncionarioDao extends Dao<Funcionario, Integer> {
     public List<Funcionario> findByName(String nome) {
         List<Funcionario> professores = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
-            var rs = query(conn, "SELECT * FROM tblprofessores WHERE NomeDoProfessor = ?", nome);
-            while(rs.next()) {
+            var rs = query(conn, SQL_FIND_BY_NAME, nome);
+            while (rs.next()) {
                 var professor = new Funcionario();
                 populateFields(professor, rs);
                 professores.add(professor);

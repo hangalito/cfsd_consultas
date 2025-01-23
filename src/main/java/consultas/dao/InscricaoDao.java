@@ -2,7 +2,6 @@ package consultas.dao;
 
 import consultas.dbconexao.DBConecta;
 import consultas.modelo.Aluno;
-import consultas.modelo.Funcionario;
 import consultas.modelo.Inscricao;
 import jakarta.ejb.Stateless;
 
@@ -21,6 +20,21 @@ import java.util.logging.Logger;
 public class InscricaoDao extends Dao<Inscricao, Integer> implements Serializable {
 
     private static final Logger LOG = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
+    private static final String FIND_ALL = """
+            SELECT * FROM tblinscricoes i
+            JOIN tblalunos a ON i.CodigoDoAluno = a.CodigoDoAluno
+            JOIN tblfuncionarios f ON i.CodigoDoFuncionario = f.CodigoDoFuncionario
+            JOIN tbldetalhesdainscricao d ON i.CodigoDaInscricao = d.CodigoDaInscricao
+            JOIN tblfuncionarios p ON d.CodigoDoProfessor = p.CodigoDoFuncionario
+            """;
+    private static final String FIND_BY_ID = """
+            SELECT * FROM tblinscricoes i
+            JOIN tblalunos a ON i.CodigoDoAluno = a.CodigoDoAluno
+            JOIN tblfuncionarios f ON i.CodigoDoFuncionario = f.CodigoDoFuncionario
+            JOIN tbldetalhesdainscricao d ON i.CodigoDaInscricao = d.CodigoDaInscricao
+            JOIN tblfuncionarios p ON d.CodigoDoProfessor = p.CodigoDoFuncionario
+            WHERE i.CodigoDaInscricao = ?
+            """;
 
     public static void populateFields(Inscricao inscricao, ResultSet rs) throws SQLException {
         inscricao.setCodigo(rs.getInt("CodigoDaInscricao"));
@@ -43,14 +57,7 @@ public class InscricaoDao extends Dao<Inscricao, Integer> implements Serializabl
     public List<Inscricao> findAll() {
         List<Inscricao> inscricoes = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
-            String query = """
-                    SELECT * FROM tblinscricoes i
-                    JOIN tblalunos a ON i.CodigoDoAluno = a.CodigoDoAluno
-                    JOIN tblfuncionarios f ON i.CodigoDoFuncionario = f.CodigoDoFuncionario
-                    JOIN tbldetalhesdainscricao d ON i.CodigoDaInscricao = d.CodigoDaInscricao
-                    JOIN tblfuncionarios p ON d.CodigoDoProfessor = p.CodigoDoFuncionario
-                    """;
-            ResultSet rs = query(conn, query);
+            ResultSet rs = query(conn, FIND_ALL);
             while (rs.next()) {
                 Inscricao inscricao = new Inscricao();
                 populateFields(inscricao, rs);
@@ -69,15 +76,7 @@ public class InscricaoDao extends Dao<Inscricao, Integer> implements Serializabl
     @Override
     public Optional<Inscricao> findById(Integer codigo) {
         try (Connection conn = DBConecta.getConexao()) {
-            String query = """
-                    SELECT * FROM tblinscricoes i
-                    JOIN tblalunos a ON i.CodigoDoAluno = a.CodigoDoAluno
-                    JOIN tblfuncionarios f ON i.CodigoDoFuncionario = f.CodigoDoFuncionario
-                    JOIN tbldetalhesdainscricao d ON i.CodigoDaInscricao = d.CodigoDaInscricao
-                    JOIN tblfuncionarios p ON d.CodigoDoProfessor = p.CodigoDoFuncionario
-                    WHERE i.CodigoDaInscricao = ?
-                    """;
-            ResultSet rs = query(conn, query, codigo);
+            ResultSet rs = query(conn, FIND_BY_ID, codigo);
             if (rs.next()) {
                 Inscricao inscricao = new Inscricao();
                 populateFields(inscricao, rs);

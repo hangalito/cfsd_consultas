@@ -20,6 +20,17 @@ public class AlunoDao extends Dao<Aluno, Integer> implements Serializable {
 
     private static final Logger LOG = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
+    private static final String SQL_FIND_ALL = "SELECT * FROM TblAlunos";
+    private static final String SQL_FIND_BY_ID = "SELECT * FROM TblAlunos WHERE CodigoDoAluno = ?";
+    private static final String SQL_FIND_BY_NAME = "SELECT * FROM TblAlunos WHERE NomeDoAluno LIKE ?";
+    private static final String SQL_SEARCH = """
+            SELECT * FROM TblAlunos
+            WHERE CodigoDoAluno LIKE ?
+            OR NomeDoAluno LIKE ?
+            OR TelefoneDoAluno LIKE  ?
+            """;
+
+
     public static void populateFields(Aluno aluno, ResultSet rs) throws SQLException {
         aluno.setCodigo(rs.getInt("CodigoDoAluno"));
         aluno.setNome(rs.getString("NomeDoAluno"));
@@ -35,7 +46,7 @@ public class AlunoDao extends Dao<Aluno, Integer> implements Serializable {
     public List<Aluno> findAll() {
         List<Aluno> alunos = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
-            ResultSet rs = query(conn, "SELECT * FROM tblalunos");
+            ResultSet rs = query(conn, SQL_FIND_ALL);
             while (rs.next()) {
                 Aluno aluno = new Aluno();
                 populateFields(aluno, rs);
@@ -51,7 +62,7 @@ public class AlunoDao extends Dao<Aluno, Integer> implements Serializable {
     @Override
     public Optional<Aluno> findById(Integer codigo) {
         try (Connection conn = DBConecta.getConexao()) {
-            ResultSet rs = query(conn, "SELECT * FROM tblalunos WHERE CodigoDoAluno = ?", codigo);
+            ResultSet rs = query(conn, SQL_FIND_BY_ID, codigo);
             if (rs.next()) {
                 Aluno aluno = new Aluno();
                 populateFields(aluno, rs);
@@ -68,7 +79,7 @@ public class AlunoDao extends Dao<Aluno, Integer> implements Serializable {
         List<Aluno> alunos = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
             String param = "%" + name + "%";
-            ResultSet rs = query(conn, "SELECT * FROM tblalunos WHERE NomeDoAluno LIKE ?", param);
+            ResultSet rs = query(conn, SQL_FIND_BY_NAME, param);
             while (rs.next()) {
                 Aluno aluno = new Aluno();
                 populateFields(aluno, rs);
@@ -82,16 +93,10 @@ public class AlunoDao extends Dao<Aluno, Integer> implements Serializable {
     }
 
     public List<Aluno> search(Object param) {
-        String sql = """
-                     SELECT * FROM tblalunos
-                     WHERE CodigoDoAluno LIKE ?
-                     OR NomeDoAluno LIKE ?
-                     OR TelefoneDoAluno LIKE  ?
-                     """;
         List<Aluno> alunos = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
             String format = "%" + param + "%";
-            ResultSet rs = query(conn, sql, format, format, format);
+            ResultSet rs = query(conn, SQL_SEARCH, format, format, format);
             while (rs.next()) {
                 Aluno aluno = new Aluno();
                 populateFields(aluno, rs);

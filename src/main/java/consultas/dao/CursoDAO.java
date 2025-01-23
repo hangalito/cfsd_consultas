@@ -27,23 +27,17 @@ public class CursoDAO {
     PreparedStatement ps = null;
     ResultSet rs = null;
 
-    public static final String LIST_ALL = "select * from tblcursos";
-    public static final String LIST_BY_ID = "select * from tblcursos where CodigoDoCurso = ?";
-    public static final String LIST_BY_NAME = "select CodigoDoCurso, NomeDoCurso, PrecoUnitario from tblcursos where NomeDoCurso = ?";
+    public static final String LIST_ALL = "SELECT * FROM TblCursos";
+    public static final String LIST_BY_ID = "SELECT * FROM TblCursos WHERE CodigoDoCurso = ?";
+    public static final String LIST_BY_NAME = "SELECT * FROM TblCursos WHERE NomeDoCurso LIKE ?";
 
-    public static void populatFields(Curso curso, ResultSet rs) throws SQLException {
+    public static void populateFields(Curso curso, ResultSet rs) throws SQLException {
         curso.setCodigo(rs.getString("CodigoDoCurso"));
         curso.setName(rs.getString("NomeDoCurso"));
         curso.setPreco(rs.getDouble("PrecoUnitario"));
 
     }
 
-    /**
-     * @return
-     * @mostra lista contendo todos os cursos da dase de dados
-     * @mostra lista contendo apenas o curso especificado por codigo
-     * @mostra lista contendo apenas o curso especificado por nome
-     */
     public List<Curso> selectAll() {
         List<Curso> cursos = new ArrayList<>();
         try {
@@ -52,7 +46,7 @@ public class CursoDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
                 var curso = new Curso();
-                populatFields(curso, rs);
+                populateFields(curso, rs);
                 cursos.add(curso);
             }
         } catch (SQLException ex) {
@@ -64,17 +58,15 @@ public class CursoDAO {
     }
 
     public Optional<Curso> selectById(Integer codigo) {
-        List<Curso> cursos = new ArrayList<>();
         try {
             con = DBConecta.getConexao();
             ps = con.prepareStatement(LIST_BY_ID);
             ps.setInt(1, codigo);
             rs = ps.executeQuery();
-            while (rs.next()) {
-                var curso = new Curso();
+            if (rs.next()) {
+                Curso curso = new Curso();
                 return Optional.of(curso);
             }
-
         } catch (SQLException ex) {
             String msg = ex.getLocalizedMessage();
             LOG.log(Level.SEVERE, ex, () -> "Erro de leitura de dados: " + msg);
@@ -92,7 +84,7 @@ public class CursoDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
                 var curso = new Curso();
-                populatFields(curso, rs);
+                populateFields(curso, rs);
                 cursos.add(curso);
             }
 

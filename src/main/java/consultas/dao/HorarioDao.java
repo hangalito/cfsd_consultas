@@ -3,6 +3,7 @@ package consultas.dao;
 import consultas.dbconexao.DBConecta;
 import consultas.modelo.Horario;
 import jakarta.ejb.Stateless;
+
 import java.lang.invoke.MethodHandles;
 import java.sql.Connection;
 
@@ -25,15 +26,18 @@ import java.util.logging.Logger;
 public class HorarioDao extends Dao<Horario, String> {
 
     private static final Logger LOG = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
+    private static final String FIND_ALL = "SELECT * FROM TblHorarios";
+    private static final String FIND_BY_ID = "SELECT * FROM TblHorarios";
+    private static final String FIND_BY_NAME = "";
 
     /**
      * Responsável por preencher os dados da entidade {@link Horario}
      * passado.
      *
      * @param horario A instância da entidade para preencher os campos.
-     * @param rs Instância de {@link ResultSet} de onde os dados serão obtidos.
+     * @param rs      Instância de {@link ResultSet} de onde os dados serão obtidos.
      * @throws SQLException No caso de algum error ocorrer durante a operação,
-     * propagar a exceção.
+     *                      propagar a exceção.
      */
     public static void populateFields(Horario horario, ResultSet rs) throws SQLException {
         horario.setCodigo(rs.getString("CodigoDoHorario"));
@@ -50,7 +54,7 @@ public class HorarioDao extends Dao<Horario, String> {
         LOG.info("Querying all time tables from the database");
         List<Horario> horarios = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
-            var rs = query(conn, "SELECT * FROM tblhorarios");
+            var rs = query(conn, FIND_ALL);
             while (rs.next()) {
                 var horario = new Horario();
                 populateFields(horario, rs);
@@ -74,7 +78,7 @@ public class HorarioDao extends Dao<Horario, String> {
     @Override
     public Optional<Horario> findById(String codigo) {
         try (Connection conn = DBConecta.getConexao()) {
-            ResultSet rs = query(conn, "SELECT * FROM tblhorarios WHERE CodigoDoHorario = ?", codigo);
+            ResultSet rs = query(conn, FIND_BY_ID, codigo);
             if (rs.next()) {
                 Horario horario = new Horario();
                 populateFields(horario, rs);
@@ -96,7 +100,7 @@ public class HorarioDao extends Dao<Horario, String> {
     public List<Horario> findByName(String nome) {
         List<Horario> horarios = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
-            ResultSet rs = query(conn, "SELECT * FROM tblhorarios WHERE NomeDoHorario = ?", nome);
+            ResultSet rs = query(conn, FIND_BY_NAME, nome);
             while (rs.next()) {
                 Horario horario = new Horario();
                 populateFields(horario, rs);

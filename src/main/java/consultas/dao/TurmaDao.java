@@ -27,15 +27,18 @@ import java.util.logging.Logger;
 public class TurmaDao extends Dao<Turma, String> implements Serializable {
 
     private static final Logger LOG = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
+    private static final String FIND_ALL = "SELECT * FROM TblTurmas";
+    private static final String FIND_BY_ID = "SELECT * FROM TblTurmas WHERE CodigoDaTurma = ?";
+    private static final String FIND_BY_NAME = "SELECT * FROM TblTurmas WHERE NomeDaTurma LIKE ?";
 
     /**
      * Preenche os campos do objeto passado com os dados da base de dados.
      *
      * @param turma Instância de {@link Turma} com os campos a serem
-     * preenchidos.
-     * @param rs Instância de {@link ResultSet} com os dados a serem obtidos.
+     *              preenchidos.
+     * @param rs    Instância de {@link ResultSet} com os dados a serem obtidos.
      * @throws SQLException No caso de algum erro durante a operação, propagar a
-     * exceção.
+     *                      exceção.
      */
     public static void populateFields(Turma turma, ResultSet rs) throws SQLException {
         turma.setCodigo(rs.getString("CodigoDaTurma"));
@@ -51,7 +54,7 @@ public class TurmaDao extends Dao<Turma, String> implements Serializable {
     public List<Turma> findAll() {
         List<Turma> turmas = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
-            var rs = query(conn, "SELECT * FROM tblturmas");
+            var rs = query(conn, FIND_ALL);
             while (rs.next()) {
                 var turma = new Turma();
                 populateFields(turma, rs);
@@ -73,7 +76,7 @@ public class TurmaDao extends Dao<Turma, String> implements Serializable {
     @Override
     public Optional<Turma> findById(String codigo) {
         try (Connection conn = DBConecta.getConexao()) {
-            var rs = query(conn, "SELECT * FROM tblturmas WHERE NomeDaTurma = ?", codigo);
+            var rs = query(conn, FIND_BY_ID, codigo);
             if (rs.next()) {
                 var turma = new Turma();
                 populateFields(turma, rs);
@@ -95,7 +98,7 @@ public class TurmaDao extends Dao<Turma, String> implements Serializable {
     public List<Turma> findByName(String name) {
         List<Turma> turmas = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
-            var rs = query(conn, "SELECT * FROM tblturmas WHERE NomeDaTurma = ?", name);
+            var rs = query(conn, FIND_BY_NAME, name);
             while (rs.next()) {
                 var turma = new Turma();
                 populateFields(turma, rs);
