@@ -6,4 +6,4 @@ target/**
 .idea/**
 .vscode
 .vscode/**
-*.sql
+
