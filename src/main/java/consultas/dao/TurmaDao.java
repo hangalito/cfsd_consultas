@@ -89,6 +89,11 @@ public class TurmaDao extends Dao<Turma, String> implements Serializable {
         return Optional.empty();
     }
 
+    @Override
+    public List<Turma> search(Object param) {
+        return List.of();
+    }
+
     /**
      * Lista todas as turmas da base de dados com o nome especificado.
      *

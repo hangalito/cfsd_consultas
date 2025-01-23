@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  * Mendonça</a>
  */
 @Stateless
-public class CursoDAO {
+public class CursoDao {
 
     private static final Logger LOG = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 

@@ -89,6 +89,11 @@ public class OperacaoDao extends Dao<Operacao, String> {
         return Optional.empty();
     }
 
+    @Override
+    public List<Operacao> search(Object param) {
+        return List.of();
+    }
+
     /**
      * Lista todas as operações na base de dados com a chave especificada.
      *

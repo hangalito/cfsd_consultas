@@ -92,6 +92,11 @@ public class FuncionarioDao extends Dao<Funcionario, Integer> {
         return Optional.empty();
     }
 
+    @Override
+    public List<Funcionario> search(Object param) {
+        return List.of();
+    }
+
     public List<Funcionario> findByName(String nome) {
         List<Funcionario> professores = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {

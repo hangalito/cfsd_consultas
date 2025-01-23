@@ -91,6 +91,11 @@ public class HorarioDao extends Dao<Horario, String> {
         return Optional.empty();
     }
 
+    @Override
+    public List<Horario> search(Object param) {
+        return List.of();
+    }
+
     /**
      * Lista os horários na base de dados com um nome especificado.
      *

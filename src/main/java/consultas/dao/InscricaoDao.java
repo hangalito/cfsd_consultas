@@ -91,4 +91,9 @@ public class InscricaoDao extends Dao<Inscricao, Integer> implements Serializabl
         }
         return Optional.empty();
     }
+
+    @Override
+    public List<Inscricao> search(Object param) {
+        return List.of();
+    }
 }
