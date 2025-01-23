@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+
+    <body>
+
+        <ui:composition template="./templete/templete.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+
+                    <h:panelGrid columns ="2" cellspacing="5%" styleClass="panelGridCenter">
+                        <h2>Procurar por nome:</h2>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" cellspacing="5%" width="50px" styleClass="panelGridCenter">
+                        <p:inputText id="nome" value="#{turmaBean.nome}" size="60"/>
+                        <p:commandButton value="Procurar" icon="pi pi-search" actionListener="#{turmaBean.buscarPorNome}" 
+                                         update="ft:tbTurmas"/>
+                    </h:panelGrid>
+                </h:form>
+
+                <h:form id="ft">
+
+                    <h2>Lista das Turmas</h2>
+                    <p:dataTable id="tbTurmas" value="#{turmaBean.turmasPesquisadas}" var="turma">
+
+                        <f:facet name="header">
+                            <h2>Lista das Turmas</h2>
+                        </f:facet>
+
+                        <p:column headerText="Código Turma">
+                            <h:outputText value="#{turma.codigo}"/>
+                        </p:column>
+
+                        <p:column headerText="Descrição Turma">
+                            <h:outputText value="#{turma.nome}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
