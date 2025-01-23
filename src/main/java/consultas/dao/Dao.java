@@ -34,7 +34,7 @@ abstract class Dao<T, ID> {
         }
         return ps.executeQuery();
     }
-
+    
     public abstract List<T> findAll();
 
     public abstract Optional<T> findById(ID id);

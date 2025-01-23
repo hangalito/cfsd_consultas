@@ -145,7 +145,7 @@ CREATE TABLE IF NOT EXISTS TblPagamentos (
 			ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS tblItemPagamentos (
+CREATE TABLE IF NOT EXISTS TblItemPagamentos (
     IDItemPagamento INT NOT NULL AUTO_INCREMENT,
     OperacaoPagamento VARCHAR(50),
     TurmaPagamento VARCHAR(50),
