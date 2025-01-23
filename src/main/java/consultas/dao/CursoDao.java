@@ -26,11 +26,11 @@ public class CursoDao extends Dao<Curso, String> {
     private static final Logger LOG = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
     private static final Comparator<Curso> COMPARATOR = Comparator.comparing(Curso::getName).thenComparing(Curso::getPreco);
 
-    private static final String LIST_ALL = "SELECT * FROM tblcursos";
-    private static final String LIST_BY_ID = "SELECT * FROM tblcursos WHERE CodigoDoCurso = ?";
-    private static final String LIST_BY_NAME = "SELECT * FROM tblcursos WHERE NomeDoCurso = ?";
+    private static final String LIST_ALL = "SELECT * FROM TblCursos";
+    private static final String LIST_BY_ID = "SELECT * FROM TblCursos WHERE CodigoDoCurso = ?";
+    private static final String LIST_BY_NAME = "SELECT * FROM TblCursos WHERE NomeDoCurso = ?";
     private static final String SEARCH_QUERY = """
-                                               SELECT * FROM tblcursos
+                                               SELECT * FROM TblCursos
                                                WHERE CodigoDoCurso LIKE ?
                                                OR NomeDoCurso LIKE ?
                                                OR PrecoUnitario LIKE ?

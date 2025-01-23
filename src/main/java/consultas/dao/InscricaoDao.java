@@ -26,21 +26,21 @@ public class InscricaoDao extends Dao<Inscricao, Integer> implements Serializabl
             .thenComparing(Inscricao::getAluno);
 
     private static final String LIST_ALL = """
-                    SELECT * FROM tblinscricoes i
-                    JOIN tblalunos a ON i.CodigoDoAluno = a.CodigoDoAluno
-                    JOIN tblfuncionarios f ON i.CodigoDoFuncionario = f.CodigoDoFuncionario
-                    JOIN tbldetalhesdainscricao d ON i.CodigoDaInscricao = d.CodigoDaInscricao
-                    JOIN tblfuncionarios p ON d.CodigoDoProfessor = p.CodigoDoFuncionario
+                    SELECT * FROM TblInscricoes i
+                    JOIN TblAlunos a ON i.CodigoDoAluno = a.CodigoDoAluno
+                    JOIN TblFuncionarios f ON i.CodigoDoFuncionario = f.CodigoDoFuncionario
+                    JOIN TblDetalhesdainscricao d ON i.CodigoDaInscricao = d.CodigoDaInscricao
+                    JOIN TblFuncionarios p ON d.CodigoDoProfessor = p.CodigoDoFuncionario
                     """;
     private static final String LIST_BY_ID = """
-                    SELECT * FROM tblinscricoes i
-                    JOIN tblalunos a ON i.CodigoDoAluno = a.CodigoDoAluno
-                    JOIN tblfuncionarios f ON i.CodigoDoFuncionario = f.CodigoDoFuncionario
-                    JOIN tbldetalhesdainscricao d ON i.CodigoDaInscricao = d.CodigoDaInscricao
-                    JOIN tblfuncionarios p ON d.CodigoDoProfessor = p.CodigoDoFuncionario
+                    SELECT * FROM TblInscricoes i
+                    JOIN TblAlunos a ON i.CodigoDoAluno = a.CodigoDoAluno
+                    JOIN TblFuncionarios f ON i.CodigoDoFuncionario = f.CodigoDoFuncionario
+                    JOIN TblDetalhesdainscricao d ON i.CodigoDaInscricao = d.CodigoDaInscricao
+                    JOIN TblFuncionarios p ON d.CodigoDoProfessor = p.CodigoDoFuncionario
                     WHERE i.CodigoDaInscricao = ?
                     """;
-    private static final String LIST_BY_DATA = "SELECT * FROM tblinscricoes WHERE DataDaInscricao = ?";
+    private static final String LIST_BY_DATA = "SELECT * FROM TblInscricoes WHERE DataDaInscricao = ?";
 
     public static void populateFields(Inscricao inscricao, ResultSet rs) throws SQLException {
         inscricao.setCodigo(rs.getInt("CodigoDaInscricao"));

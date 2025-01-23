@@ -31,10 +31,10 @@ public class TurmaDao extends Dao<Turma, String> implements Serializable {
     private static final Logger LOG = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
     private static final Comparator<Turma> COMPARATOR = Comparator.comparing(Turma::getNome);
 
-    private static final String LIST_ALL = "SELECT * FROM tblturmas";
-    private static final String LIST_BY_ID = "SELECT * FROM tblturmas";
-    private static final String LIST_BY_NAME = "SELECT * FROM tblturmas WHRRE NomeDaTurma = ?";
-    private static final String SEARCH_QUERY = "SELECT * FROM tblturmas WHERE CodigoDaTurma LIKE ? OR NomeDaTurma LIKE ?";
+    private static final String LIST_ALL = "SELECT * FROM TblTurmas";
+    private static final String LIST_BY_ID = "SELECT * FROM TblTurmas";
+    private static final String LIST_BY_NAME = "SELECT * FROM TblTurmas WHRRE NomeDaTurma = ?";
+    private static final String SEARCH_QUERY = "SELECT * FROM TblTurmas WHERE CodigoDaTurma LIKE ? OR NomeDaTurma LIKE ?";
 
     /**
      * Preenche os campos do objeto passado com os dados da base de dados.
@@ -101,7 +101,6 @@ public class TurmaDao extends Dao<Turma, String> implements Serializable {
      * @return Lista das turmas com o nome especificado.
      */
     public List<Turma> findByName(String name) {
-        LOG.info("save a primera daí foi: " + name);
         List<Turma> turmas = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
             ResultSet rs = query(conn, LIST_BY_NAME, name);

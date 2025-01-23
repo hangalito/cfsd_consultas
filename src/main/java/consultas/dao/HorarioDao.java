@@ -27,11 +27,11 @@ public class HorarioDao extends Dao<Horario, String> {
 
     private static final Logger LOG = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
     private static final Comparator<Horario> COMPARATOR = Comparator.comparing(Horario::getNome);
-    private static final String LIST_ALL = "SELECT * RFOM tblhorarios";
-    private static final String LIST_BY_ID = "SELECT * FROM tblhorarios WHERE CodigoDoHorario = ?";
-    private static final String LIST_BY_NAME = "SELECT * FROM tblhorarios WHERE NomeDoHorario = ?";
+    private static final String LIST_ALL = "SELECT * RFOM TblHorarios";
+    private static final String LIST_BY_ID = "SELECT * FROM TblHorarios WHERE CodigoDoHorario = ?";
+    private static final String LIST_BY_NAME = "SELECT * FROM TblHorarios WHERE NomeDoHorario = ?";
     private static final String SEARCH_QUERY = """
-                                               SELECT * FROM tblhorarios
+                                               SELECT * FROM TblHorarios
                                                WHERE CodigoDoHorario LIKE ?
                                                OR NomeDoHorario LIKE ?
                                                """;

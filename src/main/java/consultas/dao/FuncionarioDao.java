@@ -55,7 +55,7 @@ public class FuncionarioDao extends Dao<Funcionario, Integer> {
     public List<Funcionario> findAll() {
         List<Funcionario> professores = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
-            var rs = query(conn, "SELECT * FROM tblfuncionarios");
+            var rs = query(conn, "SELECT * FROM TblFuncionarios");
             while (rs.next()) {
                 var professor = new Funcionario();
                 populateFields(professor, rs);
@@ -79,7 +79,7 @@ public class FuncionarioDao extends Dao<Funcionario, Integer> {
     @Override
     public Optional<Funcionario> findById(Integer codigo) {
         try (Connection conn = DBConecta.getConexao()) {
-            var rs = query(conn, "SELECT * FROM tblfuncionarios WHERE CodigoDoProfessor = ?", codigo);
+            var rs = query(conn, "SELECT * FROM TblFuncionarios WHERE CodigoDoProfessor = ?", codigo);
             if (rs.next()) {
                 var professor = new Funcionario();
                 populateFields(professor, rs);
@@ -95,7 +95,7 @@ public class FuncionarioDao extends Dao<Funcionario, Integer> {
     public List<Funcionario> findByName(String nome) {
         List<Funcionario> professores = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
-            var rs = query(conn, "SELECT * FROM tblfuncionarios WHERE NomeDoProfessor = ?", nome);
+            var rs = query(conn, "SELECT * FROM TblFuncionarios WHERE NomeDoProfessor = ?", nome);
             while (rs.next()) {
                 var professor = new Funcionario();
                 populateFields(professor, rs);
@@ -115,7 +115,7 @@ public class FuncionarioDao extends Dao<Funcionario, Integer> {
         try (Connection conn = DBConecta.getConexao()) {
             String formatted = "%" + query + "%";
             String sql = """
-                         SELECT * FROM tblfuncionarios
+                         SELECT * FROM TblFuncionarios
                          WHERE CodigoDoFuncionario LIKE ?
                          OR NomeDoFuncionario LIKE ?
                          OR DataDeAdmissao LIKE ?

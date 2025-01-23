@@ -1,4 +1,4 @@
-INSERT INTO `bd_inscricoes`.`tblalunos`
+INSERT INTO `bd_inscricoes`.`TblAlunos`
 (`CodigoDoAluno`, `NomeDoAluno`, `TelefoneDoAluno`,
 `MoradaDoAluno`, `LocalDeNascimentoDoAluno`, `NacionalidadeDoAluno`,
 `HabilitacoesLiterariasDoAluno`, `SexoDoAluno`, `OutrosdadosdoAluno`)
@@ -33,7 +33,7 @@ VALUES (1, 'Bartolomeu Hangalo', '+244-945-515-954',
        'Lubango, Huíla', 'Lubango', 'Angolana',
        'Licensiado no curso de Engenharia Informática', 'Masculino', NULL);
 
-INSERT INTO `bd_inscricoes`.`tblcursos`
+INSERT INTO `bd_inscricoes`.`TblCursos`
 (`CodigoDoCurso`, `NomeDoCurso`, `PrecoUnitario`)
 VALUES ('JAVA101', 'Fundamentos de Java', 50000),
 	   ('PWRBI', 'Análise de Dados com Power BI', 40000),
@@ -49,7 +49,7 @@ VALUES ('JAVA101', 'Fundamentos de Java', 50000),
        ('ENGUPPR', 'Inglês - Upper Intermediate', 20000),
        ('ENGADV', 'Inglês - Lower Advanced', 25000);
 
-INSERT INTO `bd_inscricoes`.`tblfuncionarios`
+INSERT INTO `bd_inscricoes`.`TblFuncionarios`
 (`CodigoDoFuncionario`, `NomeDoFuncionario`,
 `DataDeNascimento`, `DataDeAdmissao`)
 VALUES (1, 'Maria Alce Grilo', '2006-05-02', '2022-03-21'),
@@ -58,7 +58,7 @@ VALUES (1, 'Maria Alce Grilo', '2006-05-02', '2022-03-21'),
        (4, 'Walter Nascimento', '2005-02-28', '2021-09-21'),
        (5, 'Anatóvia de Almeida', '2004-11-21', '2023-05-30');
 
-INSERT INTO `bd_inscricoes`.`tblhorarios`
+INSERT INTO `bd_inscricoes`.`TblHorarios`
 (`CodigoDoHorario`, `NomeDoHorario`)
 VALUES ('07h-08h', '07h-08h'),
 	   ('07h:30-09h:30', '07h:30-09h:30'),
@@ -74,7 +74,7 @@ VALUES ('07h-08h', '07h-08h'),
        ('16h:30-18h', '16h:30-18h'),
        ('18h-20h', '18h-20h');
 
-INSERT INTO `bd_inscricoes`.`tbloperacoes`
+INSERT INTO `bd_inscricoes`.`TblOperacoes`
 (`ChaveDaOperacao`, `CodigoDaOperacao`, `NomeDaOperacao`)
 VALUES (1, 'PYMNT', 'Pagamento'),
 	   (2, 'INSC', 'Inscrição'),

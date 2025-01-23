@@ -28,12 +28,12 @@ public class OperacaoDao extends Dao<Operacao, String> {
 
     private static final Logger LOG = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
     private static final Comparator<Operacao> COMPARATOR = Comparator.comparing(Operacao::getNome);
-    private static final String LIST_ALL = "SELECT * FROM tbloperacoes";
-    private static final String LIST_BY_ID = "SELECT * FROM tbloperacoes WHERE CodigoDaOperacao = ?";
-    private static final String LIST_BY_KEY = "SELECT * FROM tbloperacoes WHERE ChaveDaOperacao = ?";
-    private static final String LIST_BY_NAME = "SELECT * FROM tbloperacoes WHERE NomeDaOperacao = ?";
+    private static final String LIST_ALL = "SELECT * FROM TblOperacoes";
+    private static final String LIST_BY_ID = "SELECT * FROM TblOperacoes WHERE CodigoDaOperacao = ?";
+    private static final String LIST_BY_KEY = "SELECT * FROM TblOperacoes WHERE ChaveDaOperacao = ?";
+    private static final String LIST_BY_NAME = "SELECT * FROM TblOperacoes WHERE NomeDaOperacao = ?";
     private static final String SEARCH_QUERY = """
-                                               SELECT * FROM tbloperacoes
+                                               SELECT * FROM TblOperacoes
                                                WHERE CodigoDaOperacao LIKE ?
                                                OR ChaveDaOperacao LIKE ?
                                                OR NomeDaOperacao LIKE ?
