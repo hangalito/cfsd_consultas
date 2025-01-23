@@ -35,10 +35,10 @@ public class TurmaDao extends Dao<Turma, String> implements Serializable {
      * Preenche os campos do objeto passado com os dados da base de dados.
      *
      * @param turma Instância de {@link Turma} com os campos a serem
-     *              preenchidos.
-     * @param rs    Instância de {@link ResultSet} com os dados a serem obtidos.
+     * preenchidos.
+     * @param rs Instância de {@link ResultSet} com os dados a serem obtidos.
      * @throws SQLException No caso de algum erro durante a operação, propagar a
-     *                      exceção.
+     * exceção.
      */
     public static void populateFields(Turma turma, ResultSet rs) throws SQLException {
         turma.setCodigo(rs.getString("CodigoDaTurma"));
@@ -98,7 +98,7 @@ public class TurmaDao extends Dao<Turma, String> implements Serializable {
     public List<Turma> findByName(String name) {
         List<Turma> turmas = new ArrayList<>();
         try (Connection conn = DBConecta.getConexao()) {
-            var rs = query(conn, FIND_BY_NAME, name);
+            var rs = query(conn, FIND_BY_NAME, "%" + name + "%");
             while (rs.next()) {
                 var turma = new Turma();
                 populateFields(turma, rs);

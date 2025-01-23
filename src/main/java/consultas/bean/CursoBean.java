@@ -12,33 +12,30 @@ import java.util.List;
 
 /**
  *
- * @author <a href="mailto:claudiomendonca.operclaudio01@gmail.com">Cláudio Mendonça</a>
- * CDI responsável pela conexão da classe lógica a classe de visão
- * Aqui são definidos os métodos que serão carregados nas páginas
+ * @author <a href="mailto:claudiomendonca.operclaudio01@gmail.com">Cláudio
+ * Mendonça</a>
+ * CDI responsável pela conexão da classe lógica a classe de visão Aqui são
+ * definidos os métodos que serão carregados nas páginas
  */
-
 @Named(value = "cursoBean")
 @RequestScoped
 public class CursoBean implements Serializable {
 
-
-
     private List<Curso> cursosPesquisados;
     @Inject
-    private CursoDAO cursoDAO ;
+    private CursoDAO cursoDAO;
     private String nome;
     private Curso curso = new Curso();
     private List<Curso> cursos;
 
-
     @PostConstruct
-    public void init(){
+    public void init() {
         cursos = cursoDAO.selectAll();
 
     }
-    public String buscarPorNome(){
-            cursosPesquisados = cursoDAO.selectByName(nome);
-            return null;
+
+    public void buscarPorNome() {
+        cursosPesquisados = cursoDAO.selectByName(nome);
     }
 
     public List<Curso> getCursosPesquisados() {

@@ -16,7 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * @author <a href="mailto:caludiomendonca.operclaudio01@gmail.com">Cláudio Mendonça</a>
+ * @author <a href="mailto:caludiomendonca.operclaudio01@gmail.com">Cláudio
+ * Mendonça</a>
  */
 @Stateless
 public class CursoDAO {
@@ -80,7 +81,7 @@ public class CursoDAO {
         try {
             con = DBConecta.getConexao();
             ps = con.prepareStatement(LIST_BY_NAME);
-            ps.setString(1, name);
+            ps.setString(1, "%" + name + "%");
             rs = ps.executeQuery();
             while (rs.next()) {
                 var curso = new Curso();

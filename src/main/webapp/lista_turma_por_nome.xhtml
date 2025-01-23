@@ -18,11 +18,12 @@
                     </h:panelGrid>
                     <h:panelGrid columns="2" cellspacing="5%" width="50px" styleClass="panelGridCenter">
                         <p:inputText id="nome" value="#{turmaBean.nome}" size="60"/>
-                        <p:commandButton value="Procurar" icon="pi pi-search" action="#{turmaBean.buscarPorNome()}" ajax="false"/>
+                        <p:commandButton value="Procurar" icon="pi pi-search" actionListener="#{turmaBean.buscarPorNome}" 
+                                         update="ft:tbTurmas"/>
                     </h:panelGrid>
                 </h:form>
 
-                <h:form>
+                <h:form id="ft">
 
                     <h2>Lista das Turmas</h2>
                     <p:dataTable id="tbTurmas" value="#{turmaBean.turmasPesquisadas}" var="turma">

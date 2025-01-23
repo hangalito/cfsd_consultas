@@ -1,45 +1,45 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-       xmlns:ui="jakarta.faces.facelets"
-       xmlns:p="http://primefaces.org/ui"
-       xmlns:h="jakarta.faces.html"
-       xmlns:f="jakarta.faces.core">
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
 
-    <body>
+<body>
 
-        <ui:composition template="./templete/templete.xhtml">
-            <ui:define name="top">
-                
-            </ui:define>
-            
-            <ui:define name="content">
-                <h:form>
+<ui:composition template="./templete/templete.xhtml">
+    <ui:define name="top">
 
-                    <h:panelGrid columns ="2" cellspacing="5%" styleClass="panelGridCenter">
-                        <h2>Procurar por nome:</h2>
-                    </h:panelGrid>
-                    <h:panelGrid columns="2" cellspacing="5%" width="50px" styleClass="panelGridCenter">
-                        <p:inputText id="nome" value="#{cursoBean.nome}" size="60"/>
-                        <p:commandButton value="Procurar" icon="pi pi-search" action="#{cursoBean.buscarPorNome()}" ajax="false"/>
-                </h:panelGrid>
-            </h:form>
-                
-                <h:form>
-                    
-               
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+
+            <h:panelGrid columns="2" cellspacing="5%" styleClass="panelGridCenter">
+                <h2>Procurar por nome:</h2>
+            </h:panelGrid>
+            <h:panelGrid columns="2" cellspacing="5%" width="50px" styleClass="panelGridCenter">
+                <p:inputText id="nome" value="#{cursoBean.nome}" size="60"/>
+                <p:commandButton value="Procurar" icon="pi pi-search" actionListener="#{cursoBean.buscarPorNome}"
+                                 update="ft:tbCursos"/>
+            </h:panelGrid>
+        </h:form>
+
+        <h:form id="ft">
             <h2>Lista dos Cursos</h2>
 
             <p:dataTable id="tbCursos" value="#{cursoBean.cursosPesquisados}" var="curso">
-                
+
                 <f:facet name="header">
                     <h2>Lista dos Cursos</h2>
                 </f:facet>
-                
+
                 <p:column headerText="Código Curso">
                     <h:outputText value="#{curso.codigo}"/>
                 </p:column>
-                
+
                 <p:column headerText="Descrição Curso">
                     <h:outputText value="#{curso.name}"/>
                 </p:column>
@@ -49,9 +49,9 @@
                 </p:column>
 
             </p:dataTable>
-             </h:form>
-        </ui:define>
-    </ui:composition>
+        </h:form>
+    </ui:define>
+</ui:composition>
 
-    </body>
+</body>
 </html>
