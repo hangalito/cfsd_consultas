@@ -10,9 +10,9 @@
 
         <ui:composition template="./templete/templete.xhtml">
             <ui:define name="top">
-               
+
             </ui:define>
-            
+
             <ui:define name="content">
                 <h2>Todos os Cursos</h2>
 
@@ -26,7 +26,9 @@
                     </p:column>
 
                     <p:column headerText="Preço Unitário" sortBy="#{curso.preco}">
-                        <h:outputText value="#{curso.preco}"/>
+                        <h:outputText value="#{curso.preco}">
+                            <f:convertNumber type="currency" locale="pt_AO"/>
+                        </h:outputText>
                     </p:column>
 
                 </p:dataTable>

@@ -45,7 +45,9 @@
                 </p:column>
 
                 <p:column headerText="Preço Unitário">
-                    <h:outputText value="#{curso.preco}"/>
+                    <h:outputText value="#{curso.preco}">
+                        <f:convertNumber type="currency" locale="pt_AO"/>
+                    </h:outputText>
                 </p:column>
 
             </p:dataTable>
