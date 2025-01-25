@@ -3,6 +3,8 @@ package consultas.modelo;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -12,16 +14,13 @@ import java.util.Objects;
  */
 public class Inscricao implements Serializable {
     @Serial
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private Integer codigo;
     private LocalDate data;
     private Aluno aluno;
     private Funcionario funcionario;
-    private Curso curso;
-    private Turma turma;
-    private Horario horario;
-    private Funcionario professor;
+    private List<DetalhesDaInscricao> detalhes;
 
     public Inscricao() {
     }
@@ -58,61 +57,46 @@ public class Inscricao implements Serializable {
         this.funcionario = funcionario;
     }
 
-    public Curso getCurso() {
-        return curso;
+    public List<DetalhesDaInscricao> getDetalhes() {
+        return detalhes;
     }
 
-    public void setCurso(Curso curso) {
-        this.curso = curso;
-    }
-
-    public Turma getTurma() {
-        return turma;
-    }
-
-    public void setTurma(Turma turma) {
-        this.turma = turma;
-    }
-
-    public Horario getHorario() {
-        return horario;
-    }
-
-    public void setHorario(Horario horario) {
-        this.horario = horario;
-    }
-
-    public Funcionario getProfessor() {
-        return professor;
-    }
-
-    public void setProfessor(Funcionario professor) {
-        this.professor = professor;
+    public void setDetalhes(List<DetalhesDaInscricao> detalhes) {
+        this.detalhes = detalhes;
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (object == null || getClass() != object.getClass()) return false;
-        Inscricao inscricao = (Inscricao) object;
-        return Objects.equals(codigo, inscricao.codigo) && Objects.equals(data, inscricao.data) && Objects.equals(aluno, inscricao.aluno) && Objects.equals(funcionario, inscricao.funcionario) && Objects.equals(curso, inscricao.curso) && Objects.equals(turma, inscricao.turma) && Objects.equals(horario, inscricao.horario) && Objects.equals(professor, inscricao.professor);
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Inscricao inscricao = (Inscricao) o;
+        return Objects.equals(codigo, inscricao.codigo) && Objects.equals(data, inscricao.data) && Objects.equals(aluno, inscricao.aluno) && Objects.equals(funcionario, inscricao.funcionario) && Objects.equals(detalhes, inscricao.detalhes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codigo, data, aluno, funcionario, curso, turma, horario, professor);
+        return Objects.hash(codigo, data, aluno, funcionario, detalhes);
     }
 
     @Override
     public String toString() {
-        return "Inscrição{" +
-                "código=" + codigo +
+        return "Inscricao{" +
+                "codigo=" + codigo +
                 ", data=" + data +
                 ", aluno=" + aluno +
-                ", funcionário=" + funcionario +
-                ", curso=" + curso +
-                ", turma=" + turma +
-                ", horário=" + horario +
-                ", professor=" + professor +
+                ", funcionario=" + funcionario +
                 '}';
+    }
+
+    public void addDetail(DetalhesDaInscricao detalhesDaInscricao) {
+        if (detalhes == null) {
+            detalhes = new ArrayList<>();
+        }
+        detalhes.add(detalhesDaInscricao);
+    }
+
+    public void removeDetail(DetalhesDaInscricao detalhesDaInscricao) {
+        if (detalhes != null) {
+            detalhes.remove(detalhesDaInscricao);
+        }
     }
 }

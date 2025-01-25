@@ -1,6 +1,6 @@
 package consultas.dao;
 
-import consultas.dbconexao.DBConecta;
+import consultas.dbconexao.DatabaseConnection;
 import consultas.modelo.Funcionario;
 import jakarta.ejb.Stateless;
 
@@ -24,9 +24,9 @@ import java.util.logging.Logger;
 @Stateless
 public class FuncionarioDao extends Dao<Funcionario, Integer> {
 
-    private static final String SQL_FIND_ALL = "SELECT * FROM TblProfessores";
-    private static final String SQL_FIND_BY_ID = "SELECT * FROM TblProfessores WHERE CodigoDoProfessor = ?";
-    private static final String SQL_FIND_BY_NAME = "SELECT * FROM TblProfessores WHERE NomeDoProfessor = ?";
+    private static final String SQL_FIND_ALL = "SELECT * FROM TblFuncionarios";
+    private static final String SQL_FIND_BY_ID = "SELECT * FROM TblFuncionarios WHERE CodigoDoFuncionario = ?";
+    private static final String SQL_FIND_BY_NAME = "SELECT * FROM TblFuncionarios WHERE NomeDoFuncionario = ?";
 
     private static final Logger LOG = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
@@ -55,7 +55,7 @@ public class FuncionarioDao extends Dao<Funcionario, Integer> {
     @Override
     public List<Funcionario> findAll() {
         List<Funcionario> professores = new ArrayList<>();
-        try (Connection conn = DBConecta.getConexao()) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
             var rs = query(conn, SQL_FIND_ALL);
             while (rs.next()) {
                 var professor = new Funcionario();
@@ -78,7 +78,7 @@ public class FuncionarioDao extends Dao<Funcionario, Integer> {
      */
     @Override
     public Optional<Funcionario> findById(Integer codigo) {
-        try (Connection conn = DBConecta.getConexao()) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
             var rs = query(conn, SQL_FIND_BY_ID, codigo);
             if (rs.next()) {
                 var professor = new Funcionario();
@@ -99,7 +99,7 @@ public class FuncionarioDao extends Dao<Funcionario, Integer> {
 
     public List<Funcionario> findByName(String nome) {
         List<Funcionario> professores = new ArrayList<>();
-        try (Connection conn = DBConecta.getConexao()) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
             var rs = query(conn, SQL_FIND_BY_NAME, nome);
             while (rs.next()) {
                 var professor = new Funcionario();

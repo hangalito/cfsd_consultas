@@ -1,12 +1,11 @@
 package consultas.dao;
 
-import consultas.dbconexao.DBConecta;
+import consultas.dbconexao.DatabaseConnection;
 import consultas.modelo.Horario;
 import jakarta.ejb.Stateless;
 
 import java.lang.invoke.MethodHandles;
 import java.sql.Connection;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ public class HorarioDao extends Dao<Horario, String> {
 
     private static final Logger LOG = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
     private static final String FIND_ALL = "SELECT * FROM TblHorarios";
-    private static final String FIND_BY_ID = "SELECT * FROM TblHorarios";
+    private static final String FIND_BY_ID = "SELECT * FROM TblHorarios WHERE CodigoDoHorario = ?";
     private static final String FIND_BY_NAME = "";
 
     /**
@@ -53,7 +52,7 @@ public class HorarioDao extends Dao<Horario, String> {
     public List<Horario> findAll() {
         LOG.info("Querying all time tables from the database");
         List<Horario> horarios = new ArrayList<>();
-        try (Connection conn = DBConecta.getConexao()) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
             var rs = query(conn, FIND_ALL);
             while (rs.next()) {
                 var horario = new Horario();
@@ -77,7 +76,7 @@ public class HorarioDao extends Dao<Horario, String> {
      */
     @Override
     public Optional<Horario> findById(String codigo) {
-        try (Connection conn = DBConecta.getConexao()) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
             ResultSet rs = query(conn, FIND_BY_ID, codigo);
             if (rs.next()) {
                 Horario horario = new Horario();
@@ -104,7 +103,7 @@ public class HorarioDao extends Dao<Horario, String> {
      */
     public List<Horario> findByName(String nome) {
         List<Horario> horarios = new ArrayList<>();
-        try (Connection conn = DBConecta.getConexao()) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
             ResultSet rs = query(conn, FIND_BY_NAME, nome);
             while (rs.next()) {
                 Horario horario = new Horario();

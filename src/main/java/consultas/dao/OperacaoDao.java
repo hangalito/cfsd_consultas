@@ -1,6 +1,7 @@
 package consultas.dao;
 
 import consultas.dbconexao.DBConecta;
+import consultas.dbconexao.DatabaseConnection;
 import consultas.modelo.Operacao;
 import jakarta.ejb.Stateless;
 
@@ -53,7 +54,7 @@ public class OperacaoDao extends Dao<Operacao, String> {
     @Override
     public List<Operacao> findAll() {
         List<Operacao> operacoes = new ArrayList<>();
-        try (Connection conn = DBConecta.getConexao()) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
             var rs = query(conn, FIND_ALL);
             while (rs.next()) {
                 var operacao = new Operacao();
@@ -75,7 +76,7 @@ public class OperacaoDao extends Dao<Operacao, String> {
      */
     @Override
     public Optional<Operacao> findById(String codigo) {
-        try (Connection conn = DBConecta.getConexao()) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
             var rs = query(conn, FIND_BY_ID);
             if (rs.next()) {
                 var operacao = new Operacao();
@@ -102,7 +103,7 @@ public class OperacaoDao extends Dao<Operacao, String> {
      */
     public List<Operacao> findByChave(Integer chave) {
         List<Operacao> operacoes = new ArrayList<>();
-        try (Connection conn = DBConecta.getConexao()) {
+        try (Connection conn =DatabaseConnection.getConnection()) {
             var rs = query(conn, FIND_BY_CHAVE, chave);
             while (rs.next()) {
                 var operacao = new Operacao();

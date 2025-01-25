@@ -32,7 +32,7 @@ public class DBConecta {
             }
         } catch (SQLException | ClassNotFoundException ex) {
             String msg = ex.getLocalizedMessage();
-            LOG.log(Level.SEVERE, ex, ()->"Erro de conexão: " + msg);
+            LOG.log(Level.SEVERE, ex, () -> "Erro de conexão: " + msg);
         }
         return conexao;
     }
@@ -45,7 +45,7 @@ public class DBConecta {
             }
         } catch (SQLException ex) {
             String msg = ex.getLocalizedMessage();
-            LOG.log(Level.SEVERE, ex, ()->"Erro de conexão: " + msg);
+            LOG.log(Level.SEVERE, ex, () -> "Erro de conexão: " + msg);
         }
     }
 

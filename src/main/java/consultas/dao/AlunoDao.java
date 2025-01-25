@@ -1,6 +1,6 @@
 package consultas.dao;
 
-import consultas.dbconexao.DBConecta;
+import consultas.dbconexao.DatabaseConnection;
 import consultas.modelo.Aluno;
 import jakarta.ejb.Stateless;
 
@@ -45,7 +45,7 @@ public class AlunoDao extends Dao<Aluno, Integer> implements Serializable {
     @Override
     public List<Aluno> findAll() {
         List<Aluno> alunos = new ArrayList<>();
-        try (Connection conn = DBConecta.getConexao()) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
             ResultSet rs = query(conn, SQL_FIND_ALL);
             while (rs.next()) {
                 Aluno aluno = new Aluno();
@@ -61,7 +61,7 @@ public class AlunoDao extends Dao<Aluno, Integer> implements Serializable {
 
     @Override
     public Optional<Aluno> findById(Integer codigo) {
-        try (Connection conn = DBConecta.getConexao()) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
             ResultSet rs = query(conn, SQL_FIND_BY_ID, codigo);
             if (rs.next()) {
                 Aluno aluno = new Aluno();
@@ -77,7 +77,7 @@ public class AlunoDao extends Dao<Aluno, Integer> implements Serializable {
 
     public List<Aluno> findByName(String name) {
         List<Aluno> alunos = new ArrayList<>();
-        try (Connection conn = DBConecta.getConexao()) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
             String param = "%" + name + "%";
             ResultSet rs = query(conn, SQL_FIND_BY_NAME, param);
             while (rs.next()) {
@@ -95,7 +95,7 @@ public class AlunoDao extends Dao<Aluno, Integer> implements Serializable {
     @Override
     public List<Aluno> search(Object param) {
         List<Aluno> alunos = new ArrayList<>();
-        try (Connection conn = DBConecta.getConexao()) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
             String format = "%" + param + "%";
             ResultSet rs = query(conn, SQL_SEARCH, format, format, format);
             while (rs.next()) {

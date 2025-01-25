@@ -1,6 +1,7 @@
 package consultas.dao;
 
 import consultas.dbconexao.DBConecta;
+import consultas.dbconexao.DatabaseConnection;
 import consultas.modelo.Curso;
 import jakarta.ejb.Stateless;
 
@@ -58,14 +59,15 @@ public class CursoDao {
         return cursos;
     }
 
-    public Optional<Curso> selectById(Integer codigo) {
+    public Optional<Curso> selectById(String codigo) {
         try {
-            con = DBConecta.getConexao();
+            con = DatabaseConnection.getConnection();
             ps = con.prepareStatement(LIST_BY_ID);
-            ps.setInt(1, codigo);
+            ps.setString(1, codigo);
             rs = ps.executeQuery();
             if (rs.next()) {
                 Curso curso = new Curso();
+                populateFields(curso, rs);
                 return Optional.of(curso);
             }
         } catch (SQLException ex) {
@@ -79,7 +81,7 @@ public class CursoDao {
     public List<Curso> selectByName(String name) {
         List<Curso> cursos = new ArrayList<>();
         try {
-            con = DBConecta.getConexao();
+            con = DatabaseConnection.getConnection();
             ps = con.prepareStatement(LIST_BY_NAME);
             ps.setString(1, "%" + name + "%");
             rs = ps.executeQuery();

@@ -4,11 +4,9 @@ import java.util.Objects;
 
 
 /**
- * 
  * @author <a href="mailto:claudiomendonca.operclaudio01@gmail.com">Cláudio Mendonça</a>
- * 
+ * <p>
  * Classe responsável por mapear a tabela Cursos
- * 
  */
 public class Curso {
 
@@ -70,4 +68,12 @@ public class Curso {
         return Objects.equals(this.preco, other.preco);
     }
 
+    @Override
+    public String toString() {
+        return "Curso{" +
+                "codigo='" + codigo + '\'' +
+                ", name='" + name + '\'' +
+                ", preco=" + preco +
+                '}';
+    }
 }
