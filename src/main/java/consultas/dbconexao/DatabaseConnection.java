@@ -5,6 +5,7 @@ import com.mysql.cj.jdbc.Driver;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DatabaseConnection {
@@ -17,7 +18,7 @@ public class DatabaseConnection {
         try {
             Class.forName(Driver.class.getName());
         } catch (ClassNotFoundException e) {
-            LOG.severe("Class not found: " + e.getMessage());
+            LOG.log(Level.SEVERE, "Class not found: {0}", e.getMessage());
         }
         return DriverManager.getConnection(URL, USER, PASS);
     }

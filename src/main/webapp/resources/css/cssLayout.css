@@ -4,14 +4,14 @@
     background-color: #045491;
     color: white;
     padding: 40px;
-    margin: 50px 0px 10px 0px;
+    margin: 0 0 10px 0;
 }
 
 #bottom {
     position: relative;
     background-color: #c2dfef;
     padding: 30px;
-    margin: 100px 0px 0px 0px;
+    margin: 0;
 }
 
 #right {
@@ -52,3 +52,7 @@
 }
 
 
+.center {
+    display: grid;
+    place-items: center;
+}

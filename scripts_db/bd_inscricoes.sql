@@ -394,6 +394,39 @@ LOCK TABLES `TblTurmas` WRITE;
 INSERT INTO `TblTurmas` VALUES ('BD','Base de Dados (10/11/2020)'),('BI101','Análise de Dados com Power BI'),('HARDWARE','Hardware (03/11/2020)'),('INFOR','Informática  (03/11/2020)'),('REDES','Redes (03/11/2020)'),('WEB101','Desenvolvimento Web 2024');
 /*!40000 ALTER TABLE `TblTurmas` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary view structure for view `view_inscricoes`
+--
+
+DROP TABLE IF EXISTS `view_inscricoes`;
+/*!50001 DROP VIEW IF EXISTS `view_inscricoes`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `view_inscricoes` AS SELECT 
+ 1 AS `Código da Inscrição`,
+ 1 AS `Data da Inscrição`,
+ 1 AS `Nome do Aluno`,
+ 1 AS `Nome do Funcionário`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Final view structure for view `view_inscricoes`
+--
+
+/*!50001 DROP VIEW IF EXISTS `view_inscricoes`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `view_inscricoes` AS select `i`.`CodigoDaInscricao` AS `Código da Inscrição`,`i`.`DataDaInscricao` AS `Data da Inscrição`,`a`.`NomeDoAluno` AS `Nome do Aluno`,`f`.`NomeDoFuncionario` AS `Nome do Funcionário` from ((`TblInscricoes` `i` join `TblAlunos` `a` on((`a`.`CodigoDoAluno` = `i`.`CodigoDoAluno`))) join `TblFuncionarios` `f` on((`i`.`CodigoDoFuncionario` = `f`.`CodigoDoFuncionario`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -404,4 +437,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-23 18:25:47
+-- Dump completed on 2025-01-25 16:03:00

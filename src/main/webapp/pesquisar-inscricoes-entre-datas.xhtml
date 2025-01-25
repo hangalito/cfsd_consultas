@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+
+    <body>
+
+        <ui:composition template="./templete/templete.xhtml">
+
+            <ui:define name="content">
+                <h:form id="search">
+                    <p:toolbar>
+                        <p:toolbarGroup>
+                            <p:datePicker id="start" placeholder="Início" value="#{inscricaoBean.start}" label="Data inicial"/>
+                            <p:datePicker id="end" placeholder="Fim" value="#{inscricaoBean.end}" label="Data final"/>
+                            <p:commandButton value="Pesquisar" icon="pi pi-search" ajax="true"
+                                             actionListener="#{inscricaoBean.search}" update="result:dt-insc"/> 
+                        </p:toolbarGroup>
+                    </p:toolbar>
+                </h:form>
+
+                <h:form id="result">
+                    <p:dataTable id="dt-insc" widgetVar="dtInsc" value="#{inscricaoBean.inscricoes}" var="insc"
+                                 rowKey="#{insc.codigo}" paginator="true" paginatorAlwaysVisible="false" rows="5"
+                                 selectionMode="single" selectionTextDisabled="false" selection="#{inscricaoBean.inscricao}"
+                                 lazy="true" emptyMessage="Nenhum registro encontrado para o intervalo selecionado">
+                        <!-- TODO: alterar o número de linhas por tabela -->
+                        <p:column selectionBox="true" width="12"/>
+
+                        <p:ajax event="rowSelect" listener="${inscricaoBean.select(insc)}"/>
+
+                        <p:column headerText="Código">
+                            <h:outputText value="#{insc.codigo}"/>
+                        </p:column>
+                        <p:column headerText="Data">
+                            <h:outputText value="#{insc.data}">
+                                <f:convertDateTime type="localDate" locale="pt_AO" pattern="dd 'de' MMM 'de' YYYY"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Aluno">
+                            <h:outputText value="#{insc.aluno.nome}"/>
+                        </p:column>
+                        <p:column headerText="Funcionário">
+                            <h:outputText value="#{insc.funcionario.nome}"/>
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:contextMenu for="dt-insc">
+                        <p:menuitem value="Ver detalhes" icon="pi pi-th-large" action="#{inscricaoBean.select}"/>
+                    </p:contextMenu>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
