@@ -12,16 +12,12 @@ public class InscricaoDaoTest extends TestCase {
         var subscriptions = dao.findBetweenDates(start, end);
         boolean isBound = true;
 
-	if (!subscriptions.isEmpty()) {
-            for (consultas.modelo.Inscricao subscription : subscriptions) {
-                if (subscription.getData().isBefore(start) || subscription.getData().isAfter(end)) {
-                    isBound = false;
-                    break;
-                }
+        for (consultas.modelo.Inscricao subscription : subscriptions) {
+            if (subscription.getData().isBefore(start) || subscription.getData().isAfter(end)) {
+                isBound = false;
+                break;
             }
-            assertTrue(isBound);
-	} else {
-	    assertFalse(true);
-	}
+        }
+        assertTrue(isBound);
     }
 }
