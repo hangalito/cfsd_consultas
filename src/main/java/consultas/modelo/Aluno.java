@@ -1,6 +1,7 @@
 package consultas.modelo;
 
 import consultas.dao.InscricaoDao;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
@@ -29,6 +30,7 @@ public class Aluno implements Serializable, Comparable<Aluno> {
     private String outrosDados;
 
     private List<Inscricao> inscricoes;
+    private List<Turma> turmas;
 
     public Aluno() {
     }
@@ -121,6 +123,14 @@ public class Aluno implements Serializable, Comparable<Aluno> {
         this.inscricoes = inscricoes;
     }
 
+    public List<Turma> getTurmas() {
+        return turmas;
+    }
+
+    public void setTurmas(List<Turma> turmas) {
+        this.turmas = turmas;
+    }
+
     @Override
     public boolean equals(Object object) {
         if (object == null || getClass() != object.getClass()) {
@@ -157,5 +167,10 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 
     public void fetchSubscriptions() {
         setInscricoes(new InscricaoDao().findByStudent(this));
+        for (var inscricao : inscricoes) {
+            setTurmas(inscricao.getDetalhes().stream()
+                    .map(DetalhesDaInscricao::getTurma)
+                    .collect(Collectors.toList()));
+        }
     }
 }

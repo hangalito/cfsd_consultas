@@ -12,7 +12,7 @@ public class DatabaseConnection {
     private static final Logger LOG = Logger.getLogger(DatabaseConnection.class.getName());
     private static final String USER = "root";
     private static final String PASS = "root";
-    private static final String URL = "jdbc:mysql://localhost:3306/bd_inscricoes?useSSL=false&serverTimezone=UTC";
+    private static final String URL = "jdbc:mysql://localhost:3306/bd_inscricoes?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
 
     public static Connection getConnection() throws SQLException {
         try {

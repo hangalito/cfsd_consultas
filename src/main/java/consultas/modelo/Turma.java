@@ -1,7 +1,11 @@
 package consultas.modelo;
 
+import consultas.dao.TurmaDao;
+
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -16,7 +20,13 @@ public class Turma implements Serializable {
     private String codigo;
     private String nome;
 
+    private List<Aluno> alunos;
+
     public Turma() {
+    }
+
+    public Turma(String codigo) {
+        this.codigo = codigo;
     }
 
     public Turma(String codigo, String nome) {
@@ -64,5 +74,34 @@ public class Turma implements Serializable {
                 "codigo='" + codigo + '\'' +
                 ", nome='" + nome + '\'' +
                 '}';
+    }
+
+    public List<Aluno> getAlunos() {
+        return alunos;
+    }
+
+    public void setAlunos(List<Aluno> alunos) {
+        this.alunos = alunos;
+    }
+
+    public void addStudent(Aluno aluno) {
+        if (alunos == null) {
+            alunos = new ArrayList<>();
+        }
+        alunos.add(aluno);
+    }
+
+    public void removeStudent(Aluno aluno) {
+        if (alunos != null) {
+            alunos.remove(aluno);
+        }
+    }
+
+    public Aluno getAluno(int index) {
+        return alunos == null ? null : alunos.get(index);
+    }
+
+    public void fetchStudents() {
+        new TurmaDao().setAlunos(this);
     }
 }

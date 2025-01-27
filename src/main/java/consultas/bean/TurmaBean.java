@@ -2,28 +2,34 @@ package consultas.bean;
 
 import consultas.dao.TurmaDao;
 import consultas.modelo.Turma;
+import static consultas.util.LoggingUtil.debug;
 import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
-import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
 import org.primefaces.PrimeFaces;
 
 @Named(value = "turmaBean")
-@ViewScoped
+@SessionScoped
 public class TurmaBean implements Serializable {
 
     private List<Turma> turmasPesquisadas;
     @Inject
     private TurmaDao dao;
     private String name;
-    private Turma turma = new Turma();
+    private Turma turma;
     private List<Turma> turmas;
 
     @PostConstruct
     public void inicializar() {
         turmas = dao.findAll();
+    }
+
+    public void loadStudents() {
+        assert turma == null : "Selected class point to null value";
+        turma.fetchStudents();
     }
 
     public List<Turma> getTurmasPesquisadas() {
@@ -62,6 +68,7 @@ public class TurmaBean implements Serializable {
 
     public void setTurma(Turma turma) {
         this.turma = turma;
+        debug("Classe set: {0}", this.turma);
     }
 
     public List<Turma> getTurmas() {

@@ -3,28 +3,35 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="jakarta.faces.facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:h="jakarta.faces.html">
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
 
     <body>
 
         <ui:composition template="./templete/templete.xhtml">
-
-            <ui:define name="top">
-                
-            </ui:define>
-            
             <ui:define name="content">
-                <h2>Listas das Turmas</h2>
 
-                <p:dataTable value="#{turmaBean.turmas}" var="turma">
-                    <p:column headerText="Código" sortBy="#{turma.codigo}">
-                        <h:outputText value="#{turma.codigo}"/>
-                    </p:column>
+                <h:form>
+                    <h2>Listas das Turmas</h2>
 
-                    <p:column headerText="Descrição Turma" sortBy="#{turma.nome}">
-                        <h:outputText value="#{turma.nome}"/>
-                    </p:column>
-                </p:dataTable>
+                    <p:dataTable id="dt-turmas" widgetVar="dtTurmas" value="#{turmaBean.turmas}" var="turma"
+                                 rowKey="#{turma.codigo}" selectionMode="single">
+                        <p:column headerText="Código" sortBy="#{turma.codigo}">
+                            <h:outputText value="#{turma.codigo}"/>
+                        </p:column>
+
+                        <p:column headerText="Descrição Turma" sortBy="#{turma.nome}">
+                            <h:outputText value="#{turma.nome}"/>
+                        </p:column>
+                        <p:column width="15%">
+                            <p:commandButton value="Ver detalhes" icon="pi pi-id-card" action="detalhes-da-turma.faces"
+                                             class="ui-button-raised ui-button-flat">
+                                <f:setPropertyActionListener value="#{turma}" target="#{turmaBean.turma}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+
+                </h:form>
             </ui:define>
         </ui:composition>
 
