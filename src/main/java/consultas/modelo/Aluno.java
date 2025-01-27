@@ -1,8 +1,11 @@
 package consultas.modelo;
 
+import consultas.dao.InscricaoDao;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Classe responsável por mapear a tabela {@code `tblalunos`}.
@@ -13,7 +16,7 @@ import java.util.Objects;
 public class Aluno implements Serializable, Comparable<Aluno> {
 
     @Serial
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private Integer codigo;
     private String nome;
@@ -25,7 +28,13 @@ public class Aluno implements Serializable, Comparable<Aluno> {
     private String sexo;
     private String outrosDados;
 
+    private List<Inscricao> inscricoes;
+
     public Aluno() {
+    }
+
+    public Aluno(Integer codigo) {
+        this.codigo = codigo;
     }
 
     public Aluno(String nome) {
@@ -104,6 +113,14 @@ public class Aluno implements Serializable, Comparable<Aluno> {
         this.outrosDados = outrosDados;
     }
 
+    public List<Inscricao> getInscricoes() {
+        return inscricoes;
+    }
+
+    public void setInscricoes(List<Inscricao> inscricoes) {
+        this.inscricoes = inscricoes;
+    }
+
     @Override
     public boolean equals(Object object) {
         if (object == null || getClass() != object.getClass()) {
@@ -136,5 +153,9 @@ public class Aluno implements Serializable, Comparable<Aluno> {
     @Override
     public int compareTo(Aluno other) {
         return this.nome.compareTo(other.nome);
+    }
+
+    public void fetchSubscriptions() {
+        setInscricoes(new InscricaoDao().findByStudent(this));
     }
 }

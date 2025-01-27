@@ -1,20 +1,22 @@
 package consultas.dao;
 
 import consultas.dbconexao.DatabaseConnection;
+import consultas.modelo.Aluno;
 import consultas.modelo.Inscricao;
 import jakarta.ejb.Stateless;
 
 import java.io.Serializable;
-import java.lang.invoke.MethodHandles;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
-import java.util.logging.Logger;
+
+import static consultas.util.LoggingUtil.severe;
 
 @Stateless
 public class InscricaoDao implements Serializable {
-    private static final Logger LOG = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
+    private static final Comparator<Inscricao> COMPARATOR = Comparator.comparing(Inscricao::getData);
 
     private static void populateFields(Inscricao inscricao, ResultSet rs) throws SQLException {
         inscricao.setCodigo(rs.getInt("CodigoDaInscricao"));
@@ -23,6 +25,7 @@ public class InscricaoDao implements Serializable {
                 .ifPresent(inscricao::setAluno);
         new FuncionarioDao().findById(rs.getInt("CodigoDoFuncionario"))
                 .ifPresent(inscricao::setFuncionario);
+        inscricao.setDetalhes(new DetalhesDaInscricaoDao().findByInsc(inscricao));
     }
 
     public List<Inscricao> findAll() {
@@ -39,7 +42,7 @@ public class InscricaoDao implements Serializable {
             }
         } catch (SQLException ex) {
             String msg = ex.getLocalizedMessage();
-            LOG.severe("Erro ao obter todas as inscrições: " + msg);
+            severe(ex, "Erro ao obter todas as inscrições: " + msg);
         }
         return inscricoes;
     }
@@ -60,8 +63,30 @@ public class InscricaoDao implements Serializable {
             }
         } catch (SQLException ex) {
             String msg = ex.getLocalizedMessage();
-            LOG.severe("Erro ao obter inscrições entre datas: " + msg);
+            severe(ex, "Erro ao obter inscrições entre datas: " + msg);
         }
+        inscricoes.sort(COMPARATOR);
+        return inscricoes;
+    }
+
+    public List<Inscricao> findByStudent(Aluno aluno) {
+        List<Inscricao> inscricoes = new ArrayList<>();
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM TblInscricoes WHERE  CodigoDoAluno = ?")) {
+                ps.setInt(1, aluno.getCodigo());
+                try (ResultSet rs = ps.executeQuery()) {
+                    while (rs.next()) {
+                        Inscricao inscricao = new Inscricao();
+                        populateFields(inscricao, rs);
+                        inscricoes.add(inscricao);
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            String msg = ex.getLocalizedMessage();
+            severe(ex, "Erro ao obter inscrições por aluno: " + msg);
+        }
+        inscricoes.sort(COMPARATOR);
         return inscricoes;
     }
 }

@@ -6,13 +6,16 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Classe responsável por mapear a tabela {@code `tblinscricoes`}
  *
- * @author <a href="mailto:bartolomeujose.manilson@gmail.com">Bartolomeu Hangalo</a>
+ * @author <a href="mailto:bartolomeujose.manilson@gmail.com">Bartolomeu
+ * Hangalo</a>
  */
 public class Inscricao implements Serializable {
+
     @Serial
     private static final long serialVersionUID = 2L;
 
@@ -67,7 +70,9 @@ public class Inscricao implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Inscricao inscricao = (Inscricao) o;
         return Objects.equals(codigo, inscricao.codigo) && Objects.equals(data, inscricao.data) && Objects.equals(aluno, inscricao.aluno) && Objects.equals(funcionario, inscricao.funcionario) && Objects.equals(detalhes, inscricao.detalhes);
     }
@@ -79,12 +84,12 @@ public class Inscricao implements Serializable {
 
     @Override
     public String toString() {
-        return "Inscricao{" +
-                "codigo=" + codigo +
-                ", data=" + data +
-                ", aluno=" + aluno +
-                ", funcionario=" + funcionario +
-                '}';
+        return "Inscricao{"
+                + "codigo=" + codigo
+                + ", data=" + data
+                + ", aluno=" + aluno
+                + ", funcionario=" + funcionario
+                + '}';
     }
 
     public void addDetail(DetalhesDaInscricao detalhesDaInscricao) {
@@ -98,5 +103,21 @@ public class Inscricao implements Serializable {
         if (detalhes != null) {
             detalhes.remove(detalhesDaInscricao);
         }
+    }
+
+    public String getCoursesAsString() {
+        return detalhes == null ? "" : detalhes.stream()
+                .map(detail -> detail.getCurso().getName())
+                .collect(Collectors.joining(", "));
+    }
+
+    public double getTotalPago() {
+        double total = detalhes.stream()
+                .map(DetalhesDaInscricao::getValorPago)
+                .collect(Collectors.summingDouble(Double::doubleValue));
+        total += detalhes.stream()
+                .map(DetalhesDaInscricao::getValorPago2)
+                .collect(Collectors.summingDouble(Double::doubleValue));
+        return total;
     }
 }

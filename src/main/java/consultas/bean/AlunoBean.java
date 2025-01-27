@@ -1,19 +1,19 @@
 package consultas.bean;
 
+import consultas.dao.AlunoDao;
+import consultas.modelo.Aluno;
 import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import org.primefaces.PrimeFaces;
 
 import java.io.Serializable;
 import java.util.List;
-
-import consultas.dao.AlunoDao;
-import consultas.modelo.Aluno;
-import jakarta.faces.view.ViewScoped;
-import org.primefaces.PrimeFaces;
+import java.util.stream.Collectors;
 
 @Named(value = "alunoBean")
-@ViewScoped
+@SessionScoped
 public class AlunoBean implements Serializable {
 
     @Inject
@@ -21,6 +21,7 @@ public class AlunoBean implements Serializable {
     private List<Aluno> alunos;
     private List<Aluno> alunosPesquisados;
     private String nome;
+    private Aluno alunoSelecionado;
 
     @PostConstruct
     public void init() {
@@ -28,9 +29,24 @@ public class AlunoBean implements Serializable {
     }
 
     public void pesquisarPorNome() {
-        var searchedStudents = alunoDao.search(nome);
-        alunosPesquisados = searchedStudents;
+        alunosPesquisados = alunoDao.search(nome);
         PrimeFaces.current().ajax().update("tables-form:dt-alunos");
+    }
+
+    public void load() {
+        assert alunoSelecionado != null;
+        alunoSelecionado.fetchSubscriptions();
+    }
+
+    public String findCourse() {
+        String courses = "";
+        for (var inscricao : alunoSelecionado.getInscricoes()) {
+            courses = inscricao.getDetalhes()
+                    .stream()
+                    .map(detail -> detail.getCurso().getName())
+                    .collect(Collectors.joining(", "));
+        }
+        return courses;
     }
 
     public List<Aluno> getAlunos() {
@@ -57,4 +73,11 @@ public class AlunoBean implements Serializable {
         this.alunosPesquisados = alunosPesquisados;
     }
 
+    public Aluno getAlunoSelecionado() {
+        return alunoSelecionado;
+    }
+
+    public void setAlunoSelecionado(Aluno alunoSelecionado) {
+        this.alunoSelecionado = alunoSelecionado;
+    }
 }

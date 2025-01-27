@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="jakarta.faces.facelets"
       xmlns:p="http://primefaces.org/ui"
@@ -10,7 +11,7 @@
         <ui:composition template="./templete/templete.xhtml">
 
             <ui:define name="content">
-                
+
                 <h:form>
                     <p:dataTable id="tbAurmas" value="#{alunoBean.alunos}" var="aluno">
 
@@ -25,35 +26,56 @@
                         <p:column headerText="Nome">
                             <h:outputText value="#{aluno.nome}"/>
                         </p:column>
-                        
+
                         <p:column headerText="Sexo">
                             <h:outputText value="#{aluno.sexo}"/>
                         </p:column>
-                        
+
                         <p:column headerText="Morada">
                             <h:outputText value="#{aluno.morada}"/>
                         </p:column>
-                        
+
                         <p:column headerText="Local Nascimento">
                             <h:outputText value="#{aluno.localDeNascimento}"/>
                         </p:column>
-                        
+
                         <p:column headerText="Nacionalidade">
                             <h:outputText value="#{aluno.nacionalidade}"/>
                         </p:column>
-                        
+
                         <p:column headerText="Telefone">
                             <h:outputText value="#{aluno.telefone}"/>
                         </p:column>
-                        
+
                         <p:column headerText="Habilitções Literárias">
                             <h:outputText value="#{aluno.habilitacoesLiterarias}"/>
                         </p:column>
-                        
+
                         <p:column headerText="Outros Dados">
                             <h:outputText value="#{aluno.outrosDados}"/>
                         </p:column>
+
+                        <p:column>
+                            <p:commandButton value="Histórico estudantil" icon="pi pi-history"
+                                             class="ui-button-raised ui-button-flat" action="detalhes-do-aluno.faces">
+                                <f:setPropertyActionListener value="#{aluno}" target="#{alunoBean.alunoSelecionado}"/>
+                            </p:commandButton>
+                        </p:column>
                     </p:dataTable>
+                </h:form>
+
+                <h:form id="dialogs">
+                    <p:dialog id="his" widgetVar="hist" header="Histórico estudantil" cache="false" maximizable="true">
+                        <p:outputPanel>
+                            <p:dataTable id="dh" value="#{alunoBean.alunoSelecionado.inscricoes}" var="inscricao" lazy="true">
+                                <p:column headerText="Data">
+                                    <h:outputText value="#{inscricao.data}">
+                                        <f:convertDateTime type="localDate" pattern="dd 'de' MMM 'de' YYYY"/>
+                                    </h:outputText>
+                                </p:column>
+                            </p:dataTable>
+                        </p:outputPanel>
+                    </p:dialog>
                 </h:form>
             </ui:define>
 

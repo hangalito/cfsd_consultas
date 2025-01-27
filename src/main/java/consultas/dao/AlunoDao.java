@@ -17,9 +17,7 @@ import java.util.logging.Logger;
 
 @Stateless
 public class AlunoDao extends Dao<Aluno, Integer> implements Serializable {
-
     private static final Logger LOG = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
-
     private static final String SQL_FIND_ALL = "SELECT * FROM TblAlunos";
     private static final String SQL_FIND_BY_ID = "SELECT * FROM TblAlunos WHERE CodigoDoAluno = ?";
     private static final String SQL_FIND_BY_NAME = "SELECT * FROM TblAlunos WHERE NomeDoAluno LIKE ?";
@@ -29,7 +27,6 @@ public class AlunoDao extends Dao<Aluno, Integer> implements Serializable {
             OR NomeDoAluno LIKE ?
             OR TelefoneDoAluno LIKE  ?
             """;
-
 
     public static void populateFields(Aluno aluno, ResultSet rs) throws SQLException {
         aluno.setCodigo(rs.getInt("CodigoDoAluno"));
