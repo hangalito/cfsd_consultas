@@ -1,85 +1,86 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:ui="jakarta.faces.facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="jakarta.faces.html"
       xmlns:f="jakarta.faces.core">
 
-<h:head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <h:outputStylesheet library="css" name="default.css"/>
-    <h:outputStylesheet library="css" name="cssLayout.css"/>
-    <title>Central de Consultas CFSD</title>
-</h:head>
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <h:outputStylesheet library="css" name="default.css"/>
+        <h:outputStylesheet library="css" name="cssLayout.css"/>
+        <title>Central de Consultas CFSD</title>
+    </h:head>
 
-<h:body>
+    <h:body>
 
-    <div id="top">
-        <ui:insert name="top"></ui:insert>
-        <center>
-            <b>
-                <font><h1>CENTRAL DE CONSULTAS - CFSD</h1></font>
-            </b>
-        </center>
-        <div class="card">
-            <h:form>
-                <p:growl id="messages"/>
-                <center>
-                    <p:menubar hideDelay="1000">
-                        <f:facet name="start">
-                            <h:commandLink action="/index.xhtml">
-                                <p:graphicImage name="logo.jpg" library="imagens">
-                                </p:graphicImage>
-                            </h:commandLink>
-                        </f:facet>
-                        <p:submenu label="Alunos" icon="pi pi-users">
-                            <p:submenu label="Listagens">
+        <div id="top">
+            <ui:insert name="top"></ui:insert>
+            <center>
+                <b>
+                    <font><h1>CENTRAL DE CONSULTAS - CFSD</h1></font>
+                </b>
+            </center>
+            <div class="card">
+                <h:form id="top">
+                    <p:growl id="messages" showDetail="true" showSummary="true" skipDetailIfEqualsSummary="true"/>
+                    <center>
+                        <p:menubar hideDelay="1000">
+                            <f:facet name="start">
+                                <h:commandLink action="/index.xhtml">
+                                    <p:graphicImage name="logo.jpg" library="imagens">
+                                    </p:graphicImage>
+                                </h:commandLink>
+                            </f:facet>
+                            <p:submenu label="Alunos" icon="pi pi-users">
                                 <p:menuitem value="Todos" icon="pi pi-list" outcome="lista_todos_alunos.xhtml"/>
-                                <p:menuitem value="Por Nome" outcome="lista_por_nome.xhtml"/>
-                            </p:submenu>
-                        </p:submenu>
-
-                        <p:submenu label="Professores" icon="pi pi-user">
-                            <p:submenu label="Listagens">
-                                <p:menuitem value="Todos" icon="pi pi-list" outcome=""/>
-                                <p:menuitem value="Por Nome" outcome=""/>
+                                <p:submenu label="Listagens">
+                                    <p:menuitem value="Por Nome" outcome="lista_por_nome.xhtml"/>
+                                    <p:menuitem value="Por Turma" outcome="lista-alunos-por-turma"/>
+                                </p:submenu>
                             </p:submenu>
 
-                        </p:submenu>
-                        <p:submenu label="Cursos" icon="pi pi-book">
-                            <p:submenu label="Listagens">
-                                <p:menuitem value="Todos" icon="pi pi-list" outcome="lista_todos_cursos.xhtml"/>
-                                <p:menuitem value="Por Nome" outcome="lista_curso_por_nome.xhtml"/>
+                            <p:submenu label="Professores" icon="pi pi-user">
+                                <p:submenu label="Listagens">
+                                    <p:menuitem value="Todos" icon="pi pi-list" outcome=""/>
+                                    <p:menuitem value="Por Nome" outcome=""/>
+                                </p:submenu>
+
                             </p:submenu>
-                        </p:submenu>
-                        <p:submenu label="Turmas" icon="pi pi-home">
-                            <p:submenu label="Listagens">
+                            <p:submenu label="Cursos" icon="pi pi-book">
+                                <p:submenu label="Listagens">
+                                    <p:menuitem value="Todos" icon="pi pi-list" outcome="lista_todos_cursos.xhtml"/>
+                                    <p:menuitem value="Por Nome" outcome="lista_curso_por_nome.xhtml"/>
+                                </p:submenu>
+                            </p:submenu>
+                            <p:submenu label="Turmas" icon="pi pi-home">
                                 <p:menuitem value="Todos" icon="pi pi-list" outcome="lista_todas_turmas.xhtml"/>
-                                <p:menuitem value="Por Nome" outcome="lista_turma_por_nome.xhtml"/>
+                                <p:submenu label="Consultas">
+                                    <p:menuitem value="Por Nome" outcome="lista_turma_por_nome.xhtml"/>
+                                </p:submenu>
                             </p:submenu>
-                        </p:submenu>
-                        <p:submenu label="Inscrições" icon="pi pi-desktop">
-                            <p:menuitem value="Consulta entre datas" outcome="pesquisar-inscricoes-entre-datas"
-                                        icon="pi pi-calendar"/>
-                        </p:submenu>
+                            <p:submenu label="Inscrições" icon="pi pi-desktop">
+                                <p:menuitem value="Consulta entre datas" outcome="pesquisar-inscricoes-entre-datas"
+                                            icon="pi pi-calendar"/>
+                            </p:submenu>
 
-                    </p:menubar>
-                </center>
-            </h:form>
+                        </p:menubar>
+                    </center>
+                </h:form>
+            </div>
         </div>
-    </div>
-    <div>
-        <div id="content" class="left_content">
-            <ui:insert name="content">Content</ui:insert>
+        <div>
+            <div id="content" class="left_content">
+                <ui:insert name="content">Content</ui:insert>
+            </div>
         </div>
-    </div>
-    <div id="bottom">
-        <ui:insert name="bottom">
-            <h:outputText value="Centro de Formação São Domingos - O Seu Futuro Passa por Aqui" styleClass="center"/>
-        </ui:insert>
-    </div>
+        <div id="bottom">
+            <ui:insert name="bottom">
+                <h:outputText value="Centro de Formação São Domingos - O Seu Futuro Passa por Aqui" styleClass="center"/>
+            </ui:insert>
+        </div>
 
-</h:body>
+    </h:body>
 
 </html>

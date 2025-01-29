@@ -21,6 +21,7 @@ public class Turma implements Serializable {
     private String nome;
 
     private List<Aluno> alunos;
+    private Funcionario formador;
 
     public Turma() {
     }
@@ -103,5 +104,17 @@ public class Turma implements Serializable {
 
     public void fetchStudents() {
         new TurmaDao().setAlunos(this);
+    }
+
+    public Funcionario getFormador() {
+        return formador;
+    }
+
+    public void setFormador(Funcionario formador) {
+        this.formador = formador;
+    }
+
+    public void fetchTeacher() {
+        new TurmaDao().setTeacher(this);
     }
 }

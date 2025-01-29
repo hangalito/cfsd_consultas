@@ -38,10 +38,10 @@ public class TurmaDao extends Dao<Turma, String> implements Serializable {
      * Preenche os campos do objeto passado com os dados da base de dados.
      *
      * @param turma Instância de {@link Turma} com os campos a serem
-     * preenchidos.
-     * @param rs Instância de {@link ResultSet} com os dados a serem obtidos.
+     *              preenchidos.
+     * @param rs    Instância de {@link ResultSet} com os dados a serem obtidos.
      * @throws SQLException No caso de algum erro durante a operação, propagar a
-     * exceção.
+     *                      exceção.
      */
     public static void populateFields(Turma turma, ResultSet rs) throws SQLException {
         turma.setCodigo(rs.getString("CodigoDaTurma"));
@@ -158,6 +158,27 @@ public class TurmaDao extends Dao<Turma, String> implements Serializable {
             }
         } catch (SQLException ex) {
             String msg = "Erro ao obter os alunos da turma: " + ex.getLocalizedMessage();
+            severe(ex, msg);
+        }
+    }
+
+    public void setTeacher(Turma turma) {
+        final String SQL = """
+                select f.CodigoDoFuncionario
+                from TblTurmas t
+                join bd_inscricoes.TblDetalhesDaInscricao di on t.CodigoDaTurma = di.CodigoDaTurma
+                join bd_inscricoes.TblFuncionarios f on f.CodigoDoFuncionario = di.CodigoDoProfessor
+                where t.CodigoDaTurma = ?
+                """;
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            try (ResultSet rs = query(conn, SQL, turma.getCodigo())) {
+                if (rs.next()) {
+                    new FuncionarioDao().findById(rs.getInt("CodigoDoFuncionario"))
+                            .ifPresent(turma::setFormador);
+                }
+            }
+        } catch (SQLException ex) {
+            String msg = "Erro ao obter os dados do funcionário para a turma " + turma.getNome() + ": " + ex.getLocalizedMessage();
             severe(ex, msg);
         }
     }

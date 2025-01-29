@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                template="./templete/templete.xhtml">
+
+    <ui:define name="content">
+        <p:toolbar>
+            <p:toolbarGroup>
+                <h:form id="search">
+                    <p:inputText value="#{infoTurmaBean.codigo}" id="codigo" maxlength="60" placeholder="Digite o nome da turma"/>
+                    <p:tooltip value="Digite o código da turma para ver os detalhes" for="codigo"/>
+                    <p:commandButton value="Pesquisar" icon="pi pi-search" class="ui-button-raised ui-button-flat"
+                                     actionListener="#{infoTurmaBean.search}" update="result:dt-alunos"/>
+                </h:form>
+
+                <h:form id="result">
+                    <p:fieldset legend="Informações básicas">
+                        <p:panelGrid columns="2" id="basic-details">
+                            <p:outputLabel value="Código" for="code"/>
+                            <h:outputText value="#{infoTurmaBean.turma.codigo}" id="code"/>
+                            <p:outputLabel value="Nome" for="name"/>
+                            <h:outputText value="#{infoTurmaBean.turma.nome}" id="name"/>
+                            <p:outputLabel value="Formador" for="formador"/>
+                            <h:outputText value="#{infoTurmaBean.turma.formador.nome}" id="formador"/>
+                        </p:panelGrid>
+                    </p:fieldset>
+                    <p:fieldset legend="Alunos">
+                        <p:dataTable id="dt-alunos" widgetVar="dtAlunos" value="#{infoTurmaBean.turma.alunos}"
+                                     var="aluno" lazy="true"
+                                     rowKey="#{aluno.codigo}" selectionMode="single"
+                                     emptyMessage="Nenhum aluno encontrado para esta turma">
+                            <p:column headerText="Código">
+                                <h:outputText value="#{aluno.codigo}"/>
+                            </p:column>
+                            <p:column headerText="Nome">
+                                <h:outputText value="#{aluno.nome}"/>
+                            </p:column>
+                            <p:column headerText="Telefone">
+                                <h:outputText value="#{aluno.telefone}"/>
+                            </p:column>
+                            <p:column width="15%">
+                                <p:commandButton value="Ver detalhes" icon="pi pi-id-card"
+                                                 class="ui-button-raised ui-button-flat"
+                                                 action="detalhes-do-aluno.faces">
+                                    <f:setPropertyActionListener target="#{alunoBean.alunoSelecionado}"
+                                                                 value="#{aluno}"/>
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </p:fieldset>
+                </h:form>
+            </p:toolbarGroup>
+        </p:toolbar>
+    </ui:define>
+
+</ui:composition>

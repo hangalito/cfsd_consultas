@@ -71,4 +71,13 @@ class TurmaDaoTest {
                 Se os dados na base de dados foram alterados, actualize o teste ou modifique-o para que não fique demasiado dependente da BD.
                 """);
     }
+
+    @Test
+    void setTeacherTest() {
+        var code = "INFOR";
+        var turma = new Turma(code);
+        turma.fetchTeacher();
+        assertNotNull(turma.getFormador());
+        assertEquals(6, turma.getFormador().getCodigo());
+    }
 }
