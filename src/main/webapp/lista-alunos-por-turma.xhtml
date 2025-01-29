@@ -12,10 +12,11 @@
         <p:toolbar>
             <p:toolbarGroup>
                 <h:form id="search">
-                    <p:inputText value="#{infoTurmaBean.codigo}" id="codigo" maxlength="60" placeholder="Digite o nome da turma"/>
-                    <p:tooltip value="Digite o código da turma para ver os detalhes" for="codigo"/>
-                    <p:commandButton value="Pesquisar" icon="pi pi-search" class="ui-button-raised ui-button-flat"
-                                     actionListener="#{infoTurmaBean.search}" update="result:dt-alunos"/>
+                    <h:panelGrid cellpadding="4px" columns="2">
+                        <p:inputText value="#{infoTurmaBean.codigo}" id="codigo" size="30" placeholder="Digite o código da turma"/>
+                        <p:commandButton value="Pesquisar" icon="pi pi-search" class="ui-button-raised ui-button-flat"
+                                         actionListener="#{infoTurmaBean.search}" update="result:dt-alunos"/>
+                    </h:panelGrid>
                 </h:form>
 
                 <h:form id="result">
@@ -30,10 +31,10 @@
                         </p:panelGrid>
                     </p:fieldset>
                     <p:fieldset legend="Alunos">
-                        <p:dataTable id="dt-alunos" widgetVar="dtAlunos" value="#{infoTurmaBean.turma.alunos}"
-                                     var="aluno" lazy="true"
-                                     rowKey="#{aluno.codigo}" selectionMode="single"
-                                     emptyMessage="Nenhum aluno encontrado para esta turma">
+                        <p:dataTable id="dt-alunos" widgetVar="dtAlunos" value="#{infoTurmaBean.turma.alunos}" var="aluno"
+                                     lazy="true" rowKey="#{aluno.codigo}" selectionMode="single" selection="#{alunoBean.alunoSelecionado}" 
+                                     emptyMessage="Nenhum aluno encontrado para esta turma" paginator="true" paginatorAlwaysVisible="false"
+                                     rows="25" rowsPerPageTemplate="10, 15, 25, 30">
                             <p:column headerText="Código">
                                 <h:outputText value="#{aluno.codigo}"/>
                             </p:column>
@@ -44,14 +45,16 @@
                                 <h:outputText value="#{aluno.telefone}"/>
                             </p:column>
                             <p:column width="15%">
-                                <p:commandButton value="Ver detalhes" icon="pi pi-id-card"
-                                                 class="ui-button-raised ui-button-flat"
-                                                 action="detalhes-do-aluno.faces">
-                                    <f:setPropertyActionListener target="#{alunoBean.alunoSelecionado}"
-                                                                 value="#{aluno}"/>
+                                <p:commandButton value="Detalhes" icon="pi pi-id-card"
+                                                 class="ui-button-raised ui-button-flat" action="detalhes-do-aluno.faces">
+                                    <f:setPropertyActionListener value="#{aluno}" target="#{alunoBean.alunoSelecionado}"/>
                                 </p:commandButton>
                             </p:column>
                         </p:dataTable>
+
+                        <p:contextMenu for="dt-alunos">
+                            <p:menuitem value="Detalhes" icon="pi pi-id-card" outcome="detalhes-do-aluno"/>
+                        </p:contextMenu>
                     </p:fieldset>
                 </h:form>
             </p:toolbarGroup>

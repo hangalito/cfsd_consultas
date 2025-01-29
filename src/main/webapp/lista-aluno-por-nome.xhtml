@@ -10,18 +10,23 @@
     <body>
         <ui:composition template="./templete/templete.xhtml">
             <ui:define name="content">
-                <h:form>
-                    <h:panelGrid columns="2" cellspacing="5%" styleClass="panelGridCenter">
-                    </h:panelGrid>
-                    <h:panelGrid columns="2" cellspacing="5%" width="50px" styleClass="panelGridCenter">
-                        <p:inputText id="nome" value="#{alunoBean.nome}" size="30"/>
-                        <p:commandButton value="Pesquisar" icon="pi pi-search" action="#{alunoBean.pesquisarPorNome}"
-                                         update="ft:tbTurmas"/>
-                    </h:panelGrid>
-                </h:form>
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <h:form>
+                            <h:panelGrid columns="2" cellpadding="4px" width="50px">
+                                <p:inputText id="nome" value="#{alunoBean.nome}" size="30" placeholder="Código, Nome, Telefone"/>
+                                <p:commandButton value="Pesquisar" icon="pi pi-search" action="#{alunoBean.pesquisarPorNome}"
+                                                 update="ft:tbTurmas"/>
+                            </h:panelGrid>
+                        </h:form>
+                    </p:toolbarGroup>
+                </p:toolbar>
 
                 <h:form id="ft">
-                    <p:dataTable id="tbTurmas" value="#{alunoBean.alunosPesquisados}" var="aluno">
+                    <p:dataTable id="tbTurmas" value="#{alunoBean.alunosPesquisados}" var="aluno"
+                                 lazy="true" rowKey="#{aluno.codigo}" selectionMode="single" selection="#{alunoBean.alunoSelecionado}" 
+                                 emptyMessage="Nenhum aluno encontrado para esta turma" paginator="true" paginatorAlwaysVisible="false"
+                                 rows="25" rowsPerPageTemplate="10, 15, 25, 30">
 
                         <f:facet name="header">
                             <h2>Lista das Turmas</h2>

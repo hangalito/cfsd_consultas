@@ -13,7 +13,10 @@
             <ui:define name="content">
 
                 <h:form>
-                    <p:dataTable id="tbAurmas" value="#{alunoBean.alunos}" var="aluno">
+                    <p:dataTable id="tbAurmas" value="#{alunoBean.alunos}" var="aluno"
+                                 lazy="true" rowKey="#{aluno.codigo}" selectionMode="single" selection="#{alunoBean.alunoSelecionado}" 
+                                 emptyMessage="Nenhum aluno encontrado para esta turma" paginator="true" paginatorAlwaysVisible="false"
+                                 rows="25" rowsPerPageTemplate="10, 15, 25, 30">
 
                         <f:facet name="header">
                             <h2>Lista dos Alunos</h2>
