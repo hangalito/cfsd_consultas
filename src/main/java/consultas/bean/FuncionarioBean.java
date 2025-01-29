@@ -3,6 +3,8 @@ package consultas.bean;
 import consultas.dao.FuncionarioDao;
 import consultas.modelo.Funcionario;
 import jakarta.annotation.PostConstruct;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
@@ -28,7 +30,13 @@ public class FuncionarioBean implements Serializable {
 
     public void pesquisar() {
         resultadoDaPesquisa = funcionarioDao.search(query);
-        PrimeFaces.current().ajax().update("dt-funcionarios");
+        if (resultadoDaPesquisa.isEmpty()) {
+            var severity = FacesMessage.SEVERITY_WARN;
+            var summary = "Pesquisar funcionários";
+            var detail = "Nenhum funcionário encontrado";
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, summary, detail));
+            PrimeFaces.current().ajax().update("top:messages");
+        }
     }
 
     public List<Funcionario> getFuncionarios() {

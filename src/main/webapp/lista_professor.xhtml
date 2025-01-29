@@ -1,22 +1,32 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="jakarta.faces.facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:h="jakarta.faces.html"
-      xmlns:f="jakarta.faces.core">
-
-    <body>
-
-        <ui:composition template="./templete/templete.xhtml">
-            <ui:define name="top">
-                
-            </ui:define>
-
-            <ui:define name="content">
-                <h2>Todos os Funcionários</h2>
-            </ui:define>
-        </ui:composition>
-
-    </body>
-</html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                template="./templete/templete.xhtml"
+                xmlns:c="jakarta.tags.core">
+    <ui:define name="content">
+        <h:form id="result">
+            <p:dataTable id="dt-funcionarios" widgetVar="dtFuncionarios" value="#{funcionarioBean.funcionarios}" var="funcionario"
+                         rowKey="#{funcionario.codigo}" selectionMode="single" paginator="true" paginatorAlwaysVisible="false"
+                         rowsPerPageTemplate="5,10,15,25" rows="5" emptyMessage="Nenhum registo encontrado">
+                <f:facet name="header">
+                    <h3>Funcionários</h3>
+                </f:facet>
+                <p:column headerText="Código">
+                    <h:outputText value="#{funcionario.codigo}"/>
+                </p:column>
+                <p:column headerText="Nome">
+                    <h:outputText value="#{funcionario.nome}"/>
+                </p:column>
+                <p:column headerText="Data de admissão">
+                    <h:outputText value="#{funcionario.dataDeAdmissao}">
+                        <f:convertDateTime type="localDate" locale="pt_AO"/>
+                    </h:outputText>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>
