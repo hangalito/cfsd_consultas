@@ -26,6 +26,8 @@
                     </p:toolbarGroup>
                 </p:toolbar>
                 <p:dataTable id="dt-alunos-turma" widgetVar="dtAlunosTurma" value="#{turmaBean.turma.alunos}" var="aluno"
+                             rowKey="#{aluno.codigo}" rows="25" rowsPerPageTemplate="15, 25, 30" 
+                             paginator="true" paginatorAlwaysVisible="false" lazy="true"
                              emptyMessage="Nenhum aluno encontrado para esta turma">
                     <f:facet name="header">
                         <h3>Alunos da turma</h3>

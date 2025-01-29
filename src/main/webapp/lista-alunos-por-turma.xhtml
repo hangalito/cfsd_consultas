@@ -32,9 +32,10 @@
                     </p:fieldset>
                     <p:fieldset legend="Alunos">
                         <p:dataTable id="dt-alunos" widgetVar="dtAlunos" value="#{infoTurmaBean.turma.alunos}" var="aluno"
-                                     lazy="true" rowKey="#{aluno.codigo}" selectionMode="single" selection="#{alunoBean.alunoSelecionado}" 
-                                     emptyMessage="Nenhum aluno encontrado para esta turma" paginator="true" paginatorAlwaysVisible="false"
-                                     rows="25" rowsPerPageTemplate="10, 15, 25, 30">
+                                     rowKey="#{aluno.codigo}" selectionMode="single" selection="#{alunoBean.alunoSelecionado}"
+                                     rows="25" rowsPerPageTemplate="15, 25, 30" paginator="true"
+                                     paginatorAlwaysVisible="false" lazy="true"
+                                     emptyMessage="Nenhum aluno encontrado para esta turma">
                             <p:column headerText="Código">
                                 <h:outputText value="#{aluno.codigo}"/>
                             </p:column>

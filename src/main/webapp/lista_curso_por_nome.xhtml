@@ -30,7 +30,10 @@
         <h:form id="ft">
             <h2>Lista dos Cursos</h2>
 
-            <p:dataTable id="tbCursos" value="#{cursoBean.cursosPesquisados}" var="curso">
+            <p:dataTable id="tbCursos" widgetVar="tbCursos" value="#{cursoBean.cursosPesquisados}" var="curso"
+                         rowKey="#{curso.codigo}" rows="25" rowsPerPageTemplate="15, 25, 30"
+                         paginator="true"  paginatorAlwaysVisible="false" lazy="true"
+                         emptyMessage="Nenhum curso encontrado">
 
                 <f:facet name="header">
                     <h2>Lista dos Cursos</h2>

@@ -24,11 +24,10 @@
 
                 <h:form id="result">
                     <p:dataTable id="dt-insc" widgetVar="dtInsc" value="#{inscricaoBean.inscricoes}" var="insc"
-                                 rowKey="#{insc.codigo}" paginator="true" paginatorAlwaysVisible="false" rows="5"
-                                 selectionMode="single" selectionTextDisabled="false" selection="#{inscricaoBean.inscricao}"
-                                 lazy="true" emptyMessage="Nenhum registro encontrado para o intervalo selecionado">
+                                 rowKey="#{insc.codigo}" paginator="true" selection="#{inscricaoBean.inscricao}"
+                                 rowsPerPageTemplate="15,25,30" rows="25" paginatorAlwaysVisible="false"
+                                 selectionMode="single" lazy="true" emptyMessage="Nenhuma inscrição no intervalo selecionado">
                         <!-- TODO: alterar o número de linhas por tabela -->
-                        <p:column selectionBox="true" width="12"/>
 
                         <p:ajax event="rowSelect" listener="${inscricaoBean.select(insc)}"/>
 

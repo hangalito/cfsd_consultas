@@ -10,8 +10,9 @@
     <ui:define name="content">
         <h:form id="result">
             <p:dataTable id="dt-funcionarios" widgetVar="dtFuncionarios" value="#{funcionarioBean.funcionarios}" var="funcionario"
-                         rowKey="#{funcionario.codigo}" selectionMode="single" paginator="true" paginatorAlwaysVisible="false"
-                         rowsPerPageTemplate="5,10,15,25" rows="5" emptyMessage="Nenhum registo encontrado">
+                         rowKey="#{funcionario.codigo}" selectionMode="single" paginator="true" lazy="true"
+                         rowsPerPageTemplate="15,25, 30" rows="25" paginatorAlwaysVisible="false"
+                         emptyMessage="Nenhum registo encontrado">
                 <f:facet name="header">
                     <h3>Funcionários</h3>
                 </f:facet>

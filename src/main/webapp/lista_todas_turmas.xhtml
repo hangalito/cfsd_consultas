@@ -15,7 +15,9 @@
                     <h2>Listas das Turmas</h2>
 
                     <p:dataTable id="dt-turmas" widgetVar="dtTurmas" value="#{turmaBean.turmas}" var="turma"
-                                 rowKey="#{turma.codigo}" selectionMode="single">
+                                 rowKey="#{turma.codigo}" rows="25" rowsPerPageTemplate="15,25,30"
+                                 paginator="true" paginatorAlwaysVisible="false" lazy="true"
+                                 emptyMessage="Nenhuma turma encontrada">
                         <p:column headerText="Código" sortBy="#{turma.codigo}">
                             <h:outputText value="#{turma.codigo}"/>
                         </p:column>

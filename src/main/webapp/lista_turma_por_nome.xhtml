@@ -26,7 +26,10 @@
                 <h:form id="ft">
 
                     <h2>Lista das Turmas</h2>
-                    <p:dataTable id="tbTurmas" value="#{turmaBean.turmasPesquisadas}" var="turma">
+                    <p:dataTable id="tbTurmas" widgetVar="tbTurmas" value="#{turmaBean.turmasPesquisadas}" var="turma"
+                                 rowKey="#{turma.codigo}" rows="25" rowsPerPageTemplate="15,25,30"
+                                 paginator="true" paginatorAlwaysVisible="false" lazy="true"
+                                 emptyMessage="Nenhuma turma encontrada">
 
                         <f:facet name="header">
                             <h2>Lista das Turmas</h2>

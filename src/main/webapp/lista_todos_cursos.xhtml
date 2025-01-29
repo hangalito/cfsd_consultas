@@ -16,7 +16,10 @@
             <ui:define name="content">
                 <h2>Todos os Cursos</h2>
 
-                <p:dataTable value="#{cursoBean.cursos}" var="curso">
+                <p:dataTable id="dt-cursos" widgetVar="dtCursos" value="#{cursoBean.cursos}" var="curso"
+                             rowKey="#{curso.codigo}" rows="25" rowsPerPageTemplate="15,25,30"
+                             paginator="true"  paginatorAlwaysVisible="false" lazy="true"
+                             emptyMessage="Nenhum curso encontrado">
                     <p:column headerText="Código" sortBy="#{curso.codigo}">
                         <h:outputText value="#{curso.codigo}"/>
                     </p:column>

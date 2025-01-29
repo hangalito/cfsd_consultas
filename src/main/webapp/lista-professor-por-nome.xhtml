@@ -22,8 +22,9 @@
         </h:form>
         <h:form id="result">
             <p:dataTable id="dt-funcionarios" widgetVar="dtFuncionarios" value="#{funcionarioBean.resultadoDaPesquisa}" var="funcionario"
-                         rowKey="#{funcionario.codigo}" selectionMode="single" paginator="true" paginatorAlwaysVisible="false"
-                         rows="10" rowsPerPageTemplate="10,15,25" emptyMessage="Nenhum funcionário encontrado">
+                         rowKey="#{funcionario.codigo}" selectionMode="single" paginator="true" 
+                         rows="25" rowsPerPageTemplate="15,25,30"  paginatorAlwaysVisible="false"
+                         emptyMessage="Nenhum funcionário encontrado">
                 <h3>Funcionários</h3>
                 <p:column headerText="Código">
                     <h:outputText value="#{funcionario.codigo}"/>
