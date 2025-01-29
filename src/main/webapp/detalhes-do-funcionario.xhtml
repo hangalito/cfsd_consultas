@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                template="./templete/templete.xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="jakarta.faces.core">
+
+    <ui:define name="content">
+        <h:form id="details">
+            <p:fieldset legend="Informações Básicas">
+                <p:panelGrid columns="2">
+                    <p:outputLabel for="code" value="Código"/>
+                    <h:outputText value="#{funcionarioBean.funcionarioSelecionado.codigo}" id="code"/>
+                    <p:outputLabel for="name" value="Nome"/>
+                    <h:outputText value="#{funcionarioBean.funcionarioSelecionado.nome}" id="name"/>
+                    <p:outputLabel for="birthdate" value="Data de Nascimento"/>
+                    <h:outputText value="#{funcionarioBean.funcionarioSelecionado.dataDeNascimento}" id="birthdate">
+                        <f:convertDateTime type="localDate" locale="pt_AO" parent="MMM dd, YYYY"/>
+                    </h:outputText>
+                    <p:outputLabel for="admition" value="Data de admissão"/>
+                    <h:outputText value="#{funcionarioBean.funcionarioSelecionado.dataDeAdmissao}" id="admition">
+                        <f:convertDateTime type="localDate" locale="pt_AO" pattern="MMM dd, YYYY"/>
+                    </h:outputText>
+                </p:panelGrid>
+            </p:fieldset>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

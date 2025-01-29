@@ -22,6 +22,7 @@ public class FuncionarioBean implements Serializable {
     private List<Funcionario> funcionarios;
     private List<Funcionario> resultadoDaPesquisa = new ArrayList<>();
     private String query;
+    private Funcionario funcionarioSelecionado;
 
     @PostConstruct
     public void init() {
@@ -61,5 +62,13 @@ public class FuncionarioBean implements Serializable {
 
     public void setQuery(String query) {
         this.query = query;
+    }
+
+    public Funcionario getFuncionarioSelecionado() {
+        return funcionarioSelecionado;
+    }
+
+    public void setFuncionarioSelecionado(Funcionario funcionarioSelecionado) {
+        this.funcionarioSelecionado = funcionarioSelecionado;
     }
 }

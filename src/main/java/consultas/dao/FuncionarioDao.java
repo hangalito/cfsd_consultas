@@ -31,7 +31,7 @@ public class FuncionarioDao extends Dao<Funcionario, Integer> {
     private static final String SQL_FIND_BY_NAME = "SELECT * FROM TblFuncionarios WHERE NomeDoFuncionario = ?";
     private static final Comparator<Funcionario> COMPARATOR = Comparator.comparing(Funcionario::getNome)
             .thenComparingInt(Funcionario::getCodigo)
-            .thenComparing(Funcionario::getDataDeAdmissao).reversed();
+            .thenComparing(Funcionario::getDataDeAdmissao);
 
     private static final Logger LOG = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
