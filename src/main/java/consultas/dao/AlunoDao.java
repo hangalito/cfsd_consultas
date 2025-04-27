@@ -1,6 +1,7 @@
 package consultas.dao;
 
 import consultas.dbconexao.DatabaseConnection;
+import consultas.exceptions.NoResultException;
 import consultas.modelo.Aluno;
 import jakarta.ejb.Stateless;
 
@@ -40,70 +41,68 @@ public class AlunoDao extends Dao<Aluno, Integer> implements Serializable {
     }
 
     @Override
-    public List<Aluno> findAll() {
+    public List<Aluno> findAll() throws SQLException, NoResultException {
         List<Aluno> alunos = new ArrayList<>();
-        try (Connection conn = DatabaseConnection.getConnection()) {
-            ResultSet rs = query(conn, SQL_FIND_ALL);
-            while (rs.next()) {
-                Aluno aluno = new Aluno();
-                populateFields(aluno, rs);
-                alunos.add(aluno);
-            }
-        } catch (SQLException ex) {
-            String msg = ex.getLocalizedMessage();
-            LOG.log(Level.SEVERE, ex, () -> "Erro ao listar os alunos: " + msg);
+        Connection conn = DatabaseConnection.getConnection();
+        ResultSet rs = query(conn, SQL_FIND_ALL);
+        while (rs.next()) {
+            Aluno aluno = new Aluno();
+            populateFields(aluno, rs);
+            alunos.add(aluno);
         }
+        if (alunos.isEmpty()) {
+            throw new NoResultException("Nenhum aluno registada");
+        }
+        rs.close();
         return alunos;
     }
 
     @Override
-    public Optional<Aluno> findById(Integer codigo) {
-        try (Connection conn = DatabaseConnection.getConnection()) {
-            ResultSet rs = query(conn, SQL_FIND_BY_ID, codigo);
-            if (rs.next()) {
-                Aluno aluno = new Aluno();
-                populateFields(aluno, rs);
-                return Optional.of(aluno);
-            }
-        } catch (SQLException ex) {
-            String msg = ex.getLocalizedMessage();
-            LOG.log(Level.SEVERE, ex, () -> "Erro ao consultar o aluno de código " + codigo + ": " + msg);
+    public Optional<Aluno> findById(Integer codigo) throws SQLException {
+        Connection conn = DatabaseConnection.getConnection();
+        ResultSet rs = query(conn, SQL_FIND_BY_ID, codigo);
+        if (rs.next()) {
+            Aluno aluno = new Aluno();
+            populateFields(aluno, rs);
+            return Optional.of(aluno);
         }
+        rs.close();
         return Optional.empty();
     }
 
-    public List<Aluno> findByName(String name) {
+    public List<Aluno> findByName(String name) throws SQLException, NoResultException {
         List<Aluno> alunos = new ArrayList<>();
-        try (Connection conn = DatabaseConnection.getConnection()) {
-            String param = "%" + name + "%";
-            ResultSet rs = query(conn, SQL_FIND_BY_NAME, param);
-            while (rs.next()) {
-                Aluno aluno = new Aluno();
-                populateFields(aluno, rs);
-                alunos.add(aluno);
-            }
-        } catch (SQLException ex) {
-            String msg = ex.getLocalizedMessage();
-            LOG.log(Level.SEVERE, ex, () -> "Erro ao pesquisar por nome: " + msg);
+        Connection conn = DatabaseConnection.getConnection();
+        String param = (' ' + name + ' ').replace(' ', '%');
+        ResultSet rs = query(conn, SQL_FIND_BY_NAME, param);
+        while (rs.next()) {
+            Aluno aluno = new Aluno();
+            populateFields(aluno, rs);
+            alunos.add(aluno);
+        }
+        rs.close();
+        if (alunos.isEmpty()) {
+            throw new NoResultException("Nenhum aluno com o nome " + name + " encontrada");
         }
         return alunos;
     }
 
     @Override
-    public List<Aluno> search(Object param) {
+    public List<Aluno> search(Object param) throws SQLException, NoResultException {
         List<Aluno> alunos = new ArrayList<>();
-        try (Connection conn = DatabaseConnection.getConnection()) {
-            String format = "%" + param + "%";
-            ResultSet rs = query(conn, SQL_SEARCH, format, format, format);
-            while (rs.next()) {
-                Aluno aluno = new Aluno();
-                populateFields(aluno, rs);
-                alunos.add(aluno);
-            }
-        } catch (SQLException ex) {
-            String msg = ex.getLocalizedMessage();
-            LOG.log(Level.SEVERE, ex, () -> "Erro ao pesquisar por alunos: " + msg);
+        Connection conn = DatabaseConnection.getConnection();
+        String format = (" " + param + " ").replace(" ", "%");
+        ResultSet rs = query(conn, SQL_SEARCH, format, format, format);
+        while (rs.next()) {
+            Aluno aluno = new Aluno();
+            populateFields(aluno, rs);
+            alunos.add(aluno);
+        }
+        rs.close();
+        if (alunos.isEmpty()) {
+            throw new NoResultException("Nenhum aluno encontrado");
         }
         return alunos;
     }
+
 }
