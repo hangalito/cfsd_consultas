@@ -7,6 +7,7 @@ import jakarta.ejb.Stateless;
 
 import java.lang.invoke.MethodHandles;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -48,8 +49,14 @@ public class FuncionarioDao extends Dao<Funcionario, Integer> {
     public static void populateFields(Funcionario funcionario, ResultSet rs) throws SQLException {
         funcionario.setCodigo(rs.getInt("CodigoDoFuncionario"));
         funcionario.setNome(rs.getString("NomeDoFuncionario"));
-        funcionario.setDataDeNascimento(rs.getDate("DataDeNascimento").toLocalDate());
-        funcionario.setDataDeAdmissao(rs.getDate("DataDeAdmissao").toLocalDate());
+        Date dataNascimento = rs.getDate("DataDeNascimento");
+        if (dataNascimento != null) {
+            funcionario.setDataDeNascimento(dataNascimento.toLocalDate());
+        }
+        Date dataEmissao = rs.getDate("DataDeAdmissao");
+        if (dataEmissao != null) {
+            funcionario.setDataDeAdmissao(dataEmissao.toLocalDate());
+        }
     }
 
     /**
